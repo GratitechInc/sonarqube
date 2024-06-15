@@ -19,6 +19,7 @@
  */
 package org.sonar.db.notification;
 
+import io.github.pixee.security.ObjectInputFilters;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -89,6 +90,7 @@ public class NotificationQueueDto {
 
     try (ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(this.data);
       ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream)) {
+      ObjectInputFilters.enableObjectFilterIfUnprotected(objectInputStream);
       Object result = objectInputStream.readObject();
       objectInputStream.close();
       return (T) result;
