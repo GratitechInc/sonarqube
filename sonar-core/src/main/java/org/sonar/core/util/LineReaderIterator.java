@@ -19,6 +19,7 @@
  */
 package org.sonar.core.util;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -42,7 +43,7 @@ public class LineReaderIterator extends CloseableIterator<String> {
   @Override
   protected String doNext() {
     try {
-      return reader.readLine();
+      return BoundedLineReader.readLine(reader, 5_000_000);
     } catch (IOException e) {
       throw new IllegalStateException("Fail to read line", e);
     }
