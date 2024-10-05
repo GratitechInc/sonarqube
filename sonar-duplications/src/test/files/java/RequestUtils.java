@@ -20,6 +20,8 @@
  */
 package org.apache.struts.util;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.logging.Log;
@@ -71,7 +73,7 @@ public class RequestUtils {
    */
   public static URL absoluteURL(HttpServletRequest request, String path)
       throws MalformedURLException {
-    return (new URL(serverURL(request), request.getContextPath() + path));
+    return (Urls.create(serverURL(request), request.getContextPath() + path, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS));
   }
 
   /**
@@ -923,7 +925,7 @@ public class RequestUtils {
       throws MalformedURLException {
     StringBuffer url = requestToServerUriStringBuffer(request);
 
-    return (new URL(url.toString()));
+    return (Urls.create(url.toString(), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS));
   }
 
   /**
@@ -940,7 +942,7 @@ public class RequestUtils {
       throws MalformedURLException {
     StringBuffer url = requestToServerStringBuffer(request);
 
-    return (new URL(url.toString()));
+    return (Urls.create(url.toString(), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS));
   }
 
   /**

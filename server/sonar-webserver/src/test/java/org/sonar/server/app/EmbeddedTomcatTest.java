@@ -19,6 +19,8 @@
  */
 package org.sonar.server.app;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.File;
 import java.net.ConnectException;
 import java.net.InetAddress;
@@ -64,7 +66,7 @@ public class EmbeddedTomcatTest {
     assertThat(tomcat.getStatus()).isEqualTo(EmbeddedTomcat.Status.UP);
 
     // check that http connector accepts requests
-    URL url = new URL("http://" + address.getHostAddress() + ":" + httpPort);
+    URL url = Urls.create("http://" + address.getHostAddress() + ":" + httpPort, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
     url.openConnection().connect();
 
     // stop server
