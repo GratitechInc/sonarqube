@@ -19,6 +19,7 @@
  */
 package org.sonar.scanner.report;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
@@ -58,14 +59,14 @@ public class SourcePublisher implements ReportPublisherStep {
 
   private static void writeSource(BufferedReader reader, OutputStream output, int lines) throws IOException {
     int line = 0;
-    String lineStr = reader.readLine();
+    String lineStr = BoundedLineReader.readLine(reader, 5_000_000);
     while (lineStr != null) {
       IOUtils.write(lineStr, output, StandardCharsets.UTF_8);
       line++;
       if (line < lines) {
         IOUtils.write("\n", output, StandardCharsets.UTF_8);
       }
-      lineStr = reader.readLine();
+      lineStr = BoundedLineReader.readLine(reader, 5_000_000);
     }
   }
 }

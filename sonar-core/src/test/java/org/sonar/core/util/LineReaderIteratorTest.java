@@ -19,6 +19,7 @@
  */
 package org.sonar.core.util;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
@@ -70,7 +71,7 @@ public class LineReaderIteratorTest {
   public void fail_if_cannot_read() throws IOException {
     assertThatThrownBy(() -> {
       BufferedReader reader = mock(BufferedReader.class);
-      when(reader.readLine()).thenThrow(new IOException());
+      when(BoundedLineReader.readLine(reader, 5_000_000)).thenThrow(new IOException());
       LineReaderIterator it = new LineReaderIterator(reader);
 
       it.hasNext();
