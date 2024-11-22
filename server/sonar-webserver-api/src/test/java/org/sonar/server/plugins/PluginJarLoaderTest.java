@@ -323,7 +323,7 @@ public class PluginJarLoaderTest {
       manifest.getMainAttributes().putValue(PluginManifest.BASE_PLUGIN, basePlugin);
     }
     manifest.getMainAttributes().putValue(MANIFEST_VERSION.toString(), "1.0");
-    File jarFile = File.createTempFile(key, ".jar", dir);
+    File jarFile = Files.createTempFile(dir.toPath(), key, ".jar").toFile();
     try (JarOutputStream jar = new JarOutputStream(new FileOutputStream(jarFile), manifest)) {
       // nothing else to add
     }

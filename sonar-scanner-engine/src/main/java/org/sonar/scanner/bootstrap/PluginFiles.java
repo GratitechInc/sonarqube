@@ -151,7 +151,7 @@ public class PluginFiles {
 
   private File newTempFile() {
     try {
-      return File.createTempFile("fileCache", null, tempDir);
+      return Files.createTempFile(tempDir.toPath(), "fileCache", null).toFile();
     } catch (IOException e) {
       throw new IllegalStateException("Fail to create temp file in " + tempDir, e);
     }
