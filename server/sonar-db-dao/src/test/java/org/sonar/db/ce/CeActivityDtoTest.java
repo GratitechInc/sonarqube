@@ -22,6 +22,7 @@ package org.sonar.db.ce;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.util.Random;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,7 +40,7 @@ public class CeActivityDtoTest {
 
   @Test
   public void constructor_from_CeQueueDto_populates_fields() {
-    long now = new Random().nextLong();
+    long now = new SecureRandom().nextLong();
     CeQueueDto ceQueueDto = new CeQueueDto()
       .setUuid(randomAlphanumeric(10))
       .setTaskType(randomAlphanumeric(11))
@@ -136,7 +137,7 @@ public class CeActivityDtoTest {
   public void setErrorMessage_truncates_to_1000_after_removing_char_zero() {
     String before = randomAlphanumeric(50);
     String after = randomAlphanumeric(950);
-    String truncated = randomAlphanumeric(1 + new Random().nextInt(50));
+    String truncated = randomAlphanumeric(1 + new SecureRandom().nextInt(50));
     underTest.setErrorMessage(before + "\u0000" + after + truncated);
 
     assertThat(underTest.getErrorMessage()).isEqualTo(before + after);

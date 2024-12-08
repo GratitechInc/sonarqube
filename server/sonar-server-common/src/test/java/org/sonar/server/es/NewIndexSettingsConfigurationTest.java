@@ -19,6 +19,7 @@
  */
 package org.sonar.server.es;
 
+import java.security.SecureRandom;
 import java.util.Random;
 import org.junit.Test;
 import org.sonar.api.config.Configuration;
@@ -53,7 +54,7 @@ public class NewIndexSettingsConfigurationTest {
   public void setDefaultNbOfShards_fails_with_IAE_if_argument_is_less_than_zero() {
     SettingsConfiguration.Builder underTest = newBuilder(mockConfiguration);
 
-    assertThatThrownBy(() -> underTest.setDefaultNbOfShards(-1 - new Random().nextInt(10)))
+    assertThatThrownBy(() -> underTest.setDefaultNbOfShards(-1 - new SecureRandom().nextInt(10)))
       .isInstanceOf(IllegalArgumentException.class)
       .hasMessage("defaultNbOfShards must be >= 1");
   }
@@ -69,7 +70,7 @@ public class NewIndexSettingsConfigurationTest {
   public void setDefaultNbOfShards_accepts_any_int_greater_than_1() {
     SettingsConfiguration.Builder underTest = newBuilder(mockConfiguration);
 
-    int value = 1 + new Random().nextInt(200);
+    int value = 1 + new SecureRandom().nextInt(200);
 
     assertThat(underTest.setDefaultNbOfShards(value).build().getDefaultNbOfShards()).isEqualTo(value);
   }
@@ -92,7 +93,7 @@ public class NewIndexSettingsConfigurationTest {
   public void setRefreshInterval_fails_with_IAE_if_argument_is_less_than_minus_1() {
     SettingsConfiguration.Builder underTest = newBuilder(mockConfiguration);
 
-    assertThatThrownBy(() -> underTest.setRefreshInterval(-2 - new Random().nextInt(10)))
+    assertThatThrownBy(() -> underTest.setRefreshInterval(-2 - new SecureRandom().nextInt(10)))
       .isInstanceOf(IllegalArgumentException.class)
       .hasMessage("refreshInterval must be either -1 or strictly positive");
   }
@@ -108,7 +109,7 @@ public class NewIndexSettingsConfigurationTest {
   public void setRefreshInterval_accepts_any_int_greater_than_1() {
     SettingsConfiguration.Builder underTest = newBuilder(mockConfiguration);
 
-    int value = 1 + new Random().nextInt(200);
+    int value = 1 + new SecureRandom().nextInt(200);
 
     assertThat(underTest.setRefreshInterval(value).build().getRefreshInterval()).isEqualTo(value);
   }

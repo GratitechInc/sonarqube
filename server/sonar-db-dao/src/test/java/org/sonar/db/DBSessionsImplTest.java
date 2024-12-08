@@ -20,6 +20,7 @@
 package org.sonar.db;
 
 import com.google.common.base.Throwables;
+import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -58,7 +59,7 @@ public class DBSessionsImplTest {
 
   private final MyBatis myBatis = mock(MyBatis.class);
   private final DbSession myBatisDbSession = mock(DbSession.class);
-  private final Random random = new Random();
+  private final Random random = new SecureRandom();
   private final DBSessionsImpl underTest = new DBSessionsImpl(myBatis);
 
   @After
@@ -420,12 +421,12 @@ public class DBSessionsImplTest {
 
   private static DbSessionCaller[] COMMIT_CALLS = {
     session -> session.commit(),
-    session -> session.commit(new Random().nextBoolean()),
+    session -> session.commit(new SecureRandom().nextBoolean()),
   };
 
   private static DbSessionCaller[] ROLLBACK_CALLS = {
     session -> session.rollback(),
-    session -> session.rollback(new Random().nextBoolean()),
+    session -> session.rollback(new SecureRandom().nextBoolean()),
   };
 
   private static DbSessionCaller[] NEUTRAL_CALLS = {

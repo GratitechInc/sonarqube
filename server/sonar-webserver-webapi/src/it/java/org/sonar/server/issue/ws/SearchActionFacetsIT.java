@@ -20,6 +20,7 @@
 package org.sonar.server.issue.ws;
 
 import com.google.common.collect.ImmutableMap;
+import java.security.SecureRandom;
 import java.time.Clock;
 import java.util.Map;
 import java.util.Random;
@@ -256,7 +257,7 @@ public class SearchActionFacetsIT {
   @Test
   public void check_facets_max_size_for_issues() {
     ComponentDto project = db.components().insertPublicProject().getMainBranchComponent();
-    Random random = new Random();
+    Random random = new SecureRandom();
     IntStream.rangeClosed(1, 110)
       .forEach(index -> {
         UserDto user = db.users().insertUser();

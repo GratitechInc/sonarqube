@@ -26,6 +26,7 @@ import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import java.io.File;
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
@@ -242,7 +243,7 @@ public class EsSettingsTest {
     File data = new File(foo, "data");
     when(mockedEsInstallation.getDataDirectory()).thenReturn(data);
 
-    EsSettings underTest = new EsSettings(minProps(new Random().nextBoolean()), mockedEsInstallation, system);
+    EsSettings underTest = new EsSettings(minProps(new SecureRandom().nextBoolean()), mockedEsInstallation, system);
 
     Map<String, String> generated = underTest.build();
     assertThat(generated)
@@ -305,7 +306,7 @@ public class EsSettingsTest {
   @Test
   @UseDataProvider("clusterEnabledOrNot")
   public void enable_http_connector_on_specified_port(boolean clusterEnabled) throws Exception {
-    String port = "" + new Random().nextInt(49151);
+    String port = "" + new SecureRandom().nextInt(49151);
     Props props = minProps(clusterEnabled, null, port);
     Map<String, String> settings = new EsSettings(props, new EsInstallation(props), System2.INSTANCE).build();
 

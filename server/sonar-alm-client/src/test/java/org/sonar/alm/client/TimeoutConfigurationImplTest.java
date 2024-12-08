@@ -22,6 +22,7 @@ package org.sonar.alm.client;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.util.Random;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,7 +50,7 @@ public class TimeoutConfigurationImplTest {
 
   @Test
   public void getConnectTimeout_returns_value_of_property() {
-    long expected = new Random().nextInt(9_456_789);
+    long expected = new SecureRandom().nextInt(9_456_789);
     settings.setProperty("sonar.alm.timeout.connect", expected);
 
     assertThat(underTest.getConnectTimeout()).isEqualTo(expected);
@@ -70,7 +71,7 @@ public class TimeoutConfigurationImplTest {
 
   @Test
   public void getReadTimeout_returns_value_of_property() {
-    long expected = new Random().nextInt(9_456_789);
+    long expected = new SecureRandom().nextInt(9_456_789);
     settings.setProperty("sonar.alm.timeout.read", expected);
 
     assertThat(underTest.getReadTimeout()).isEqualTo(expected);

@@ -19,6 +19,7 @@
  */
 package org.sonar.db.purge;
 
+import java.security.SecureRandom;
 import java.util.Random;
 import org.junit.After;
 import org.junit.Before;
@@ -67,7 +68,7 @@ public class PurgeMapperIT {
   }
 
   private ComponentDto randomPublicOrPrivateProject() {
-    return new Random().nextBoolean() ? db.components().insertPrivateProject().getMainBranchComponent() : db.components().insertPublicProject().getMainBranchComponent();
+    return new SecureRandom().nextBoolean() ? db.components().insertPrivateProject().getMainBranchComponent() : db.components().insertPublicProject().getMainBranchComponent();
   }
 
   @Test

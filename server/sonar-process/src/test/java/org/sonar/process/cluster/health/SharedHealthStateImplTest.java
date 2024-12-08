@@ -20,6 +20,7 @@
 package org.sonar.process.cluster.health;
 
 import com.google.common.collect.ImmutableSet;
+import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -49,7 +50,7 @@ public class SharedHealthStateImplTest {
   @Rule
   public LoggingRule logging = new LoggingRule(SharedHealthStateImpl.class);
 
-  private final Random random = new Random();
+  private final Random random = new SecureRandom();
   private long clusterTime = 99 + Math.abs(random.nextInt(9621));
   private HazelcastMember hazelcastMember = mock(HazelcastMember.class);
   private SharedHealthStateImpl underTest = new SharedHealthStateImpl(hazelcastMember);

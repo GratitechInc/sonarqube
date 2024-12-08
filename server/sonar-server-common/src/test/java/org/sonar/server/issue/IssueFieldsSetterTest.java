@@ -19,6 +19,7 @@
  */
 package org.sonar.server.issue;
 
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -237,7 +238,7 @@ public class IssueFieldsSetterTest {
 
   @Test
   public void unset_line() {
-    int line = 1 + new Random().nextInt(500);
+    int line = 1 + new SecureRandom().nextInt(500);
     issue.setLine(line);
 
     boolean updated = underTest.unsetLine(issue, context);

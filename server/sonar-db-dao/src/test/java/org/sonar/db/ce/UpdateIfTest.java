@@ -22,6 +22,7 @@ package org.sonar.db.ce;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.util.Random;
 import org.apache.commons.lang.RandomStringUtils;
 import org.junit.Test;
@@ -49,7 +50,7 @@ public class UpdateIfTest {
 
   @Test
   public void newProperties_constructor_fails_with_IAE_if_workerUuid_is_41_or_more() {
-    String workerUuid = RandomStringUtils.randomAlphanumeric(41 + new Random().nextInt(5));
+    String workerUuid = RandomStringUtils.randomAlphanumeric(41 + new SecureRandom().nextInt(5));
 
     assertThatThrownBy(() -> new UpdateIf.NewProperties(CeQueueDto.Status.PENDING, workerUuid, 123, 456))
       .isInstanceOf(IllegalArgumentException.class)

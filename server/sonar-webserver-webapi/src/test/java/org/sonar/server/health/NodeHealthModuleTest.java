@@ -19,6 +19,7 @@
  */
 package org.sonar.server.health;
 
+import java.security.SecureRandom;
 import java.util.Date;
 import java.util.Random;
 import org.junit.Test;
@@ -38,7 +39,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class NodeHealthModuleTest {
-  private final Random random = new Random();
+  private final Random random = new SecureRandom();
   private final MapSettings mapSettings = new MapSettings();
   private final NodeHealthModule underTest = new NodeHealthModule();
 

@@ -19,6 +19,7 @@
  */
 package org.sonar.server.source.ws;
 
+import java.security.SecureRandom;
 import java.util.Random;
 import java.util.stream.IntStream;
 import org.junit.Rule;
@@ -37,7 +38,7 @@ public class SourcesWsTest {
 
   @Test
   public void define_ws() {
-    SourcesWsAction[] actions = IntStream.range(0, 1 + new Random().nextInt(10))
+    SourcesWsAction[] actions = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> {
         SourcesWsAction wsAction = mock(SourcesWsAction.class);
         doAnswer(invocation -> {

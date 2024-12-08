@@ -20,6 +20,7 @@
 package org.sonar.db.source;
 
 import com.google.common.base.Joiner;
+import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -108,7 +109,7 @@ public class FileSourceDtoTest {
   @Test
   public void setLineHashes_sets_lineCount_to_size_of_list_and_rawLineHashes_to_join_by_line_return() {
     FileSourceDto underTest = new FileSourceDto();
-    int expected = 1 + new Random().nextInt(96);
+    int expected = 1 + new SecureRandom().nextInt(96);
     List<String> lineHashes = IntStream.range(0, expected).mapToObj(String::valueOf).collect(Collectors.toList());
     underTest.setLineHashes(lineHashes);
 

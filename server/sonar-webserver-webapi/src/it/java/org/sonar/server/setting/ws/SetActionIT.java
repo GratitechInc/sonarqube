@@ -24,6 +24,7 @@ import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import java.net.HttpURLConnection;
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -1254,6 +1255,6 @@ public class SetActionIT {
   }
 
   private ComponentDto randomPublicOrPrivateProject() {
-    return new Random().nextBoolean() ? db.components().insertPrivateProject().getMainBranchComponent() : db.components().insertPublicProject().getMainBranchComponent();
+    return new SecureRandom().nextBoolean() ? db.components().insertPrivateProject().getMainBranchComponent() : db.components().insertPublicProject().getMainBranchComponent();
   }
 }

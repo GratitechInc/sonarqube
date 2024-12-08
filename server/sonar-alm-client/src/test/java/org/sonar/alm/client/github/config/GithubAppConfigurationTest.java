@@ -22,6 +22,7 @@ package org.sonar.alm.client.github.config;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.util.Random;
 import java.util.stream.Stream;
 import javax.annotation.Nullable;
@@ -56,7 +57,7 @@ public class GithubAppConfigurationTest {
 
   @Test
   public void getId_returns_applicationId_if_configuration_is_valid() {
-    long applicationId = new Random().nextLong();
+    long applicationId = new SecureRandom().nextLong();
     GithubAppConfiguration underTest = newValidConfiguration(applicationId);
 
     assertThat(underTest.getId()).isEqualTo(applicationId);
@@ -74,7 +75,7 @@ public class GithubAppConfigurationTest {
 
   @DataProvider
   public static Object[][] incompleteConfigurationParametersSonarQube() {
-    long applicationId = new Random().nextLong();
+    long applicationId = new SecureRandom().nextLong();
     String privateKey = randomAlphabetic(9);
     String apiEndpoint = randomAlphabetic(11);
 
@@ -116,7 +117,7 @@ public class GithubAppConfigurationTest {
 
   @Test
   public void equals_is_not_implemented() {
-    long applicationId = new Random().nextLong();
+    long applicationId = new SecureRandom().nextLong();
     String privateKey = randomAlphabetic(8);
     String apiEndpoint = randomAlphabetic(7);
 
@@ -129,7 +130,7 @@ public class GithubAppConfigurationTest {
 
   @Test
   public void hashcode_is_based_on_all_fields() {
-    long applicationId = new Random().nextLong();
+    long applicationId = new SecureRandom().nextLong();
     String privateKey = randomAlphabetic(8);
     String apiEndpoint = randomAlphabetic(7);
 

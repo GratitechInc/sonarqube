@@ -22,6 +22,7 @@ package org.sonar.core.platform;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -212,7 +213,7 @@ public class ServerIdTest {
 
   @DataProvider
   public static Object[][] illegalDatabaseIdLengths() {
-    return IntStream.range(1, 8 + new Random().nextInt(5))
+    return IntStream.range(1, 8 + new SecureRandom().nextInt(5))
       .filter(i -> i != DATABASE_ID_LENGTH)
       .mapToObj(i -> new Object[] {i})
       .toArray(Object[][]::new);
@@ -231,7 +232,7 @@ public class ServerIdTest {
 
   @DataProvider
   public static Object[][] illegalDatasetIdLengths() {
-    return IntStream.range(1, UUID_DATASET_ID_LENGTH + new Random().nextInt(5))
+    return IntStream.range(1, UUID_DATASET_ID_LENGTH + new SecureRandom().nextInt(5))
       .filter(i -> i != UUID_DATASET_ID_LENGTH)
       .filter(i -> i != NOT_UUID_DATASET_ID_LENGTH)
       .filter(i -> i != DEPRECATED_SERVER_ID_LENGTH)

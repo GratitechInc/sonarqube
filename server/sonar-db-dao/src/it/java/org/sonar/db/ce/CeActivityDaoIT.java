@@ -25,6 +25,7 @@ import com.google.common.collect.ImmutableSet;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -537,7 +538,7 @@ public class CeActivityDaoIT {
       insert("TASK_3", REPORT, "PROJECT_2", SUCCESS),
       insert("TASK_4", "views", null, SUCCESS)
     };
-    int moreThan1 = 2 + new Random().nextInt(5);
+    int moreThan1 = 2 + new SecureRandom().nextInt(5);
     insertCeTaskMessage(tasks[0], moreThan1);
     insertCeTaskMessage(tasks[1], 30);
     insertCeTaskMessage(tasks[2], 10);

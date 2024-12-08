@@ -19,6 +19,7 @@
  */
 package org.sonar.application.cluster.health;
 
+import java.security.SecureRandom;
 import java.util.Collection;
 import java.util.Random;
 import java.util.concurrent.Callable;
@@ -35,7 +36,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class DelegateHealthStateRefresherExecutorServiceTest {
-  private Random random = new Random();
+  private Random random = new SecureRandom();
   private Runnable runnable = mock(Runnable.class);
   private Callable callable = mock(Callable.class);
   private Collection<Callable<Object>> callables = IntStream.range(0, random.nextInt(5))

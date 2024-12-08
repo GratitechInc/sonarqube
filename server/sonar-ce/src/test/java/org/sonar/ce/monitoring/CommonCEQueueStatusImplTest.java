@@ -19,6 +19,7 @@
  */
 package org.sonar.ce.monitoring;
 
+import java.security.SecureRandom;
 import java.util.Optional;
 import java.util.Random;
 import org.junit.Test;
@@ -66,7 +67,7 @@ public abstract class CommonCEQueueStatusImplTest {
 
   @Test
   public void addInProgress_any_number_of_call_change_by_1_per_call() {
-    int calls = new Random().nextInt(SOME_RANDOM_MAX);
+    int calls = new SecureRandom().nextInt(SOME_RANDOM_MAX);
     for (int i = 0; i < calls; i++) {
       getUnderTest().addInProgress();
     }
@@ -94,7 +95,7 @@ public abstract class CommonCEQueueStatusImplTest {
 
   @Test
   public void addError_any_number_of_call_change_by_1_per_call() {
-    int calls = new Random().nextInt(SOME_RANDOM_MAX);
+    int calls = new SecureRandom().nextInt(SOME_RANDOM_MAX);
     for (int i = 0; i < calls; i++) {
       getUnderTest().addError(1);
     }
@@ -123,7 +124,7 @@ public abstract class CommonCEQueueStatusImplTest {
 
   @Test
   public void addSuccess_any_number_of_call_change_by_1_per_call() {
-    int calls = new Random().nextInt(SOME_RANDOM_MAX);
+    int calls = new SecureRandom().nextInt(SOME_RANDOM_MAX);
     for (int i = 0; i < calls; i++) {
       getUnderTest().addSuccess(1);
     }

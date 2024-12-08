@@ -22,6 +22,7 @@ package org.sonar.db.purge;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -81,7 +82,7 @@ public class PurgeCommandsIT {
 
   private final AlwaysIncreasingSystem2 system2 = new AlwaysIncreasingSystem2();
   private final PurgeProfiler profiler = new PurgeProfiler();
-  private final Random random = new Random();
+  private final Random random = new SecureRandom();
   private final PurgeCommands underTest = new PurgeCommands(dbTester.getSession(), profiler, system2);
 
   /**
@@ -865,7 +866,7 @@ public class PurgeCommandsIT {
   }
 
   private void insertRandomAnalysisProperty(SnapshotDto analysis1) {
-    boolean isEmpty = new Random().nextBoolean();
+    boolean isEmpty = new SecureRandom().nextBoolean();
     dbTester.executeInsert(
       "ANALYSIS_PROPERTIES",
       "UUID", newUuid(),
@@ -877,7 +878,7 @@ public class PurgeCommandsIT {
   }
 
   private void insertRandomProperty(ComponentDto component) {
-    boolean isEmpty = new Random().nextBoolean();
+    boolean isEmpty = new SecureRandom().nextBoolean();
     dbTester.executeInsert(
       "PROPERTIES",
       "UUID", newUuid(),

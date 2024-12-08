@@ -19,6 +19,7 @@
  */
 package org.sonar.ce.task.projectanalysis.component;
 
+import java.security.SecureRandom;
 import java.util.Random;
 import org.junit.Test;
 
@@ -28,7 +29,7 @@ import static org.sonar.ce.task.projectanalysis.component.ComponentFunctions.toC
 
 public class ComponentFunctionsTest {
 
-  private static final int SOME_INT = new Random().nextInt();
+  private static final int SOME_INT = new SecureRandom().nextInt();
 
   @Test
   public void toComponentUuid_returns_the_ref_of_the_Component() {

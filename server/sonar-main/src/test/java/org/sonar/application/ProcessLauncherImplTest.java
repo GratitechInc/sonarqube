@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -187,7 +188,7 @@ public class ProcessLauncherImplTest {
     File tempDir = temp.newFolder();
     TestProcessBuilder processBuilder = new TestProcessBuilder();
     ProcessLauncher underTest = new ProcessLauncherImpl(tempDir, commands, () -> processBuilder);
-    long gracefulStopTimeoutMs = 1 + new Random().nextInt(10_000);
+    long gracefulStopTimeoutMs = 1 + new SecureRandom().nextInt(10_000);
     JavaCommand<JvmOptions> command = new JavaCommand<>(ProcessId.WEB_SERVER, temp.newFolder())
       .setReadsArgumentsFromFile(true)
       .setArgument("foo", "bar")

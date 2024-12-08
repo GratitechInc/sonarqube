@@ -23,6 +23,7 @@ import com.google.common.collect.ImmutableSet;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -104,7 +105,7 @@ public class ChangesOnMyIssuesEmailTemplateTest {
 
   @Test
   public void format_sets_message_id_with_project_key_of_first_issue_in_set_when_change_from_Analysis() {
-    Set<ChangedIssue> changedIssues = IntStream.range(0, 2 + new Random().nextInt(4))
+    Set<ChangedIssue> changedIssues = IntStream.range(0, 2 + new SecureRandom().nextInt(4))
       .mapToObj(i -> newChangedIssue(i + "", randomValidStatus(), newProject("prj_" + i), newRandomNotAHotspotRule("rule_" + i)))
       .collect(toSet());
     AnalysisChange analysisChange = newAnalysisChange();
@@ -116,7 +117,7 @@ public class ChangesOnMyIssuesEmailTemplateTest {
 
   @Test
   public void format_sets_subject_with_project_name_of_first_issue_in_set_when_change_from_Analysis() {
-    Set<ChangedIssue> changedIssues = IntStream.range(0, 2 + new Random().nextInt(4))
+    Set<ChangedIssue> changedIssues = IntStream.range(0, 2 + new SecureRandom().nextInt(4))
       .mapToObj(i -> newChangedIssue(i + "", randomValidStatus(), newProject("prj_" + i), newRandomNotAHotspotRule("rule_" + i)))
       .collect(toSet());
     AnalysisChange analysisChange = IssuesChangesNotificationBuilderTesting.newAnalysisChange();
@@ -129,7 +130,7 @@ public class ChangesOnMyIssuesEmailTemplateTest {
 
   @Test
   public void format_sets_subject_with_project_name_and_branch_name_of_first_issue_in_set_when_change_from_Analysis() {
-    Set<ChangedIssue> changedIssues = IntStream.range(0, 2 + new Random().nextInt(4))
+    Set<ChangedIssue> changedIssues = IntStream.range(0, 2 + new SecureRandom().nextInt(4))
       .mapToObj(i -> newChangedIssue(i + "", randomValidStatus(), newBranch("prj_" + i, "br_" + i), newRandomNotAHotspotRule("rule_" + i)))
       .collect(toSet());
     AnalysisChange analysisChange = newAnalysisChange();
@@ -142,7 +143,7 @@ public class ChangesOnMyIssuesEmailTemplateTest {
 
   @Test
   public void format_set_html_message_with_header_dealing_with_plural_when_change_from_Analysis() {
-    Set<ChangedIssue> changedIssues = IntStream.range(0, 2 + new Random().nextInt(4))
+    Set<ChangedIssue> changedIssues = IntStream.range(0, 2 + new SecureRandom().nextInt(4))
       .mapToObj(i -> newChangedIssue(i + "", randomValidStatus(), newProject("prj_" + i), newRandomNotAHotspotRule("rule_" + i)))
       .collect(toSet());
     AnalysisChange analysisChange = newAnalysisChange();
@@ -160,7 +161,7 @@ public class ChangesOnMyIssuesEmailTemplateTest {
 
   @Test
   public void format_sets_static_message_id_when_change_from_User() {
-    Set<ChangedIssue> changedIssues = IntStream.range(0, 2 + new Random().nextInt(4))
+    Set<ChangedIssue> changedIssues = IntStream.range(0, 2 + new SecureRandom().nextInt(4))
       .mapToObj(i -> newChangedIssue(i + "", randomValidStatus(), newProject("prj_" + i), newRandomNotAHotspotRule("rule_" + i)))
       .collect(toSet());
     UserChange userChange = newUserChange();
@@ -172,7 +173,7 @@ public class ChangesOnMyIssuesEmailTemplateTest {
 
   @Test
   public void format_sets_static_subject_when_change_from_User() {
-    Set<ChangedIssue> changedIssues = IntStream.range(0, 2 + new Random().nextInt(4))
+    Set<ChangedIssue> changedIssues = IntStream.range(0, 2 + new SecureRandom().nextInt(4))
       .mapToObj(i -> newChangedIssue(i + "", randomValidStatus(), newProject("prj_" + i), newRandomNotAHotspotRule("rule_" + i)))
       .collect(toSet());
     UserChange userChange = newUserChange();
@@ -184,7 +185,7 @@ public class ChangesOnMyIssuesEmailTemplateTest {
 
   @Test
   public void format_set_html_message_with_header_dealing_with_plural_issues_when_change_from_User() {
-    Set<ChangedIssue> changedIssues = IntStream.range(0, 2 + new Random().nextInt(4))
+    Set<ChangedIssue> changedIssues = IntStream.range(0, 2 + new SecureRandom().nextInt(4))
       .mapToObj(i -> newChangedIssue(i + "", randomValidStatus(), newProject("prj_" + i), newRandomNotAHotspotRule("rule_" + i)))
       .collect(toSet());
     UserChange userChange = newUserChange();
@@ -207,7 +208,7 @@ public class ChangesOnMyIssuesEmailTemplateTest {
 
   @Test
   public void format_set_html_message_with_header_dealing_with_plural_security_hotspots_when_change_from_User() {
-    Set<ChangedIssue> changedIssues = IntStream.range(0, 2 + new Random().nextInt(4))
+    Set<ChangedIssue> changedIssues = IntStream.range(0, 2 + new SecureRandom().nextInt(4))
       .mapToObj(i -> newChangedIssue(i + "", randomValidStatus(), newProject("prj_" + i), newSecurityHotspotRule("rule_" + i)))
       .collect(toSet());
     UserChange userChange = newUserChange();
@@ -230,11 +231,11 @@ public class ChangesOnMyIssuesEmailTemplateTest {
 
   @Test
   public void format_set_html_message_with_header_dealing_with_plural_security_hotspots_and_issues_when_change_from_User() {
-    Set<ChangedIssue> changedIssues = IntStream.range(0, 2 + new Random().nextInt(4))
+    Set<ChangedIssue> changedIssues = IntStream.range(0, 2 + new SecureRandom().nextInt(4))
       .mapToObj(i -> newChangedIssue(i + "", randomValidStatus(), newProject("prj_" + i), newRandomNotAHotspotRule("rule_" + i)))
       .collect(toSet());
 
-    Set<ChangedIssue> changedHotspots = IntStream.range(0, 2 + new Random().nextInt(4))
+    Set<ChangedIssue> changedHotspots = IntStream.range(0, 2 + new SecureRandom().nextInt(4))
       .mapToObj(i -> newChangedIssue(i + "", randomValidStatus(), newProject("prj_" + i), newSecurityHotspotRule("rule_" + i)))
       .collect(toSet());
 
@@ -314,7 +315,7 @@ public class ChangesOnMyIssuesEmailTemplateTest {
     when(emailSettings.getServerBaseURL()).thenReturn(host);
     Project project = newProject("foo");
     Rule rule = newRule("bar", ruleType);
-    Set<ChangedIssue> changedIssues = IntStream.range(0, 2 + new Random().nextInt(4))
+    Set<ChangedIssue> changedIssues = IntStream.range(0, 2 + new SecureRandom().nextInt(4))
       .mapToObj(i -> newChangedIssue(i + "", issueStatus, project, rule))
       .collect(toSet());
 
@@ -367,10 +368,10 @@ public class ChangesOnMyIssuesEmailTemplateTest {
   public void format_set_html_message_with_issue_status_title_handles_plural_when_change_from_analysis() {
     Project project = newProject("foo");
     Rule rule = newRandomNotAHotspotRule("bar");
-    Set<ChangedIssue> closedIssues = IntStream.range(0, 2 + new Random().nextInt(5))
+    Set<ChangedIssue> closedIssues = IntStream.range(0, 2 + new SecureRandom().nextInt(5))
       .mapToObj(status -> newChangedIssue(status + "", STATUS_CLOSED, project, rule))
       .collect(toSet());
-    Set<ChangedIssue> openIssues = IntStream.range(0, 2 + new Random().nextInt(5))
+    Set<ChangedIssue> openIssues = IntStream.range(0, 2 + new SecureRandom().nextInt(5))
       .mapToObj(status -> newChangedIssue(status + "", STATUS_OPEN, project, rule))
       .collect(toSet());
     AnalysisChange analysisChange = newAnalysisChange();
@@ -416,7 +417,7 @@ public class ChangesOnMyIssuesEmailTemplateTest {
     String ruleName = "</RandomRule>";
     String host = randomAlphabetic(15);
     Rule rule = newRule(ruleName, randomRuleTypeHotspotExcluded());
-    List<ChangedIssue> changedIssues = IntStream.range(0, 2 + new Random().nextInt(5))
+    List<ChangedIssue> changedIssues = IntStream.range(0, 2 + new SecureRandom().nextInt(5))
       .mapToObj(i -> newChangedIssue("issue_" + i, randomValidStatus(), project, rule))
       .collect(toList());
     UserChange userChange = newUserChange();
@@ -515,7 +516,7 @@ public class ChangesOnMyIssuesEmailTemplateTest {
     String host = randomAlphabetic(15);
     Rule rule = newRule(ruleName, randomRuleTypeHotspotExcluded());
     String issueStatus = randomValidStatus();
-    List<ChangedIssue> changedIssues = IntStream.range(0, 2 + new Random().nextInt(5))
+    List<ChangedIssue> changedIssues = IntStream.range(0, 2 + new SecureRandom().nextInt(5))
       .mapToObj(i -> newChangedIssue("issue_" + i, issueStatus, project, rule))
       .collect(toList());
     AnalysisChange analysisChange = newAnalysisChange();
@@ -541,7 +542,7 @@ public class ChangesOnMyIssuesEmailTemplateTest {
     String ruleName = randomAlphabetic(8);
     String host = randomAlphabetic(15);
     Rule rule = newRule(ruleName, randomRuleTypeHotspotExcluded());
-    List<ChangedIssue> changedIssues = IntStream.range(0, 2 + new Random().nextInt(5))
+    List<ChangedIssue> changedIssues = IntStream.range(0, 2 + new SecureRandom().nextInt(5))
       .mapToObj(i -> newChangedIssue("issue_" + i, randomValidStatus(), project, rule))
       .collect(toList());
     UserChange userChange = newUserChange();
@@ -569,7 +570,7 @@ public class ChangesOnMyIssuesEmailTemplateTest {
     String host = randomAlphabetic(15);
     Rule rule = newRule(ruleName, randomRuleTypeHotspotExcluded());
     String status = randomValidStatus();
-    List<ChangedIssue> changedIssues = IntStream.range(0, 2 + new Random().nextInt(5))
+    List<ChangedIssue> changedIssues = IntStream.range(0, 2 + new SecureRandom().nextInt(5))
       .mapToObj(i -> newChangedIssue("issue_" + i, status, project, rule))
       .collect(toList());
     AnalysisChange analysisChange = newAnalysisChange();
@@ -596,7 +597,7 @@ public class ChangesOnMyIssuesEmailTemplateTest {
     String ruleName = randomAlphabetic(8);
     String host = randomAlphabetic(15);
     Rule rule = newRandomNotAHotspotRule(ruleName);
-    List<ChangedIssue> changedIssues = IntStream.range(0, 2 + new Random().nextInt(5))
+    List<ChangedIssue> changedIssues = IntStream.range(0, 2 + new SecureRandom().nextInt(5))
       .mapToObj(i -> newChangedIssue("issue_" + i, randomValidStatus(), project, rule))
       .collect(toList());
     UserChange userChange = newUserChange();
@@ -875,7 +876,7 @@ public class ChangesOnMyIssuesEmailTemplateTest {
   }
 
   private static String randomValidStatus() {
-    return ISSUE_STATUSES[new Random().nextInt(ISSUE_STATUSES.length)];
+    return ISSUE_STATUSES[new SecureRandom().nextInt(ISSUE_STATUSES.length)];
   }
 
   private void verifyEnd(HtmlListAssert htmlListAssert) {

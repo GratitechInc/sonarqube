@@ -19,6 +19,7 @@
  */
 package org.sonar.server.health;
 
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Random;
 import org.junit.Test;
@@ -35,7 +36,7 @@ public class WebServerStatusNodeCheckTest {
   private final Platform platform = mock(Platform.class);
   private final RestartFlagHolder restartFlagHolder = mock(RestartFlagHolder.class);
 
-  private final Random random = new Random();
+  private final Random random = new SecureRandom();
 
   private WebServerStatusNodeCheck underTest = new WebServerStatusNodeCheck(migrationState, platform, restartFlagHolder);
 

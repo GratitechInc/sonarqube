@@ -21,6 +21,7 @@ package org.sonar.server.app;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.util.Random;
 import org.junit.Rule;
 import org.junit.Test;
@@ -136,7 +137,7 @@ public class ProcessCommandWrapperImplTest {
     File tmpDir = temp.newFolder().getAbsoluteFile();
     settings.setProperty(PROPERTY_SHARED_PATH, tmpDir.getAbsolutePath());
 
-    boolean expected = new Random().nextBoolean();
+    boolean expected = new SecureRandom().nextBoolean();
     if (expected) {
       try (DefaultProcessCommands processCommands = DefaultProcessCommands.secondary(tmpDir, 3)) {
         processCommands.setOperational();

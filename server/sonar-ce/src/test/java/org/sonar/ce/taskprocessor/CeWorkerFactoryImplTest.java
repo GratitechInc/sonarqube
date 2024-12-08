@@ -20,6 +20,7 @@
 package org.sonar.ce.taskprocessor;
 
 import java.lang.reflect.Field;
+import java.security.SecureRandom;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -33,7 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 public class CeWorkerFactoryImplTest {
-  private int randomOrdinal = new Random().nextInt(20);
+  private int randomOrdinal = new SecureRandom().nextInt(20);
   private CeWorkerFactoryImpl underTest = new CeWorkerFactoryImpl(mock(InternalCeQueue.class),
     mock(CeTaskProcessorRepository.class), UuidFactoryImpl.INSTANCE, mock(CeWorkerController.class));
 
@@ -62,7 +63,7 @@ public class CeWorkerFactoryImplTest {
 
   @Test
   public void create_allows_multiple_calls_with_same_ordinal() {
-    IntStream.range(0, new Random().nextInt(50)).forEach(ignored -> {
+    IntStream.range(0, new SecureRandom().nextInt(50)).forEach(ignored -> {
       CeWorker ceWorker = underTest.create(randomOrdinal);
 
       assertThat(ceWorker.getOrdinal()).isEqualTo(randomOrdinal);
@@ -98,7 +99,7 @@ public class CeWorkerFactoryImplTest {
   @Test
   public void CeWorkerFactory_must_returns_the_workers_returned_by_created() {
     Set<CeWorker> expected = new HashSet<>();
-    for (int i = 0; i < 1 + new Random().nextInt(10); i++) {
+    for (int i = 0; i < 1 + new SecureRandom().nextInt(10); i++) {
       expected.add(underTest.create(i));
     }
 

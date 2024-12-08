@@ -19,6 +19,7 @@
  */
 package org.sonar.server.health;
 
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Random;
@@ -42,7 +43,7 @@ import static org.sonar.process.ProcessProperties.Property.CLUSTER_NODE_NAME;
 
 public class NodeHealthProviderImplTest {
 
-  private final Random random = new Random();
+  private final Random random = new SecureRandom();
   private MapSettings mapSettings = new MapSettings();
   private HealthChecker healthChecker = mock(HealthChecker.class);
   private Server server = mock(Server.class);

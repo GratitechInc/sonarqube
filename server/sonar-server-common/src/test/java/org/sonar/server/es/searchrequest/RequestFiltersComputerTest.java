@@ -20,6 +20,7 @@
 package org.sonar.server.es.searchrequest;
 
 import com.google.common.collect.ImmutableSet;
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
@@ -48,7 +49,7 @@ import static org.sonar.server.es.searchrequest.TopAggregationDefinition.STICKY;
 
 public class RequestFiltersComputerTest {
 
-  private static final Random RANDOM = new Random();
+  private static final Random RANDOM = new SecureRandom();
 
   @Test
   public void getTopAggregationFilters_fails_with_IAE_when_no_TopAggregation_provided_in_constructor() {

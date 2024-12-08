@@ -20,6 +20,7 @@
 package org.sonar.ce.task.projectanalysis.webhook;
 
 import com.google.common.collect.ImmutableMap;
+import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
@@ -63,7 +64,7 @@ import static org.sonar.api.ce.posttask.PostProjectAnalysisTaskTester.newScanner
 
 public class WebhookPostTaskTest {
 
-  private final Random random = new Random();
+  private final Random random = new SecureRandom();
   private final Configuration configuration = mock(Configuration.class);
   private final WebhookPayload webhookPayload = mock(WebhookPayload.class);
   private final WebhookPayloadFactory payloadFactory = mock(WebhookPayloadFactory.class);

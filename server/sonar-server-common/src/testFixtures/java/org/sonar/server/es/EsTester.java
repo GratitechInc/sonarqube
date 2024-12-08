@@ -29,6 +29,7 @@ import java.net.DatagramSocket;
 import java.net.ServerSocket;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -517,7 +518,7 @@ public class EsTester extends ExternalResource {
   }
 
   public static int getNextAvailable() {
-    Random random = new Random();
+    Random random = new SecureRandom();
     int maxAttempts = 10;
     int i = maxAttempts;
     while (i > 0) {

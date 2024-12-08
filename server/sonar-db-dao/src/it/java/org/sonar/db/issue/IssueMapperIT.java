@@ -22,6 +22,7 @@ package org.sonar.db.issue;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -65,7 +66,7 @@ public class IssueMapperIT {
 
   private final DbSession dbSession = dbTester.getSession();
   private final IssueMapper underTest = dbSession.getMapper(IssueMapper.class);
-  private final Random random = new Random();
+  private final Random random = new SecureRandom();
   private final System2 system2 = new AlwaysIncreasingSystem2();
   private ComponentDto project, file, file2;
   private RuleDto rule;
@@ -522,7 +523,7 @@ public class IssueMapperIT {
   }
 
   private static RuleType randomSupportedRuleType() {
-    return SUPPORTED_RULE_TYPES[new Random().nextInt(SUPPORTED_RULE_TYPES.length)];
+    return SUPPORTED_RULE_TYPES[new SecureRandom().nextInt(SUPPORTED_RULE_TYPES.length)];
   }
 
   private ComponentDto randomComponent() {

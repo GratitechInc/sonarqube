@@ -19,6 +19,7 @@
  */
 package org.sonar.ce.task.projectanalysis.issue;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -121,7 +122,7 @@ public class TrackerExecutionTest {
     when(analysisMetadataHolder.isFirstAnalysis()).thenReturn(false);
     when(tracker.trackNonClosed(rawInput, openIssuesInput)).thenReturn(nonClosedTracking);
     when(tracker.trackClosed(nonClosedTracking, closedIssuesInput)).thenReturn(closedTracking);
-    Set<DefaultIssue> mappedClosedIssues = IntStream.range(1, 2 + new Random().nextInt(2))
+    Set<DefaultIssue> mappedClosedIssues = IntStream.range(1, 2 + new SecureRandom().nextInt(2))
       .mapToObj(i -> new DefaultIssue().setKey("closed" + i).setStatus(Issue.STATUS_CLOSED))
       .collect(toSet());
 

@@ -19,6 +19,7 @@
  */
 package org.sonar.server.qualitygate.notification;
 
+import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.Random;
 import java.util.Set;
@@ -94,7 +95,7 @@ public class QGChangeNotificationHandlerTest {
   @Test
   public void deliver_has_no_effect_if_emailNotificationChannel_is_disabled() {
     when(emailNotificationChannel.isActivated()).thenReturn(false);
-    Set<QGChangeNotification> notifications = IntStream.range(0, 1 + new Random().nextInt(10))
+    Set<QGChangeNotification> notifications = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> mock(QGChangeNotification.class))
       .collect(toSet());
 
@@ -110,7 +111,7 @@ public class QGChangeNotificationHandlerTest {
   @Test
   public void deliver_has_no_effect_if_no_notification_has_projectKey() {
     when(emailNotificationChannel.isActivated()).thenReturn(true);
-    Set<QGChangeNotification> notifications = IntStream.range(0, 1 + new Random().nextInt(10))
+    Set<QGChangeNotification> notifications = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> newNotification(null))
       .collect(toSet());
 
@@ -146,13 +147,13 @@ public class QGChangeNotificationHandlerTest {
   @Test
   public void deliver_ignores_notification_without_projectKey() {
     String projectKey = randomAlphabetic(10);
-    Set<QGChangeNotification> withProjectKey = IntStream.range(0, 1 + new Random().nextInt(5))
+    Set<QGChangeNotification> withProjectKey = IntStream.range(0, 1 + new SecureRandom().nextInt(5))
       .mapToObj(i -> newNotification(projectKey))
       .collect(toSet());
-    Set<QGChangeNotification> noProjectKey = IntStream.range(0, 1 + new Random().nextInt(5))
+    Set<QGChangeNotification> noProjectKey = IntStream.range(0, 1 + new SecureRandom().nextInt(5))
       .mapToObj(i -> newNotification(null))
       .collect(toSet());
-    Set<NotificationManager.EmailRecipient> emailRecipients = IntStream.range(0, 1 + new Random().nextInt(10))
+    Set<NotificationManager.EmailRecipient> emailRecipients = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> "user_" + i)
       .map(login -> new NotificationManager.EmailRecipient(login, emailOf(login)))
       .collect(toSet());
@@ -184,11 +185,11 @@ public class QGChangeNotificationHandlerTest {
     Set<QGChangeNotification> notifications2 = randomSetOfNotifications(projectKey2);
     when(emailNotificationChannel.isActivated()).thenReturn(true);
 
-    Set<NotificationManager.EmailRecipient> emailRecipients1 = IntStream.range(0, 1 + new Random().nextInt(10))
+    Set<NotificationManager.EmailRecipient> emailRecipients1 = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> "user1_" + i)
       .map(login -> new NotificationManager.EmailRecipient(login, emailOf(login)))
       .collect(toSet());
-    Set<NotificationManager.EmailRecipient> emailRecipients2 = IntStream.range(0, 1 + new Random().nextInt(10))
+    Set<NotificationManager.EmailRecipient> emailRecipients2 = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> "user2_" + i)
       .map(login -> new NotificationManager.EmailRecipient(login, emailOf(login)))
       .collect(toSet());
@@ -237,7 +238,7 @@ public class QGChangeNotificationHandlerTest {
   }
 
   private static Set<QGChangeNotification> randomSetOfNotifications(@Nullable String projectKey) {
-    return IntStream.range(0, 1 + new Random().nextInt(5))
+    return IntStream.range(0, 1 + new SecureRandom().nextInt(5))
       .mapToObj(i -> newNotification(projectKey))
       .collect(Collectors.toSet());
   }

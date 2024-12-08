@@ -21,6 +21,7 @@ package org.sonar.server.ce.queue;
 
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
+import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Random;
@@ -109,6 +110,6 @@ public class BranchSupportTest {
   }
 
   private static Map<String, String> newRandomNonEmptyMap() {
-    return IntStream.range(0, 1 + new Random().nextInt(10)).boxed().collect(uniqueIndex(i -> "key_" + i, i -> "val_" + i));
+    return IntStream.range(0, 1 + new SecureRandom().nextInt(10)).boxed().collect(uniqueIndex(i -> "key_" + i, i -> "val_" + i));
   }
 }

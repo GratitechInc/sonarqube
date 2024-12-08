@@ -21,6 +21,7 @@ package org.sonar.ce.task.projectanalysis.filemove;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -75,7 +76,7 @@ public class MatchesByScoreTest {
 
   private ScoreFile[] of(String... fileKeys) {
     return Arrays.stream(fileKeys)
-      .map(key -> new ScoreFile(key, new Random().nextInt(40)))
+      .map(key -> new ScoreFile(key, new SecureRandom().nextInt(40)))
       .toArray(ScoreFile[]::new);
   }
 

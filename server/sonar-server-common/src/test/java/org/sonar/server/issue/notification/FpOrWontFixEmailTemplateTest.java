@@ -23,6 +23,7 @@ import com.google.common.collect.ImmutableSet;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -102,7 +103,7 @@ public class FpOrWontFixEmailTemplateTest {
 
   @Test
   public void format_sets_from_to_name_of_author_change_when_available() {
-    UserChange change = new UserChange(new Random().nextLong(), new User(randomAlphabetic(5), randomAlphabetic(6), randomAlphabetic(7)));
+    UserChange change = new UserChange(new SecureRandom().nextLong(), new User(randomAlphabetic(5), randomAlphabetic(6), randomAlphabetic(7)));
     EmailMessage emailMessage = underTest.format(new FPOrWontFixNotification(change, Collections.emptySet(), WONT_FIX));
 
     assertThat(emailMessage.getFrom()).isEqualTo(change.getUser().getName().get());
@@ -110,7 +111,7 @@ public class FpOrWontFixEmailTemplateTest {
 
   @Test
   public void format_sets_from_to_login_of_author_change_when_name_is_not_available() {
-    UserChange change = new UserChange(new Random().nextLong(), new User(randomAlphabetic(5), randomAlphabetic(6), null));
+    UserChange change = new UserChange(new SecureRandom().nextLong(), new User(randomAlphabetic(5), randomAlphabetic(6), null));
     EmailMessage emailMessage = underTest.format(new FPOrWontFixNotification(change, Collections.emptySet(), WONT_FIX));
 
     assertThat(emailMessage.getFrom()).isEqualTo(change.getUser().getLogin());
@@ -118,7 +119,7 @@ public class FpOrWontFixEmailTemplateTest {
 
   @Test
   public void format_sets_from_to_null_when_analysisChange() {
-    AnalysisChange change = new AnalysisChange(new Random().nextLong());
+    AnalysisChange change = new AnalysisChange(new SecureRandom().nextLong());
     EmailMessage emailMessage = underTest.format(new FPOrWontFixNotification(change, Collections.emptySet(), WONT_FIX));
 
     assertThat(emailMessage.getFrom()).isNull();
@@ -252,7 +253,7 @@ public class FpOrWontFixEmailTemplateTest {
     String ruleName = randomAlphabetic(8);
     String host = randomAlphabetic(15);
     Rule rule = newRandomNotAHotspotRule(ruleName);
-    List<ChangedIssue> changedIssues = IntStream.range(0, 2 + new Random().nextInt(5))
+    List<ChangedIssue> changedIssues = IntStream.range(0, 2 + new SecureRandom().nextInt(5))
       .mapToObj(i -> newChangedIssue("issue_" + i, project, rule))
       .collect(toList());
     when(emailSettings.getServerBaseURL()).thenReturn(host);
@@ -278,7 +279,7 @@ public class FpOrWontFixEmailTemplateTest {
     String ruleName = randomAlphabetic(8);
     String host = randomAlphabetic(15);
     Rule rule = newSecurityHotspotRule(ruleName);
-    List<ChangedIssue> changedIssues = IntStream.range(0, 2 + new Random().nextInt(5))
+    List<ChangedIssue> changedIssues = IntStream.range(0, 2 + new SecureRandom().nextInt(5))
       .mapToObj(i -> newChangedIssue("issue_" + i, project, rule))
       .collect(toList());
     when(emailSettings.getServerBaseURL()).thenReturn(host);
@@ -305,7 +306,7 @@ public class FpOrWontFixEmailTemplateTest {
     String ruleName = randomAlphabetic(8);
     String host = randomAlphabetic(15);
     Rule rule = newRandomNotAHotspotRule(ruleName);
-    List<ChangedIssue> changedIssues = IntStream.range(0, 2 + new Random().nextInt(5))
+    List<ChangedIssue> changedIssues = IntStream.range(0, 2 + new SecureRandom().nextInt(5))
       .mapToObj(i -> newChangedIssue("issue_" + i, project, rule))
       .collect(toList());
     when(emailSettings.getServerBaseURL()).thenReturn(host);
@@ -332,7 +333,7 @@ public class FpOrWontFixEmailTemplateTest {
     String ruleName = randomAlphabetic(8);
     String host = randomAlphabetic(15);
     Rule rule = newSecurityHotspotRule(ruleName);
-    List<ChangedIssue> changedIssues = IntStream.range(0, 2 + new Random().nextInt(5))
+    List<ChangedIssue> changedIssues = IntStream.range(0, 2 + new SecureRandom().nextInt(5))
       .mapToObj(i -> newChangedIssue("issue_" + i, project, rule))
       .collect(toList());
     when(emailSettings.getServerBaseURL()).thenReturn(host);
@@ -472,9 +473,9 @@ public class FpOrWontFixEmailTemplateTest {
 
   @DataProvider
   public static Object[][] userOrAnalysisChange() {
-    AnalysisChange analysisChange = new AnalysisChange(new Random().nextLong());
-    UserChange userChange = new UserChange(new Random().nextLong(), new User(randomAlphabetic(5), randomAlphabetic(6),
-      new Random().nextBoolean() ? null : randomAlphabetic(7)));
+    AnalysisChange analysisChange = new AnalysisChange(new SecureRandom().nextLong());
+    UserChange userChange = new UserChange(new SecureRandom().nextLong(), new User(randomAlphabetic(5), randomAlphabetic(6),
+      new SecureRandom().nextBoolean() ? null : randomAlphabetic(7)));
     return new Object[][] {
       {analysisChange},
       {userChange}
@@ -483,9 +484,9 @@ public class FpOrWontFixEmailTemplateTest {
 
   @DataProvider
   public static Object[][] fpOrWontFixValuesByUserOrAnalysisChange() {
-    AnalysisChange analysisChange = new AnalysisChange(new Random().nextLong());
-    UserChange userChange = new UserChange(new Random().nextLong(), new User(randomAlphabetic(5), randomAlphabetic(6),
-      new Random().nextBoolean() ? null : randomAlphabetic(7)));
+    AnalysisChange analysisChange = new AnalysisChange(new SecureRandom().nextLong());
+    UserChange userChange = new UserChange(new SecureRandom().nextLong(), new User(randomAlphabetic(5), randomAlphabetic(6),
+      new SecureRandom().nextBoolean() ? null : randomAlphabetic(7)));
     return new Object[][] {
       {analysisChange, FP},
       {analysisChange, WONT_FIX},

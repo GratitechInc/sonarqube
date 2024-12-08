@@ -19,6 +19,7 @@
  */
 package org.sonar.ce.task.projectanalysis.step;
 
+import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -387,7 +388,7 @@ public class ViewsPersistComponentsStepIT extends BaseStepTest {
 
   @Test
   public void persists_new_components_with_visibility_of_root_in_db_out_of_functional_transaction() {
-    boolean isRootPrivate = new Random().nextBoolean();
+    boolean isRootPrivate = new SecureRandom().nextBoolean();
     ComponentDto project = dbTester.components().insertComponent(ComponentTesting.newPrivateProjectDto());
     ComponentDto view = newViewDto().setUuid(VIEW_UUID).setKey(VIEW_KEY).setName("View").setPrivate(isRootPrivate);
     dbTester.components().insertComponent(view);
@@ -410,7 +411,7 @@ public class ViewsPersistComponentsStepIT extends BaseStepTest {
 
   @Test
   public void persists_existing_components_with_visibility_of_root_in_db_out_of_functional_transaction() {
-    boolean isRootPrivate = new Random().nextBoolean();
+    boolean isRootPrivate = new SecureRandom().nextBoolean();
     ComponentDto project = dbTester.components().insertComponent(ComponentTesting.newPrivateProjectDto());
     ComponentDto view = newViewDto().setUuid(VIEW_UUID).setKey(VIEW_KEY).setName("View").setPrivate(isRootPrivate);
     dbTester.components().insertComponent(view);

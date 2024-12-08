@@ -19,6 +19,7 @@
  */
 package org.sonar.server.platform.ws;
 
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.stream.IntStream;
@@ -45,7 +46,7 @@ import static org.sonar.test.JsonAssert.assertJson;
 
 public class SafeModeHealthActionTest {
 
-  private final Random random = new Random();
+  private final Random random = new SecureRandom();
   private HealthChecker healthChecker = mock(HealthChecker.class);
   private SystemPasscode systemPasscode = mock(SystemPasscode.class);
   private WsActionTester underTest = new WsActionTester(new SafeModeHealthAction(new HealthActionSupport(healthChecker), systemPasscode));
@@ -102,10 +103,10 @@ public class SafeModeHealthActionTest {
   @Test
   public void request_returns_status_and_causes_from_HealthChecker_checkNode_method() {
     authenticateWithPasscode();
-    Health.Status randomStatus = Health.Status.values()[new Random().nextInt(Health.Status.values().length)];
+    Health.Status randomStatus = Health.Status.values()[new SecureRandom().nextInt(Health.Status.values().length)];
     Health.Builder builder = Health.builder()
       .setStatus(randomStatus);
-    IntStream.range(0, new Random().nextInt(5)).mapToObj(i -> RandomStringUtils.randomAlphanumeric(3)).forEach(builder::addCause);
+    IntStream.range(0, new SecureRandom().nextInt(5)).mapToObj(i -> RandomStringUtils.randomAlphanumeric(3)).forEach(builder::addCause);
     Health health = builder.build();
     when(healthChecker.checkNode()).thenReturn(health);
     TestRequest request = underTest.newRequest();

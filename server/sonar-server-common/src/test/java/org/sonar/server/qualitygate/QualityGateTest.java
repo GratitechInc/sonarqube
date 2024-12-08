@@ -20,6 +20,7 @@
 package org.sonar.server.qualitygate;
 
 import com.google.common.collect.ImmutableSet;
+import java.security.SecureRandom;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -62,7 +63,7 @@ public class QualityGateTest {
 
   @Test
   public void constructor_fails_with_NPE_if_conditions_contains_null() {
-    Random random = new Random();
+    Random random = new SecureRandom();
 
     Set<Condition> conditions = Stream.of(
       IntStream.range(0, random.nextInt(5))

@@ -22,6 +22,7 @@ package org.sonar.server.webhook;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -316,14 +317,14 @@ public class WebhookQGChangeEventListenerIT {
     if (evaluatedQualityGate != null) {
       Metric.Level otherLevel = stream(Metric.Level.values())
         .filter(s -> s != previousStatus)
-        .toArray(Metric.Level[]::new)[new Random().nextInt(Metric.Level.values().length - 1)];
+        .toArray(Metric.Level[]::new)[new SecureRandom().nextInt(Metric.Level.values().length - 1)];
       when(evaluatedQualityGate.getStatus()).thenReturn(otherLevel);
     }
     return new QGChangeEvent(branch.project, branch.branch, analysis, configuration, previousStatus, () -> Optional.ofNullable(evaluatedQualityGate));
   }
 
   private static Metric.Level randomLevel() {
-    return Metric.Level.values()[new Random().nextInt(Metric.Level.values().length)];
+    return Metric.Level.values()[new SecureRandom().nextInt(Metric.Level.values().length)];
   }
 
 }

@@ -25,6 +25,7 @@ import com.google.common.collect.ImmutableMap;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
@@ -395,7 +396,7 @@ public class SchedulerImplTest {
   private ImmutableMap.Builder<String, String> addRequiredNodeProperties(ImmutableMap.Builder<String, String> builder) {
     builder.put(CLUSTER_NODE_NAME.getKey(), randomAlphanumeric(4));
     builder.put(CLUSTER_NODE_HOST.getKey(), randomAlphanumeric(4));
-    builder.put(CLUSTER_NODE_HZ_PORT.getKey(), String.valueOf(1 + new Random().nextInt(999)));
+    builder.put(CLUSTER_NODE_HZ_PORT.getKey(), String.valueOf(1 + new SecureRandom().nextInt(999)));
     return builder;
   }
 

@@ -24,6 +24,7 @@ import com.google.common.collect.MoreCollectors;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -67,7 +68,7 @@ import static org.sonar.db.issue.IssueChangeDto.TYPE_FIELD_CHANGE;
 @RunWith(DataProviderRunner.class)
 public class IssueChangeWSSupportIT {
   private static final UuidFactoryFast UUID_FACTORY = UuidFactoryFast.getInstance();
-  private static final Random RANDOM = new Random();
+  private static final Random RANDOM = new SecureRandom();
 
   @Rule
   public DbTester dbTester = DbTester.create(System2.INSTANCE);

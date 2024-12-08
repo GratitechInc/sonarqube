@@ -21,6 +21,7 @@ package org.sonar.server.qualitygate.changeevent;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -112,7 +113,7 @@ public class QGChangeEventListenersImplTest {
 
   @Test
   public void broadcastOnIssueChange_calls_all_listeners_even_if_one_throws_an_exception() {
-    QGChangeEventListener failingListener = new QGChangeEventListener[] {listener1, listener2, listener3}[new Random().nextInt(3)];
+    QGChangeEventListener failingListener = new QGChangeEventListener[] {listener1, listener2, listener3}[new SecureRandom().nextInt(3)];
     doThrow(new RuntimeException("Faking an exception thrown by onChanges"))
       .when(failingListener)
       .onIssueChanges(any(), any());
@@ -373,11 +374,11 @@ public class QGChangeEventListenersImplTest {
     DefaultIssue defaultIssue = new DefaultIssue();
     defaultIssue.setKey("issue_" + issueIdCounter++);
     defaultIssue.setProjectUuid(projectUuid);
-    defaultIssue.setType(RuleType.values()[new Random().nextInt(RuleType.values().length)]);
-    defaultIssue.setStatus(POSSIBLE_STATUSES[new Random().nextInt(POSSIBLE_STATUSES.length)]);
+    defaultIssue.setType(RuleType.values()[new SecureRandom().nextInt(RuleType.values().length)]);
+    defaultIssue.setStatus(POSSIBLE_STATUSES[new SecureRandom().nextInt(POSSIBLE_STATUSES.length)]);
     String[] possibleResolutions = possibleResolutions(defaultIssue.getStatus());
     if (possibleResolutions.length > 0) {
-      defaultIssue.setResolution(possibleResolutions[new Random().nextInt(possibleResolutions.length)]);
+      defaultIssue.setResolution(possibleResolutions[new SecureRandom().nextInt(possibleResolutions.length)]);
     }
     return defaultIssue;
   }

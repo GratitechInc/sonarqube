@@ -52,7 +52,7 @@ public class CredentialsLocalAuthenticationTest {
   @Rule
   public DbTester db = DbTester.create();
 
-  private static final Random RANDOM = new Random();
+  private static final Random RANDOM = new SecureRandom();
   private static final MapSettings settings = new MapSettings();
 
   private CredentialsLocalAuthentication underTest = new CredentialsLocalAuthentication(db.getDbClient(), settings.asConfig());

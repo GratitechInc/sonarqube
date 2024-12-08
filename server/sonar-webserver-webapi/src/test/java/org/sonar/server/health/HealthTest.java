@@ -20,6 +20,7 @@
 package org.sonar.server.health;
 
 import com.google.common.base.Strings;
+import java.security.SecureRandom;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -34,7 +35,7 @@ import static org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 
 public class HealthTest {
 
-  private final Random random = new Random();
+  private final Random random = new SecureRandom();
   private final Health.Status anyStatus = Health.Status.values()[random.nextInt(Health.Status.values().length)];
   private final Set<String> randomCauses = IntStream.range(0, random.nextInt(5)).mapToObj(s -> randomAlphanumeric(3)).collect(Collectors.toSet());
 

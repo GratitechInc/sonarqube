@@ -22,6 +22,7 @@ package org.sonar.server.hotspot.ws;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -69,7 +70,7 @@ import static org.sonar.db.component.ComponentTesting.newFileDto;
 
 @RunWith(DataProviderRunner.class)
 public class AddCommentActionIT {
-  private static final Random RANDOM = new Random();
+  private static final Random RANDOM = new SecureRandom();
 
   @Rule
   public DbTester dbTester = DbTester.create(System2.INSTANCE);

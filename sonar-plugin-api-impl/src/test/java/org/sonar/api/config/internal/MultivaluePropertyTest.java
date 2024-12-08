@@ -22,6 +22,7 @@ package org.sonar.api.config.internal;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.util.Random;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -116,7 +117,7 @@ public class MultivaluePropertyTest {
     return new Object[][] {
       {randomAlphanumeric(1)},
       {randomAlphanumeric(2)},
-      {randomAlphanumeric(3 + new Random().nextInt(5))}
+      {randomAlphanumeric(3 + new SecureRandom().nextInt(5))}
     };
   }
 
@@ -160,7 +161,7 @@ public class MultivaluePropertyTest {
 
   @DataProvider
   public static Object[][] emptyAndtrimmable() {
-    Random random = new Random();
+    Random random = new SecureRandom();
     String oneEmpty = randomTrimmedChars(1, random);
     String twoEmpty = randomTrimmedChars(2, random);
     String threePlusEmpty = randomTrimmedChars(3 + random.nextInt(5), random);
@@ -211,7 +212,7 @@ public class MultivaluePropertyTest {
 
   @DataProvider
   public static Object[][] emptys() {
-    Random random = new Random();
+    Random random = new SecureRandom();
     return new Object[][] {
       {randomTrimmedChars(1, random)},
       {randomTrimmedChars(2, random)},

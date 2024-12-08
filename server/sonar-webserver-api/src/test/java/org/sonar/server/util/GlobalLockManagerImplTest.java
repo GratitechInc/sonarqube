@@ -22,6 +22,7 @@ package org.sonar.server.util;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.util.Random;
 import org.apache.commons.lang.RandomStringUtils;
 import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
@@ -66,7 +67,7 @@ public class GlobalLockManagerImplTest {
 
   @Test
   public void tryLock_fails_with_IAE_if_name_length_is_more_than_max_or_more() {
-    String badLockName = RandomStringUtils.random(LOCK_NAME_MAX_LENGTH + 1 + new Random().nextInt(96));
+    String badLockName = RandomStringUtils.random(LOCK_NAME_MAX_LENGTH + 1 + new SecureRandom().nextInt(96));
 
     expectBadLockNameIAE(() -> underTest.tryLock(badLockName), badLockName);
   }
@@ -82,7 +83,7 @@ public class GlobalLockManagerImplTest {
   @Test
   @UseDataProvider("randomValidLockName")
   public void tryLock_delegates_to_internalPropertiesDao_and_commits(String randomValidLockName) {
-    boolean expected = new Random().nextBoolean();
+    boolean expected = new SecureRandom().nextBoolean();
     when(internalPropertiesDao.tryLock(dbSession, randomValidLockName, DEFAULT_LOCK_DURATION_SECONDS))
       .thenReturn(expected);
 
@@ -113,7 +114,7 @@ public class GlobalLockManagerImplTest {
   @Test
   @UseDataProvider("randomValidDuration")
   public void tryLock_with_duration_fails_with_IAE_if_name_length_is_36_or_more(int randomValidDuration) {
-    String badLockName = RandomStringUtils.random(LOCK_NAME_MAX_LENGTH + 1 + new Random().nextInt(65));
+    String badLockName = RandomStringUtils.random(LOCK_NAME_MAX_LENGTH + 1 + new SecureRandom().nextInt(65));
 
     expectBadLockNameIAE(() -> underTest.tryLock(badLockName, randomValidDuration), badLockName);
   }
@@ -127,7 +128,7 @@ public class GlobalLockManagerImplTest {
   @Test
   @UseDataProvider("randomValidLockName")
   public void tryLock_with_duration_fails_with_IAE_if_duration_is_less_than_0(String randomValidLockName) {
-    int negativeDuration = -1 - new Random().nextInt(100);
+    int negativeDuration = -1 - new SecureRandom().nextInt(100);
 
     expectBadDuration(() -> underTest.tryLock(randomValidLockName, negativeDuration), negativeDuration);
   }
@@ -136,7 +137,7 @@ public class GlobalLockManagerImplTest {
   @UseDataProvider("randomValidDuration")
   public void tryLock_with_duration_delegates_to_InternalPropertiesDao_and_commits(int randomValidDuration) {
     String lockName = "foo";
-    boolean expected = new Random().nextBoolean();
+    boolean expected = new SecureRandom().nextBoolean();
     when(internalPropertiesDao.tryLock(dbSession, lockName, randomValidDuration))
       .thenReturn(expected);
 
@@ -151,14 +152,14 @@ public class GlobalLockManagerImplTest {
   @DataProvider
   public static Object[][] randomValidLockName() {
     return new Object[][] {
-      {randomAlphabetic(1 + new Random().nextInt(LOCK_NAME_MAX_LENGTH))}
+      {randomAlphabetic(1 + new SecureRandom().nextInt(LOCK_NAME_MAX_LENGTH))}
     };
   }
 
   @DataProvider
   public static Object[][] randomValidDuration() {
     return new Object[][] {
-      {1 + new Random().nextInt(2_00)}
+      {1 + new SecureRandom().nextInt(2_00)}
     };
   }
 

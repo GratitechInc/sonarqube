@@ -19,6 +19,7 @@
  */
 package org.sonar.server.issue.notification;
 
+import java.security.SecureRandom;
 import java.util.Random;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.api.rules.RuleType;
@@ -114,14 +115,14 @@ public class IssuesChangesNotificationBuilderTesting {
   }
 
   static UserChange newUserChange() {
-    return new UserChange(new Random().nextLong(), new User(randomAlphabetic(4), randomAlphabetic(5), randomAlphabetic(6)));
+    return new UserChange(new SecureRandom().nextLong(), new User(randomAlphabetic(4), randomAlphabetic(5), randomAlphabetic(6)));
   }
 
   static AnalysisChange newAnalysisChange() {
-    return new AnalysisChange(new Random().nextLong());
+    return new AnalysisChange(new SecureRandom().nextLong());
   }
 
   static RuleType randomRuleTypeHotspotExcluded() {
-    return RULE_TYPES[new Random().nextInt(RULE_TYPES.length - 1)];
+    return RULE_TYPES[new SecureRandom().nextInt(RULE_TYPES.length - 1)];
   }
 }

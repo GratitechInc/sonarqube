@@ -19,6 +19,7 @@
  */
 package org.sonar.db.qualitygate;
 
+import java.security.SecureRandom;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Random;
@@ -55,8 +56,8 @@ public class QualityGateConditionDaoIT {
   public void testSelectForQualityGate() {
     String qg1Uuid = "1";
     String qg2Uuid = "2";
-    int qg1Conditions = 2 + new Random().nextInt(5);
-    int qg2Conditions = 10 + new Random().nextInt(5);
+    int qg1Conditions = 2 + new SecureRandom().nextInt(5);
+    int qg2Conditions = 10 + new SecureRandom().nextInt(5);
 
     IntStream.range(0, qg1Conditions).forEach(i -> insertQGCondition(qg1Uuid));
     IntStream.range(0, qg2Conditions).forEach(i -> insertQGCondition(qg2Uuid));

@@ -22,6 +22,7 @@ package org.sonar.server.hotspot.ws;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -87,7 +88,7 @@ import static org.sonar.db.component.ComponentTesting.newFileDto;
 
 @RunWith(DataProviderRunner.class)
 public class ChangeStatusActionIT {
-  private static final Random RANDOM = new Random();
+  private static final Random RANDOM = new SecureRandom();
   private static final String NO_COMMENT = null;
   private static final List<String> RESOLUTION_TYPES = List.of(RESOLUTION_FIXED, RESOLUTION_SAFE, RESOLUTION_ACKNOWLEDGED);
 

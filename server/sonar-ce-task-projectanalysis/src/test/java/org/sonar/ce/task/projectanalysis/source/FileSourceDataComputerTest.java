@@ -19,6 +19,7 @@
  */
 package org.sonar.ce.task.projectanalysis.source;
 
+import java.security.SecureRandom;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -70,14 +71,14 @@ public class FileSourceDataComputerTest {
 
   @Test
   public void compute_calls_read_for_each_line_and_passe_read_error_to_fileSourceDataWarnings() {
-    int lineCount = 1 + new Random().nextInt(10);
+    int lineCount = 1 + new SecureRandom().nextInt(10);
     List<String> lines = IntStream.range(0, lineCount).mapToObj(i -> "line" + i).collect(toList());
     when(sourceLinesRepository.readLines(FILE)).thenReturn(CloseableIterator.from(lines.iterator()));
     when(sourceLineReadersFactory.getLineReaders(FILE)).thenReturn(lineReaders);
     when(sourceLinesHashRepository.getLineHashesComputerToPersist(FILE)).thenReturn(lineHashesComputer);
     // mock an implementation that will call the ReadErrorConsumer in order to verify that the provided consumer is
     // doing what we expect: pass readError to fileSourceDataWarnings
-    int randomStartPoint = new Random().nextInt(500);
+    int randomStartPoint = new SecureRandom().nextInt(500);
     doAnswer(new Answer() {
       int i = randomStartPoint;
 
@@ -108,11 +109,11 @@ public class FileSourceDataComputerTest {
 
   @Test
   public void compute_builds_data_object_from_lines() {
-    int lineCount = 1 + new Random().nextInt(10);
-    int randomStartPoint = new Random().nextInt(500);
+    int lineCount = 1 + new SecureRandom().nextInt(10);
+    int randomStartPoint = new SecureRandom().nextInt(500);
     List<String> lines = IntStream.range(0, lineCount).mapToObj(i -> "line" + i).collect(toList());
-    List<String> expectedLineHashes = IntStream.range(0, 1 + new Random().nextInt(12)).mapToObj(i -> "str_" + i).collect(toList());
-    Changeset expectedChangeset = Changeset.newChangesetBuilder().setDate((long) new Random().nextInt(9_999)).build();
+    List<String> expectedLineHashes = IntStream.range(0, 1 + new SecureRandom().nextInt(12)).mapToObj(i -> "str_" + i).collect(toList());
+    Changeset expectedChangeset = Changeset.newChangesetBuilder().setDate((long) new SecureRandom().nextInt(9_999)).build();
     String expectedSrcHash = computeSrcHash(lines);
     CloseableIterator<String> lineIterator = spy(CloseableIterator.from(lines.iterator()));
     DbFileSources.Data.Builder expectedLineDataBuilder = DbFileSources.Data.newBuilder();

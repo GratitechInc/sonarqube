@@ -19,6 +19,7 @@
  */
 package org.sonar.ce.task.projectanalysis.metric;
 
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -162,10 +163,10 @@ public class MetricRepositoryImplIT {
 
   @Test
   public void get_all_metrics() {
-    List<MetricDto> enabledMetrics = IntStream.range(0, 1 + new Random().nextInt(12))
+    List<MetricDto> enabledMetrics = IntStream.range(0, 1 + new SecureRandom().nextInt(12))
       .mapToObj(i -> dbTester.measures().insertMetric(t -> t.setKey("key_enabled_" + i).setEnabled(true)))
       .toList();
-    IntStream.range(0, 1 + new Random().nextInt(12))
+    IntStream.range(0, 1 + new SecureRandom().nextInt(12))
       .forEach(i -> dbTester.measures().insertMetric(t -> t.setKey("key_disabled_" + i).setEnabled(false)));
 
     underTest.start();
@@ -176,7 +177,7 @@ public class MetricRepositoryImplIT {
 
   @Test
   public void getMetricsByType_givenRatingType_returnRatingMetrics() {
-    List<MetricDto> enabledMetrics = IntStream.range(0, 1 + new Random().nextInt(12))
+    List<MetricDto> enabledMetrics = IntStream.range(0, 1 + new SecureRandom().nextInt(12))
       .mapToObj(i -> dbTester.measures().insertMetric(t -> t.setKey("key_enabled_" + i).setEnabled(true).setValueType("RATING")))
       .toList();
 
@@ -188,7 +189,7 @@ public class MetricRepositoryImplIT {
 
   @Test
   public void getMetricsByType_givenRatingTypeAndWantedMilisecType_returnEmptyList() {
-    IntStream.range(0, 1 + new Random().nextInt(12))
+    IntStream.range(0, 1 + new SecureRandom().nextInt(12))
       .mapToObj(i -> dbTester.measures().insertMetric(t -> t.setKey("key_enabled_" + i).setEnabled(true).setValueType("RATING")))
       .collect(Collectors.toList());
 
@@ -198,7 +199,7 @@ public class MetricRepositoryImplIT {
 
   @Test
   public void getMetricsByType_givenOnlyMilisecTypeAndWantedRatingMetrics_returnEmptyList() {
-    IntStream.range(0, 1 + new Random().nextInt(12))
+    IntStream.range(0, 1 + new SecureRandom().nextInt(12))
       .mapToObj(i -> dbTester.measures().insertMetric(t -> t.setKey("key_enabled_" + i).setEnabled(true).setValueType("MILISEC")));
 
     underTest.start();

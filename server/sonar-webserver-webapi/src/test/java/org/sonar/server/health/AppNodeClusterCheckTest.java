@@ -19,6 +19,7 @@
  */
 package org.sonar.server.health;
 
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Set;
@@ -37,7 +38,7 @@ import static org.sonar.process.cluster.health.NodeHealth.Status.YELLOW;
 import static org.sonar.server.health.HealthAssert.assertThat;
 
 public class AppNodeClusterCheckTest {
-  private final Random random = new Random();
+  private final Random random = new SecureRandom();
 
   private AppNodeClusterCheck underTest = new AppNodeClusterCheck();
 

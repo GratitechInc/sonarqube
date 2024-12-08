@@ -22,6 +22,7 @@ package org.sonar.ce.task.projectanalysis.issue;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -149,7 +150,7 @@ public class ComponentIssuesLoaderIT {
 
   @Test
   public void loadClosedIssues_returns_only_closed_with_close_date_is_from_30_days_ago_if_property_is_less_than_0() {
-    Configuration configuration = newConfiguration(String.valueOf(-(1 + new Random().nextInt(10))));
+    Configuration configuration = newConfiguration(String.valueOf(-(1 + new SecureRandom().nextInt(10))));
     ComponentIssuesLoader underTest = newComponentIssuesLoader(configuration);
 
     loadClosedIssues_returns_only_closed_issues_with_close_date_is_from_30_days_ago(underTest);
@@ -379,7 +380,7 @@ public class ComponentIssuesLoaderIT {
   }
 
   private static String randomDiffWith(String... fieldsAndValues) {
-    Random random = new Random();
+    Random random = new SecureRandom();
     List<Diff> diffs = new ArrayList<>();
     for (int i = 0; i < fieldsAndValues.length; i++) {
       int oldOrNew = random.nextInt(3);
@@ -421,7 +422,7 @@ public class ComponentIssuesLoaderIT {
     String[] nonCloseStatuses = Issue.STATUSES.stream()
       .filter(t -> !STATUS_CLOSED.equals(t))
       .toArray(String[]::new);
-    return nonCloseStatuses[new Random().nextInt(nonCloseStatuses.length)];
+    return nonCloseStatuses[new SecureRandom().nextInt(nonCloseStatuses.length)];
   }
 
   private ComponentIssuesLoader newComponentIssuesLoader(Configuration configuration) {

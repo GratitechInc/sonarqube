@@ -20,6 +20,7 @@
 package org.sonar.server.platform.ws;
 
 import com.google.common.collect.ImmutableSet;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -67,7 +68,7 @@ public class HealthActionTest {
   @Rule
   public UserSessionRule userSessionRule = UserSessionRule.standalone();
 
-  private final Random random = new Random();
+  private final Random random = new SecureRandom();
   private HealthChecker healthChecker = mock(HealthChecker.class);
   private NodeInformation nodeInformation = mock(NodeInformation.class);
   private SystemPasscode systemPasscode = mock(SystemPasscode.class);
@@ -177,10 +178,10 @@ public class HealthActionTest {
   @Test
   public void request_returns_status_and_causes_from_HealthChecker_checkNode_method_when_standalone() {
     authenticateWithRandomMethod();
-    Health.Status randomStatus = Health.Status.values()[new Random().nextInt(Health.Status.values().length)];
+    Health.Status randomStatus = Health.Status.values()[new SecureRandom().nextInt(Health.Status.values().length)];
     Health.Builder builder = Health.builder()
       .setStatus(randomStatus);
-    IntStream.range(0, new Random().nextInt(5)).mapToObj(i -> RandomStringUtils.randomAlphanumeric(3)).forEach(builder::addCause);
+    IntStream.range(0, new SecureRandom().nextInt(5)).mapToObj(i -> RandomStringUtils.randomAlphanumeric(3)).forEach(builder::addCause);
     Health health = builder.build();
     when(healthChecker.checkNode()).thenReturn(health);
     when(nodeInformation.isStandalone()).thenReturn(true);

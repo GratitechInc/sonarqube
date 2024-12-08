@@ -19,6 +19,7 @@
  */
 package org.sonar.server.platform.db.migration.step;
 
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Random;
 import org.junit.Test;
@@ -33,7 +34,7 @@ public class MigrationStepRegistryImplTest {
   @Test
   public void add_fails_with_IAE_if_migrationNumber_is_less_than_0() {
     assertThatThrownBy(() -> {
-      underTest.add(-Math.abs(new Random().nextLong() + 1), "sdsd", MigrationStep.class);
+      underTest.add(-Math.abs(new SecureRandom().nextLong() + 1), "sdsd", MigrationStep.class);
     })
       .isInstanceOf(IllegalArgumentException.class)
       .hasMessage("Migration number must be >= 0");

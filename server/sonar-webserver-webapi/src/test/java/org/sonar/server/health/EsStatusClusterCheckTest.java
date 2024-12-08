@@ -20,6 +20,7 @@
 package org.sonar.server.health;
 
 import com.google.common.collect.ImmutableSet;
+import java.security.SecureRandom;
 import java.util.Random;
 import java.util.Set;
 import org.elasticsearch.cluster.health.ClusterHealthStatus;
@@ -39,7 +40,7 @@ import static org.sonar.process.cluster.health.NodeHealth.Status.GREEN;
 public class EsStatusClusterCheckTest {
 
   private EsClient esClient = Mockito.mock(EsClient.class, RETURNS_DEEP_STUBS);
-  private Random random = new Random();
+  private Random random = new SecureRandom();
   private EsStatusClusterCheck underTest = new EsStatusClusterCheck(esClient);
 
   @Test

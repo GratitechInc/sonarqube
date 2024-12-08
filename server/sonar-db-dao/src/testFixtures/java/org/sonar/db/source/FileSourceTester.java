@@ -19,6 +19,7 @@
  */
 package org.sonar.db.source;
 
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Random;
@@ -49,7 +50,7 @@ public class FileSourceTester {
       .setFileUuid(file.uuid())
       .setSrcHash(randomAlphanumeric(50))
       .setDataHash(randomAlphanumeric(50))
-      .setLineHashes(IntStream.range(0, new Random().nextInt(21)).mapToObj(String::valueOf).collect(MoreCollectors.toList()))
+      .setLineHashes(IntStream.range(0, new SecureRandom().nextInt(21)).mapToObj(String::valueOf).collect(MoreCollectors.toList()))
       .setRevision(randomAlphanumeric(100))
       .setSourceData(newRandomData(3).build())
       .setCreatedAt(new Date().getTime())

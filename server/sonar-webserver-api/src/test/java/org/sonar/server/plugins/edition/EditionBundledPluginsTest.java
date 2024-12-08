@@ -19,6 +19,7 @@
  */
 package org.sonar.server.plugins.edition;
 
+import java.security.SecureRandom;
 import java.util.Random;
 import org.junit.Test;
 import org.sonar.core.platform.PluginInfo;
@@ -30,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class EditionBundledPluginsTest {
 
-  private final Random random = new Random();
+  private final Random random = new SecureRandom();
 
   @Test
   public void isEditionBundled_on_Plugin_fails_with_NPE_if_arg_is_null() {

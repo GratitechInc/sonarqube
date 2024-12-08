@@ -19,6 +19,7 @@
  */
 package org.sonar.db.event;
 
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
@@ -38,7 +39,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class EventComponentChangeDaoIT {
-  private static Random random = new Random();
+  private static Random random = new SecureRandom();
 
   @Rule
   public DbTester dbTester = DbTester.create(System2.INSTANCE);

@@ -19,6 +19,7 @@
  */
 package org.sonar.db.permission;
 
+import java.security.SecureRandom;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -59,7 +60,7 @@ public class AuthorizationDaoIT {
   @Rule
   public DbTester db = DbTester.create(System2.INSTANCE);
 
-  private final Random random = new Random();
+  private final Random random = new SecureRandom();
   private DbSession dbSession = db.getSession();
   private AuthorizationDao underTest = new AuthorizationDao();
   private UserDto user;

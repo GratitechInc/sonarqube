@@ -19,6 +19,7 @@
  */
 package org.sonar.server.qualitygate.changeevent;
 
+import java.security.SecureRandom;
 import java.util.Optional;
 import java.util.Random;
 import java.util.function.Supplier;
@@ -50,7 +51,7 @@ public class QGChangeEventTest {
     .setUuid("pto")
     .setCreatedAt(8_999_999_765L);
   private final Configuration configuration = Mockito.mock(Configuration.class);
-  private final Metric.Level previousStatus = Metric.Level.values()[new Random().nextInt(Metric.Level.values().length)];
+  private final Metric.Level previousStatus = Metric.Level.values()[new SecureRandom().nextInt(Metric.Level.values().length)];
   private Supplier<Optional<EvaluatedQualityGate>> supplier = Optional::empty;
 
   @Test

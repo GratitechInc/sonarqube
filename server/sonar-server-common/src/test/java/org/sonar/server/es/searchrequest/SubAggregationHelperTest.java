@@ -19,6 +19,7 @@
  */
 package org.sonar.server.es.searchrequest;
 
+import java.security.SecureRandom;
 import java.util.Random;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -94,7 +95,7 @@ public class SubAggregationHelperTest {
   @Test
   public void buildTermsAggregation_adds_custom_size_if_TermTopAggregation_specifies_one() {
     String aggName = randomAlphabetic(10);
-    int customSize = 1 + new Random().nextInt(400);
+    int customSize = 1 + new SecureRandom().nextInt(400);
     SimpleFieldTopAggregationDefinition topAggregation = new SimpleFieldTopAggregationDefinition("bar", false);
 
     Stream.of(
@@ -156,7 +157,7 @@ public class SubAggregationHelperTest {
   }
 
   private static String[] randomNonEmptySelected() {
-    return IntStream.range(0, 1 + new Random().nextInt(22))
+    return IntStream.range(0, 1 + new SecureRandom().nextInt(22))
       .mapToObj(i -> "selected_" + i)
       .toArray(String[]::new);
   }

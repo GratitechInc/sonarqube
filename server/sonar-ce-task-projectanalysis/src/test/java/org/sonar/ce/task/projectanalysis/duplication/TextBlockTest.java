@@ -19,6 +19,7 @@
  */
 package org.sonar.ce.task.projectanalysis.duplication;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -82,7 +83,7 @@ public class TextBlockTest {
     TextBlock textBlock5 = new TextBlock(5, 5);
 
     List<TextBlock> shuffledList = new ArrayList<>(Arrays.asList(textBlock1, textBlock2, textBlock3, textBlock4, textBlock5));
-    Collections.shuffle(shuffledList, new Random());
+    Collections.shuffle(shuffledList, new SecureRandom());
 
     Collections.sort(shuffledList);
     assertThat(shuffledList).containsExactly(textBlock1, textBlock2, textBlock3, textBlock4, textBlock5);

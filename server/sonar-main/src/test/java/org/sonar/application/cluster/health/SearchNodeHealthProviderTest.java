@@ -19,6 +19,7 @@
  */
 package org.sonar.application.cluster.health;
 
+import java.security.SecureRandom;
 import java.util.Properties;
 import java.util.Random;
 import javax.annotation.Nullable;
@@ -42,7 +43,7 @@ import static org.sonar.process.ProcessProperties.Property.CLUSTER_NODE_NAME;
 
 public class SearchNodeHealthProviderTest {
 
-  private final Random random = new Random();
+  private final Random random = new SecureRandom();
   private SearchNodeHealthProvider.Clock clock = mock(SearchNodeHealthProvider.Clock.class);
   private NetworkUtils networkUtils = mock(NetworkUtils.class);
   private ClusterAppState clusterAppState = mock(ClusterAppState.class);

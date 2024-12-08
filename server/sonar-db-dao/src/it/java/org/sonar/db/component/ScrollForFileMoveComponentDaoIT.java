@@ -22,6 +22,7 @@ package org.sonar.db.component;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -48,7 +49,7 @@ public class ScrollForFileMoveComponentDaoIT {
   @Rule
   public DbTester db = DbTester.create(System2.INSTANCE);
 
-  private Random random = new Random();
+  private Random random = new SecureRandom();
   private DbSession dbSession = db.getSession();
   private ComponentDao underTest = new ComponentDao(new NoOpAuditPersister());
 

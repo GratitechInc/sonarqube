@@ -19,6 +19,7 @@
  */
 package org.sonar.db;
 
+import java.security.SecureRandom;
 import java.util.Random;
 import org.junit.Test;
 
@@ -50,7 +51,7 @@ public class PaginationTest {
 
   @Test
   public void forPage_fails_with_IAE_if_page_is_less_than_0() {
-    assertThatThrownBy(() -> forPage(-Math.abs(new Random().nextInt()) - 1))
+    assertThatThrownBy(() -> forPage(-Math.abs(new SecureRandom().nextInt()) - 1))
       .isInstanceOf(IllegalArgumentException.class)
       .hasMessage("page index must be >= 1");
   }
@@ -68,7 +69,7 @@ public class PaginationTest {
   public void andSize_fails_with_IAE_if_size_is_less_than_0() {
     Pagination.Builder builder = forPage(1);
 
-    assertThatThrownBy(() -> builder.andSize(-Math.abs(new Random().nextInt()) - 1))
+    assertThatThrownBy(() -> builder.andSize(-Math.abs(new SecureRandom().nextInt()) - 1))
       .isInstanceOf(IllegalArgumentException.class)
       .hasMessage("page size must be >= 1");
   }

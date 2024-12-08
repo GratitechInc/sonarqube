@@ -19,6 +19,7 @@
  */
 package org.sonar.server.setting.ws;
 
+import java.security.SecureRandom;
 import java.util.Random;
 import javax.annotation.Nullable;
 import org.junit.Before;
@@ -399,7 +400,7 @@ public class ResetActionIT {
   }
 
   private ProjectDto randomPublicOrPrivateProject() {
-    return new Random().nextBoolean() ? db.components().insertPrivateProject().getProjectDto() : db.components().insertPublicProject().getProjectDto();
+    return new SecureRandom().nextBoolean() ? db.components().insertPrivateProject().getProjectDto() : db.components().insertPublicProject().getProjectDto();
   }
 
 }

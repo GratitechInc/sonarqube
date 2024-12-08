@@ -19,6 +19,7 @@
  */
 package org.sonar.server.startup;
 
+import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -110,7 +111,7 @@ public class RegisterMetricsIT {
 
   @Test
   public void disable_undefined_metrics() {
-    Random random = new Random();
+    Random random = new SecureRandom();
     int count = 1 + random.nextInt(10);
     IntStream.range(0, count)
       .forEach(t -> dbTester.measures().insertMetric(m -> m.setEnabled(random.nextBoolean())));

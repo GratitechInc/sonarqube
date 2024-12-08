@@ -20,6 +20,7 @@
 package org.sonar.process.cluster.health;
 
 import com.hazelcast.core.HazelcastInstanceNotActiveException;
+import java.security.SecureRandom;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import org.junit.Rule;
@@ -43,7 +44,7 @@ public class HealthStateRefresherTest {
   @Rule
   public LoggingRule logging = new LoggingRule(HealthStateRefresher.class);
 
-  private Random random = new Random();
+  private Random random = new SecureRandom();
   private NodeDetailsTestSupport testSupport = new NodeDetailsTestSupport(random);
 
   private HealthStateRefresherExecutorService executorService = mock(HealthStateRefresherExecutorService.class);

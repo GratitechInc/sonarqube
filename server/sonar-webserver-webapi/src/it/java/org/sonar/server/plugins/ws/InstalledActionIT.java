@@ -28,6 +28,7 @@ import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import java.io.File;
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.Random;
@@ -364,7 +365,7 @@ public class InstalledActionIT {
   @UseDataProvider("editionBundledLicenseValues")
   public void commercial_plugins_from_SonarSource_has_flag_editionBundled_true_based_on_jar_info(String license) throws Exception {
     String jarFilename = getClass().getSimpleName() + "/" + "some.jar";
-    Random random = new Random();
+    Random random = new SecureRandom();
     String organization = random.nextBoolean() ? "SonarSource" : "SONARSOURCE";
     String pluginKey = "plugKey";
     File jar = new File(getClass().getResource(jarFilename).toURI());

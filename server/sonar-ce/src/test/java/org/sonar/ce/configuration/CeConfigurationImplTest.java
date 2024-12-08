@@ -19,6 +19,7 @@
  */
 package org.sonar.ce.configuration;
 
+import java.security.SecureRandom;
 import java.util.Random;
 import org.junit.Test;
 import org.sonar.api.config.internal.ConfigurationBridge;
@@ -72,7 +73,7 @@ public class CeConfigurationImplTest {
 
   @Test
   public void constructor_throws_MessageException_when_WorkerCountProvider_returns_less_than_0() {
-    int value = -1 - abs(new Random().nextInt());
+    int value = -1 - abs(new SecureRandom().nextInt());
     workerCountProvider.set(value);
 
     assertThatThrownBy(() -> new CeConfigurationImpl(EMPTY_CONFIGURATION, workerCountProvider))
@@ -83,7 +84,7 @@ public class CeConfigurationImplTest {
 
   @Test
   public void constructor_throws_MessageException_when_WorkerCountProvider_returns_more_then_10() {
-    int value = 10 + abs(new Random().nextInt());
+    int value = 10 + abs(new SecureRandom().nextInt());
     workerCountProvider.set(value);
 
     assertThatThrownBy(() ->  new CeConfigurationImpl(EMPTY_CONFIGURATION, workerCountProvider))
@@ -124,6 +125,6 @@ public class CeConfigurationImplTest {
   }
 
   private static int randomValidWorkerCount() {
-    return 1 + Math.abs(new Random().nextInt(10));
+    return 1 + Math.abs(new SecureRandom().nextInt(10));
   }
 }

@@ -23,6 +23,7 @@ import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -247,7 +248,7 @@ public class EmailNotificationChannelTest {
   public void deliverAll_has_no_effect_if_smtp_host_is_null() {
     EmailSettings emailSettings = mock(EmailSettings.class);
     when(emailSettings.getSmtpHost()).thenReturn(null);
-    Set<EmailDeliveryRequest> requests = IntStream.range(0, 1 + new Random().nextInt(10))
+    Set<EmailDeliveryRequest> requests = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> new EmailDeliveryRequest("foo" + i + "@moo", mock(Notification.class)))
       .collect(toSet());
     EmailNotificationChannel underTest = new EmailNotificationChannel(emailSettings, null, null);
@@ -265,7 +266,7 @@ public class EmailNotificationChannelTest {
   public void deliverAll_ignores_requests_which_recipient_is_empty(String emptyString) {
     EmailSettings emailSettings = mock(EmailSettings.class);
     when(emailSettings.getSmtpHost()).thenReturn(null);
-    Set<EmailDeliveryRequest> requests = IntStream.range(0, 1 + new Random().nextInt(10))
+    Set<EmailDeliveryRequest> requests = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> new EmailDeliveryRequest(emptyString, mock(Notification.class)))
       .collect(toSet());
     EmailNotificationChannel underTest = new EmailNotificationChannel(emailSettings, null, null);

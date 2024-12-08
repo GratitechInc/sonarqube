@@ -22,6 +22,7 @@ package org.sonar.process.cluster.health;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.security.SecureRandom;
 import java.util.Random;
 import java.util.stream.IntStream;
 
@@ -33,7 +34,7 @@ public class NodeDetailsTestSupport {
   private final Random random;
 
   public NodeDetailsTestSupport() {
-    this(new Random());
+    this(new SecureRandom());
   }
 
   NodeDetailsTestSupport(Random random) {

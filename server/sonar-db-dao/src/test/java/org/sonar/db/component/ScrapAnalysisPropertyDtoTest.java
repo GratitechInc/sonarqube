@@ -19,6 +19,7 @@
  */
 package org.sonar.db.component;
 
+import java.security.SecureRandom;
 import java.util.Random;
 import org.junit.Test;
 
@@ -27,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ScrapAnalysisPropertyDtoTest {
 
-  private Random random = new Random();
+  private Random random = new SecureRandom();
 
   @Test
   public void test_empty_value() {

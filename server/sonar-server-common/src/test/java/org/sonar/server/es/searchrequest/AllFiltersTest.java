@@ -19,6 +19,7 @@
  */
 package org.sonar.server.es.searchrequest;
 
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -39,7 +40,7 @@ import static org.mockito.Mockito.mock;
 public class AllFiltersTest {
   @Test
   public void newalways_returns_a_new_instance() {
-    int expected = 1 + new Random().nextInt(200);
+    int expected = 1 + new SecureRandom().nextInt(200);
     RequestFiltersComputer.AllFilters[] instances = IntStream.range(0, expected)
       .mapToObj(t -> RequestFiltersComputer.newAllFilters())
       .toArray(RequestFiltersComputer.AllFilters[]::new);

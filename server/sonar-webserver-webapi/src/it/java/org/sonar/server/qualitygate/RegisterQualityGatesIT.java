@@ -19,6 +19,7 @@
  */
 package org.sonar.server.qualitygate;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -142,7 +143,7 @@ public class RegisterQualityGatesIT {
     QualityGateDto builtInQualityGate = db.qualityGates().insertBuiltInQualityGate();
     List<QualityGateConditionDto> builtInConditions = createBuiltInConditions(builtInQualityGate);
     // Remove a condition
-    QualityGateConditionDto conditionToBeDeleted = builtInConditions.get(new Random().nextInt(builtInConditions.size()));
+    QualityGateConditionDto conditionToBeDeleted = builtInConditions.get(new SecureRandom().nextInt(builtInConditions.size()));
     gateConditionDao.delete(conditionToBeDeleted, dbSession);
     dbSession.commit();
 

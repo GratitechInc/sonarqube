@@ -23,6 +23,7 @@ import com.google.common.collect.ImmutableMap;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
@@ -238,7 +239,7 @@ public class BranchReportSubmitterIT {
   }
 
   private static ComponentDto createButDoNotInsertBranch(ComponentDto project) {
-    BranchType randomBranchType = BranchType.values()[new Random().nextInt(BranchType.values().length)];
+    BranchType randomBranchType = BranchType.values()[new SecureRandom().nextInt(BranchType.values().length)];
     BranchDto branchDto = newBranchDto(project.branchUuid(), randomBranchType);
     return ComponentTesting.newBranchComponent(project, branchDto);
   }
@@ -280,7 +281,7 @@ public class BranchReportSubmitterIT {
   }
 
   private static ImmutableMap<String, String> randomNonEmptyMap() {
-    return IntStream.range(0, 1 + new Random().nextInt(5))
+    return IntStream.range(0, 1 + new SecureRandom().nextInt(5))
       .boxed()
       .collect(uniqueIndex(i -> "key_" + i, i -> "val_" + i));
   }

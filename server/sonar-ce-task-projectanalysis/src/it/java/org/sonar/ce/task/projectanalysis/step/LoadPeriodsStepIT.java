@@ -22,6 +22,7 @@ package org.sonar.ce.task.projectanalysis.step;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -458,7 +459,7 @@ public class LoadPeriodsStepIT extends BaseStepTest {
   public static Object[][] zeroOrLess() {
     return new Object[][] {
       {0},
-      {-1 - new Random().nextInt(30)}
+      {-1 - new SecureRandom().nextInt(30)}
     };
   }
 

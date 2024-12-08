@@ -25,6 +25,7 @@ import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import java.io.File;
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.util.HashSet;
 import java.util.Properties;
 import java.util.Random;
@@ -82,7 +83,7 @@ public class Log4JPropertiesBuilderTest {
     String logPattern = randomAlphanumeric(15);
 
     Properties previous = newLog4JPropertiesBuilder().rootLoggerConfig(esRootLoggerConfig).logDir(logDir).logPattern(logPattern).build();
-    for (int i = 0; i < 2 + new Random().nextInt(5); i++) {
+    for (int i = 0; i < 2 + new SecureRandom().nextInt(5); i++) {
       Properties properties = newLog4JPropertiesBuilder().rootLoggerConfig(esRootLoggerConfig).logDir(logDir).logPattern(logPattern).build();
       assertThat(properties).isNotSameAs(previous);
       previous = properties;
@@ -242,7 +243,7 @@ public class Log4JPropertiesBuilderTest {
     File logDir = temporaryFolder.newFolder();
     String logPattern = randomAlphanumeric(15);
     String timePattern = randomAlphanumeric(6);
-    int maxFile = 1 + new Random().nextInt(10);
+    int maxFile = 1 + new SecureRandom().nextInt(10);
 
     Log4JPropertiesBuilder underTest = newLog4JPropertiesBuilder(
       ROLLING_POLICY_PROPERTY, "time:" + timePattern,
@@ -273,7 +274,7 @@ public class Log4JPropertiesBuilderTest {
     File logDir = temporaryFolder.newFolder();
     String logPattern = randomAlphanumeric(15);
     String sizePattern = randomAlphanumeric(6);
-    int maxFile = 1 + new Random().nextInt(10);
+    int maxFile = 1 + new SecureRandom().nextInt(10);
     Log4JPropertiesBuilder underTest = newLog4JPropertiesBuilder(
       ROLLING_POLICY_PROPERTY, "size:" + sizePattern,
       PROPERTY_MAX_FILES, valueOf(maxFile))

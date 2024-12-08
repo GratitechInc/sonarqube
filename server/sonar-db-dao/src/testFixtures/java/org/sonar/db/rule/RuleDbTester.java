@@ -19,6 +19,7 @@
  */
 package org.sonar.db.rule;
 
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.function.Consumer;
@@ -85,11 +86,11 @@ public class RuleDbTester {
   }
 
   private static RuleDto newIssueRule(RuleKey key) {
-    return newRule(key).setType(RULE_TYPES_EXCEPT_HOTSPOTS[new Random().nextInt(RULE_TYPES_EXCEPT_HOTSPOTS.length)]);
+    return newRule(key).setType(RULE_TYPES_EXCEPT_HOTSPOTS[new SecureRandom().nextInt(RULE_TYPES_EXCEPT_HOTSPOTS.length)]);
   }
 
   private static RuleDto newIssueRule() {
-    return newRule().setType(RULE_TYPES_EXCEPT_HOTSPOTS[new Random().nextInt(RULE_TYPES_EXCEPT_HOTSPOTS.length)]);
+    return newRule().setType(RULE_TYPES_EXCEPT_HOTSPOTS[new SecureRandom().nextInt(RULE_TYPES_EXCEPT_HOTSPOTS.length)]);
   }
 
   public RuleDto insertHotspotRule() {

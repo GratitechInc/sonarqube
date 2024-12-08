@@ -28,6 +28,7 @@ import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.SecureRandom;
 import java.util.Random;
 import java.util.stream.Collectors;
 import org.apache.commons.io.FileUtils;
@@ -251,7 +252,7 @@ public class FileSystemMediumIT {
 
     File unknownFile = new File(srcDir, "myfile.binary");
     byte[] b = new byte[512];
-    new Random().nextBytes(b);
+    new SecureRandom().nextBytes(b);
     FileUtils.writeByteArrayToFile(unknownFile, b);
 
     logTester.setLevel(LoggerLevel.DEBUG);

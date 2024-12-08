@@ -19,6 +19,7 @@
  */
 package org.sonar.ce.taskprocessor;
 
+import java.security.SecureRandom;
 import java.util.Random;
 import org.junit.Rule;
 import org.junit.Test;
@@ -33,7 +34,7 @@ import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.when;
 
 public class CeWorkerControllerImplTest {
-  private Random random = new Random();
+  private Random random = new SecureRandom();
   /** 1 <= workerCount <= 5 */
   private int randomWorkerCount = 1 + random.nextInt(5);
 

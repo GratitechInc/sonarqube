@@ -23,6 +23,7 @@ import com.google.common.collect.ImmutableMap;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -371,7 +372,7 @@ public class PostProjectAnalysisTasksExecutorTest {
   @UseDataProvider("booleanValues")
   public void logStatistics_adds_statistics_to_end_of_task_log(boolean allStepsExecuted) {
     Map<String, Object> stats = new HashMap<>();
-    for (int i = 0; i <= new Random().nextInt(10); i++) {
+    for (int i = 0; i <= new SecureRandom().nextInt(10); i++) {
       stats.put("statKey_" + i, "statVal_" + i);
     }
     PostProjectAnalysisTask logStatisticsTask = mock(PostProjectAnalysisTask.class);

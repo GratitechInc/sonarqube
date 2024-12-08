@@ -23,6 +23,7 @@ import com.google.common.collect.ImmutableMap;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -49,7 +50,7 @@ import static org.assertj.core.api.Assertions.fail;
 @RunWith(DataProviderRunner.class)
 public class JvmOptionsTest {
 
-  private final Random random = new Random();
+  private final Random random = new SecureRandom();
   private final String randomPropertyName = randomAlphanumeric(3);
   private final String randomPrefix = "-" + randomAlphabetic(5).toLowerCase(Locale.ENGLISH);
   private final String randomValue = randomAlphanumeric(4).toLowerCase(Locale.ENGLISH);

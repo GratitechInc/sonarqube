@@ -19,6 +19,7 @@
  */
 package org.sonar.server.health;
 
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -39,7 +40,7 @@ import static org.sonar.process.cluster.health.NodeHealth.newNodeHealthBuilder;
 
 public class ClusterHealthTest {
 
-  private final Random random = new Random();
+  private final Random random = new SecureRandom();
 
   @Test
   public void constructor_fails_with_NPE_if_Health_is_null() {

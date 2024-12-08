@@ -22,6 +22,7 @@ package org.sonar.server.notification;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multimap;
 import java.io.InvalidClassException;
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -202,7 +203,7 @@ public class DefaultNotificationManagerTest {
     String globalPermission = randomAlphanumeric(4);
     String projectPermission = randomAlphanumeric(5);
     String projectKey = randomAlphabetic(6);
-    Set<String> logins = IntStream.range(0, 1 + new Random().nextInt(10))
+    Set<String> logins = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> "login_" + i)
       .collect(Collectors.toSet());
     when(propertiesDao.findEmailSubscribersForNotification(dbSession, dispatcherKey, "EmailNotificationChannel", projectKey, logins))
@@ -272,7 +273,7 @@ public class DefaultNotificationManagerTest {
     String globalPermission = randomAlphanumeric(4);
     String projectPermission = randomAlphanumeric(5);
     String projectKey = randomAlphabetic(6);
-    Set<EmailSubscriberDto> subscribers = IntStream.range(0, 1 + new Random().nextInt(10))
+    Set<EmailSubscriberDto> subscribers = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> EmailSubscriberDto.create("user" + i, true, "user" + i + "@sonarsource.com"))
       .collect(Collectors.toSet());
     Set<String> logins = subscribers.stream().map(EmailSubscriberDto::getLogin).collect(Collectors.toSet());
@@ -297,7 +298,7 @@ public class DefaultNotificationManagerTest {
     String globalPermission = randomAlphanumeric(4);
     String projectPermission = randomAlphanumeric(5);
     String projectKey = randomAlphabetic(6);
-    Set<EmailSubscriberDto> subscribers = IntStream.range(0, 1 + new Random().nextInt(10))
+    Set<EmailSubscriberDto> subscribers = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> EmailSubscriberDto.create("user" + i, true, "user" + i + "@sonarsource.com"))
       .collect(Collectors.toSet());
     Set<String> logins = subscribers.stream().map(EmailSubscriberDto::getLogin).collect(Collectors.toSet());
@@ -322,7 +323,7 @@ public class DefaultNotificationManagerTest {
     String globalPermission = randomAlphanumeric(4);
     String projectPermission = randomAlphanumeric(5);
     String projectKey = randomAlphabetic(6);
-    Set<EmailSubscriberDto> subscribers = IntStream.range(0, 1 + new Random().nextInt(10))
+    Set<EmailSubscriberDto> subscribers = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> EmailSubscriberDto.create("user" + i, false, "user" + i + "@sonarsource.com"))
       .collect(Collectors.toSet());
     Set<String> logins = subscribers.stream().map(EmailSubscriberDto::getLogin).collect(Collectors.toSet());
@@ -347,7 +348,7 @@ public class DefaultNotificationManagerTest {
     String globalPermission = randomAlphanumeric(4);
     String projectPermission = randomAlphanumeric(5);
     String projectKey = randomAlphabetic(6);
-    Set<EmailSubscriberDto> subscribers = IntStream.range(0, 1 + new Random().nextInt(10))
+    Set<EmailSubscriberDto> subscribers = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> EmailSubscriberDto.create("user" + i, false, "user" + i + "@sonarsource.com"))
       .collect(Collectors.toSet());
     Set<String> logins = subscribers.stream().map(EmailSubscriberDto::getLogin).collect(Collectors.toSet());

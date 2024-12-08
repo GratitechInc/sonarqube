@@ -22,6 +22,7 @@ package org.sonar.ce.task.projectanalysis.source;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -49,9 +50,9 @@ public class FileSourceDataWarningsTest {
 
   private CeTaskMessages taskMessages = mock(CeTaskMessages.class);
   private System2 system2 = mock(System2.class);
-  private Random random = new Random();
-  private int line = 1 + new Random().nextInt(200);
-  private long timeStamp = 9_887L + new Random().nextInt(300);
+  private Random random = new SecureRandom();
+  private int line = 1 + new SecureRandom().nextInt(200);
+  private long timeStamp = 9_887L + new SecureRandom().nextInt(300);
   private String path = randomAlphabetic(50);
 
   private FileSourceDataWarnings underTest = new FileSourceDataWarnings(taskMessages, system2);

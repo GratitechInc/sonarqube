@@ -19,6 +19,7 @@
  */
 package org.sonar.server.project.ws;
 
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Set;
@@ -105,7 +106,7 @@ public class UpdateVisibilityActionIT {
     userSessionRule, projectIndexers, new SequenceUuidFactory(), configuration);
   private final WsActionTester ws = new WsActionTester(underTest);
 
-  private final Random random = new Random();
+  private final Random random = new SecureRandom();
   private final String randomVisibility = random.nextBoolean() ? PUBLIC : PRIVATE;
   private final TestRequest request = ws.newRequest();
 

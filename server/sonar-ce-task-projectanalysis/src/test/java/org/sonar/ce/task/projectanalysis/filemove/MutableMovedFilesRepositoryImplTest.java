@@ -19,6 +19,7 @@
  */
 package org.sonar.ce.task.projectanalysis.filemove;
 
+import java.security.SecureRandom;
 import java.util.Random;
 import org.junit.Test;
 import org.sonar.ce.task.projectanalysis.component.Component;
@@ -84,7 +85,7 @@ public class MutableMovedFilesRepositoryImplTest {
   public void setOriginalFile_does_not_fail_if_same_original_file_is_added_multiple_times_for_the_same_component() {
     underTest.setOriginalFile(SOME_FILE, SOME_ORIGINAL_FILE);
 
-    for (int i = 0; i < 1 + Math.abs(new Random().nextInt(10)); i++) {
+    for (int i = 0; i < 1 + Math.abs(new SecureRandom().nextInt(10)); i++) {
       underTest.setOriginalFile(SOME_FILE, SOME_ORIGINAL_FILE);
     }
   }

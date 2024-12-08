@@ -22,6 +22,7 @@ package org.sonar.api.config.internal;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -94,7 +95,7 @@ public class MapSettingsTest {
   @Test
   public void set_accepts_empty_value_and_trims_it() {
     MapSettings underTest = new MapSettings();
-    Random random = new Random();
+    Random random = new SecureRandom();
     String key = randomAlphanumeric(3);
 
     underTest.set(key, blank(random));
@@ -136,7 +137,7 @@ public class MapSettingsTest {
   public void all_set_property_methods_trims_key(BiConsumer<Settings, String> setPropertyCaller) {
     Settings underTest = new MapSettings();
 
-    Random random = new Random();
+    Random random = new SecureRandom();
     String blankBefore = blank(random);
     String blankAfter = blank(random);
     String key = randomAlphanumeric(3);
@@ -152,7 +153,7 @@ public class MapSettingsTest {
 
     Settings underTest = new MapSettings(new PropertyDefinitions(System2.INSTANCE, singletonList(PropertyDefinition.builder(key).multiValues(true).build())));
 
-    Random random = new Random();
+    Random random = new SecureRandom();
     String blankBefore = blank(random);
     String blankAfter = blank(random);
 
@@ -185,7 +186,7 @@ public class MapSettingsTest {
   public void setProperty_methods_trims_value() {
     Settings underTest = new MapSettings();
 
-    Random random = new Random();
+    Random random = new SecureRandom();
     String blankBefore = blank(random);
     String blankAfter = blank(random);
     String key = randomAlphanumeric(3);

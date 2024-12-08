@@ -21,6 +21,7 @@ package org.sonar.application.command;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -93,7 +94,7 @@ public class AbstractCommandTest {
   public void constructor_puts_System_getEnv_into_map_of_env_variables() throws IOException {
     File workDir = temp.newFolder();
     System2 system2 = Mockito.mock(System2.class);
-    Map<String, String> env = IntStream.range(0, 1 + new Random().nextInt(99)).mapToObj(String::valueOf).collect(Collectors.toMap(i -> "key" + i, j -> "value" + j));
+    Map<String, String> env = IntStream.range(0, 1 + new SecureRandom().nextInt(99)).mapToObj(String::valueOf).collect(Collectors.toMap(i -> "key" + i, j -> "value" + j));
     when(system2.getenv()).thenReturn(env);
     AbstractCommand underTest = new AbstractCommand(ProcessId.ELASTICSEARCH, workDir, system2) {
 

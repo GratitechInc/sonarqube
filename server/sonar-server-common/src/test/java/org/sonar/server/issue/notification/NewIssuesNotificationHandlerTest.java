@@ -19,6 +19,7 @@
  */
 package org.sonar.server.issue.notification;
 
+import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.Random;
 import java.util.Set;
@@ -96,7 +97,7 @@ public class NewIssuesNotificationHandlerTest {
   @Test
   public void deliver_has_no_effect_if_emailNotificationChannel_is_disabled() {
     when(emailNotificationChannel.isActivated()).thenReturn(false);
-    Set<NewIssuesNotification> notifications = IntStream.range(0, 1 + new Random().nextInt(10))
+    Set<NewIssuesNotification> notifications = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> mock(NewIssuesNotification.class))
       .collect(toSet());
 
@@ -112,7 +113,7 @@ public class NewIssuesNotificationHandlerTest {
   @Test
   public void deliver_has_no_effect_if_no_notification_has_projectKey() {
     when(emailNotificationChannel.isActivated()).thenReturn(true);
-    Set<NewIssuesNotification> notifications = IntStream.range(0, 1 + new Random().nextInt(10))
+    Set<NewIssuesNotification> notifications = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> newNotification(null))
       .collect(toSet());
 
@@ -148,13 +149,13 @@ public class NewIssuesNotificationHandlerTest {
   @Test
   public void deliver_ignores_notification_without_projectKey() {
     String projectKey = randomAlphabetic(10);
-    Set<NewIssuesNotification> withProjectKey = IntStream.range(0, 1 + new Random().nextInt(5))
+    Set<NewIssuesNotification> withProjectKey = IntStream.range(0, 1 + new SecureRandom().nextInt(5))
       .mapToObj(i -> newNotification(projectKey))
       .collect(toSet());
-    Set<NewIssuesNotification> noProjectKey = IntStream.range(0, 1 + new Random().nextInt(5))
+    Set<NewIssuesNotification> noProjectKey = IntStream.range(0, 1 + new SecureRandom().nextInt(5))
       .mapToObj(i -> newNotification(null))
       .collect(toSet());
-    Set<EmailRecipient> emailRecipients = IntStream.range(0, 1 + new Random().nextInt(10))
+    Set<EmailRecipient> emailRecipients = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> "user_" + i)
       .map(login -> new EmailRecipient(login, emailOf(login)))
       .collect(toSet());
@@ -186,11 +187,11 @@ public class NewIssuesNotificationHandlerTest {
     Set<NewIssuesNotification> notifications2 = randomSetOfNotifications(projectKey2);
     when(emailNotificationChannel.isActivated()).thenReturn(true);
 
-    Set<EmailRecipient> emailRecipients1 = IntStream.range(0, 1 + new Random().nextInt(10))
+    Set<EmailRecipient> emailRecipients1 = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> "user1_" + i)
       .map(login -> new EmailRecipient(login, emailOf(login)))
       .collect(toSet());
-    Set<EmailRecipient> emailRecipients2 = IntStream.range(0, 1 + new Random().nextInt(10))
+    Set<EmailRecipient> emailRecipients2 = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> "user2_" + i)
       .map(login -> new EmailRecipient(login, emailOf(login)))
       .collect(toSet());
@@ -239,7 +240,7 @@ public class NewIssuesNotificationHandlerTest {
   }
 
   private static Set<NewIssuesNotification> randomSetOfNotifications(@Nullable String projectKey) {
-    return IntStream.range(0, 1 + new Random().nextInt(5))
+    return IntStream.range(0, 1 + new SecureRandom().nextInt(5))
       .mapToObj(i -> newNotification(projectKey))
       .collect(Collectors.toSet());
   }

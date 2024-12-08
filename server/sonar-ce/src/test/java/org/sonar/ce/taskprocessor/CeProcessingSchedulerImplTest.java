@@ -23,6 +23,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListenableScheduledFuture;
 import com.google.common.util.concurrent.ListeningScheduledExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -241,7 +242,7 @@ public class CeProcessingSchedulerImplTest {
 
   @Test
   public void when_workerCount_is_more_than_1_as_many_CeWorkerCallable_are_scheduled() throws Exception {
-    int workerCount = Math.abs(new Random().nextInt(10)) + 1;
+    int workerCount = Math.abs(new SecureRandom().nextInt(10)) + 1;
     ceConfiguration.setWorkerThreadCount(workerCount);
 
     CeWorker[] workers = new CeWorker[workerCount];

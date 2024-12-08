@@ -22,6 +22,7 @@ package org.sonar.server.es.metadata;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.util.Locale;
 import java.util.Random;
 import org.junit.Rule;
@@ -44,7 +45,7 @@ public class MetadataIndexIT {
   public EsTester es = EsTester.createCustom(new MetadataIndexDefinitionBridge(), new FakeIndexDefinition());
   private final MetadataIndex underTest = new MetadataIndexImpl(es.client());
   private final String indexName = randomAlphabetic(20).toLowerCase(Locale.ENGLISH);
-  private final Index index = new Random().nextBoolean() ? Index.simple(indexName) : Index.withRelations(indexName);
+  private final Index index = new SecureRandom().nextBoolean() ? Index.simple(indexName) : Index.withRelations(indexName);
 
   @Test
   @UseDataProvider("mainOrRelationType")

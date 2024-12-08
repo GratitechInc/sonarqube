@@ -19,6 +19,7 @@
  */
 package org.sonar.db.component;
 
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -45,7 +46,7 @@ public class AnalysisPropertiesDaoIT {
   private final System2 system2 = new TestSystem2().setNow(NOW);
   private final DbSession dbSession = dbTester.getSession();
   private final AnalysisPropertiesDao underTest = new AnalysisPropertiesDao(system2);
-  private final Random random = new Random();
+  private final Random random = new SecureRandom();
 
   @Test
   public void insert_with_null_uuid_throws_NPE() {

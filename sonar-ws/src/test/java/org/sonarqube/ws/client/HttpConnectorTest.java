@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.SocketTimeoutException;
+import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.List;
 import java.util.Random;
@@ -213,7 +214,7 @@ public class HttpConnectorTest {
   @Test
   public void systemPassCode_sets_header_when_value_is_not_null() throws InterruptedException {
     answerHelloWorld();
-    String systemPassCode = new Random().nextBoolean() ? "" : RandomStringUtils.randomAlphanumeric(21);
+    String systemPassCode = new SecureRandom().nextBoolean() ? "" : RandomStringUtils.randomAlphanumeric(21);
     underTest = HttpConnector.newBuilder()
       .url(serverUrl)
       .systemPassCode(systemPassCode)

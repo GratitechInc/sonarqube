@@ -19,6 +19,7 @@
  */
 package org.sonar.ce.task.projectanalysis.source;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -84,7 +85,7 @@ public class LineReadersImplTest {
 
   @Test
   public void read_calls_ReaderError_consumer_with_each_read_error_returned_by_all_readers() {
-    int readErrorCount = 2 + 2 * new Random().nextInt(10);
+    int readErrorCount = 2 + 2 * new SecureRandom().nextInt(10);
     int halfCount = readErrorCount / 2;
     ReadError[] expectedReadErrors = IntStream.range(0, readErrorCount)
       .mapToObj(i -> new ReadError(LineReader.Data.SYMBOLS, i))

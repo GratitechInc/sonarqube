@@ -19,6 +19,7 @@
  */
 package org.sonar.server.platform.db.migration.step;
 
+import java.security.SecureRandom;
 import java.util.Random;
 import org.junit.Test;
 import org.sonar.test.TestUtils;
@@ -34,7 +35,7 @@ public class MigrationNumberTest {
 
   @Test
   public void validate_throws_IAE_if_argument_is_less_then_0() {
-    assertThatThrownBy(() -> MigrationNumber.validate(-(Math.abs(new Random().nextInt()) + 1)))
+    assertThatThrownBy(() -> MigrationNumber.validate(-(Math.abs(new SecureRandom().nextInt()) + 1)))
       .isInstanceOf(IllegalArgumentException.class)
       .hasMessage("Migration number must be >= 0");
   }
@@ -46,6 +47,6 @@ public class MigrationNumberTest {
 
   @Test
   public void validate_accepts_any_positive_long() {
-    MigrationNumber.validate(Math.abs(new Random().nextInt()));
+    MigrationNumber.validate(Math.abs(new SecureRandom().nextInt()));
   }
 }

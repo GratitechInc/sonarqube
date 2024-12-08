@@ -26,6 +26,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Random;
 import org.apache.commons.io.IOUtils;
@@ -92,7 +93,7 @@ public class CharsetDetectorTest {
   public void no_encoding_found() throws IOException {
     Path filePath = temp.newFile().toPath();
     byte[] b = new byte[4096];
-    new Random().nextBytes(b);
+    new SecureRandom().nextBytes(b);
     // avoid accidental BOM matching
     b[0] = 1;
 

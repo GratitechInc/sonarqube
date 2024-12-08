@@ -22,6 +22,7 @@ package org.sonar.process.cluster.health;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.stream.IntStream;
@@ -34,7 +35,7 @@ import static org.sonar.process.cluster.health.NodeHealth.newNodeHealthBuilder;
 
 public class NodeHealthTest {
 
-  private Random random = new Random();
+  private Random random = new SecureRandom();
   private NodeDetailsTestSupport testSupport = new NodeDetailsTestSupport(random);
   private NodeHealth.Status randomStatus = testSupport.randomStatus();
   private NodeHealth.Builder builderUnderTest = newNodeHealthBuilder();

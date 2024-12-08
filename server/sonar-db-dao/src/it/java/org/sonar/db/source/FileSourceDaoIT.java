@@ -21,6 +21,7 @@ package org.sonar.db.source;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -197,7 +198,7 @@ public class FileSourceDaoIT {
 
   @Test
   public void scrollLineHashes_scrolls_hashes_of_specific_keys() {
-    ComponentDto project = new Random().nextBoolean() ? dbTester.components().insertPrivateProject().getMainBranchComponent() : dbTester.components().insertPublicProject().getMainBranchComponent();
+    ComponentDto project = new SecureRandom().nextBoolean() ? dbTester.components().insertPrivateProject().getMainBranchComponent() : dbTester.components().insertPublicProject().getMainBranchComponent();
     ComponentDto file1 = dbTester.components().insertComponent(newFileDto(project));
     FileSourceDto fileSource1 = dbTester.fileSources().insertFileSource(file1);
     ComponentDto file2 = dbTester.components().insertComponent(newFileDto(project));
@@ -222,7 +223,7 @@ public class FileSourceDaoIT {
 
   @Test
   public void scrollLineHashes_does_not_scroll_hashes_of_component_without_path() {
-    ComponentDto project = new Random().nextBoolean() ? dbTester.components().insertPrivateProject().getMainBranchComponent() : dbTester.components().insertPublicProject().getMainBranchComponent();
+    ComponentDto project = new SecureRandom().nextBoolean() ? dbTester.components().insertPrivateProject().getMainBranchComponent() : dbTester.components().insertPublicProject().getMainBranchComponent();
     ComponentDto file1 = dbTester.components().insertComponent(newFileDto(project));
     FileSourceDto fileSource1 = dbTester.fileSources().insertFileSource(file1);
     ComponentDto file2 = dbTester.components().insertComponent(newFileDto(project).setPath(null));
@@ -236,7 +237,7 @@ public class FileSourceDaoIT {
   @Test
   public void scrollFileHashes_handles_scrolling_more_than_1000_files() {
     ComponentDto project = dbTester.components().insertPrivateProject().getMainBranchComponent();
-    List<ComponentDto> files = IntStream.range(0, 1001 + new Random().nextInt(5))
+    List<ComponentDto> files = IntStream.range(0, 1001 + new SecureRandom().nextInt(5))
       .mapToObj(i -> {
         ComponentDto file = dbTester.components().insertComponent(newFileDto(project));
         dbTester.fileSources().insertFileSource(file);
@@ -272,8 +273,8 @@ public class FileSourceDaoIT {
 
   @Test
   public void scrollLineHashes_handles_scrolling_more_than_1000_files() {
-    ComponentDto project = new Random().nextBoolean() ? dbTester.components().insertPrivateProject().getMainBranchComponent() : dbTester.components().insertPublicProject().getMainBranchComponent();
-    List<ComponentDto> files = IntStream.range(0, 1001 + new Random().nextInt(5))
+    ComponentDto project = new SecureRandom().nextBoolean() ? dbTester.components().insertPrivateProject().getMainBranchComponent() : dbTester.components().insertPublicProject().getMainBranchComponent();
+    List<ComponentDto> files = IntStream.range(0, 1001 + new SecureRandom().nextInt(5))
       .mapToObj(i -> {
         ComponentDto file = dbTester.components().insertComponent(newFileDto(project));
         dbTester.fileSources().insertFileSource(file);

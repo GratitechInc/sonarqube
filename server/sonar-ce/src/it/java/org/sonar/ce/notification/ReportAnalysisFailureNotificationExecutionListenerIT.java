@@ -19,6 +19,7 @@
  */
 package org.sonar.ce.notification;
 
+import java.security.SecureRandom;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
@@ -64,7 +65,7 @@ public class ReportAnalysisFailureNotificationExecutionListenerIT {
   @Rule
   public DbTester dbTester = DbTester.create(System2.INSTANCE);
 
-  private final Random random = new Random();
+  private final Random random = new SecureRandom();
   private final DbClient dbClient = dbTester.getDbClient();
   private final NotificationService notificationService = mock(NotificationService.class);
   private final ReportAnalysisFailureNotificationSerializer serializer = mock(ReportAnalysisFailureNotificationSerializer.class);

@@ -22,6 +22,7 @@ package org.sonar.server.permission.index;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
@@ -62,13 +63,13 @@ public class AuthorizationDocTest {
   public void projectUuidOf_returns_substring_if_starts_with_id_prefix() {
     assertThat(AuthorizationDoc.projectUuidOf("auth_")).isEmpty();
 
-    String id = randomAlphabetic(1 + new Random().nextInt(10));
+    String id = randomAlphabetic(1 + new SecureRandom().nextInt(10));
     assertThat(AuthorizationDoc.projectUuidOf("auth_" + id)).isEqualTo(id);
   }
 
   @Test
   public void projectUuidOf_returns_argument_if_does_not_starts_with_id_prefix() {
-    String id = randomAlphabetic(1 + new Random().nextInt(10));
+    String id = randomAlphabetic(1 + new SecureRandom().nextInt(10));
     assertThat(AuthorizationDoc.projectUuidOf(id)).isEqualTo(id);
     assertThat(AuthorizationDoc.projectUuidOf("")).isEmpty();
   }
@@ -117,8 +118,8 @@ public class AuthorizationDocTest {
   @Test
   public void fromDto_defines_userIds_and_groupIds_if_allowAnyone_is_false() {
     IndexPermissions underTest = new IndexPermissions(randomAlphabetic(3), randomAlphabetic(4));
-    IntStream.range(0, 1 + new Random().nextInt(5)).mapToObj(String::valueOf).forEach(underTest::addUserUuid);
-    IntStream.range(0, 1 + new Random().nextInt(5)).mapToObj(Integer::toString).forEach(underTest::addGroupUuid);
+    IntStream.range(0, 1 + new SecureRandom().nextInt(5)).mapToObj(String::valueOf).forEach(underTest::addUserUuid);
+    IntStream.range(0, 1 + new SecureRandom().nextInt(5)).mapToObj(Integer::toString).forEach(underTest::addGroupUuid);
 
     AuthorizationDoc doc = AuthorizationDoc.fromDto(IndexType.main(Index.simple("foo"), "bar"), underTest);
 
@@ -133,8 +134,8 @@ public class AuthorizationDocTest {
   @Test
   public void fromDto_ignores_userIds_and_groupUuids_if_allowAnyone_is_true() {
     IndexPermissions underTest = new IndexPermissions(randomAlphabetic(3), randomAlphabetic(4));
-    IntStream.range(0, 1 + new Random().nextInt(5)).mapToObj(String::valueOf).forEach(underTest::addUserUuid);
-    IntStream.range(0, 1 + new Random().nextInt(5)).mapToObj(Integer::toString).forEach(underTest::addGroupUuid);
+    IntStream.range(0, 1 + new SecureRandom().nextInt(5)).mapToObj(String::valueOf).forEach(underTest::addUserUuid);
+    IntStream.range(0, 1 + new SecureRandom().nextInt(5)).mapToObj(Integer::toString).forEach(underTest::addGroupUuid);
     underTest.allowAnyone();
 
     AuthorizationDoc doc = AuthorizationDoc.fromDto(IndexType.main(Index.simple("foo"), "bar"), underTest);
@@ -160,12 +161,12 @@ public class AuthorizationDocTest {
     IndexPermissions allowAnyone = new IndexPermissions(randomAlphabetic(3), randomAlphabetic(4));
     allowAnyone.allowAnyone();
     IndexPermissions someUserIds = new IndexPermissions(randomAlphabetic(3), randomAlphabetic(4));
-    IntStream.range(0, 1 + new Random().nextInt(5)).mapToObj(String::valueOf).forEach(someUserIds::addUserUuid);
+    IntStream.range(0, 1 + new SecureRandom().nextInt(5)).mapToObj(String::valueOf).forEach(someUserIds::addUserUuid);
     IndexPermissions someGroupUuids = new IndexPermissions(randomAlphabetic(3), randomAlphabetic(4));
-    IntStream.range(0, 1 + new Random().nextInt(5)).mapToObj(Integer::toString).forEach(someGroupUuids::addGroupUuid);
+    IntStream.range(0, 1 + new SecureRandom().nextInt(5)).mapToObj(Integer::toString).forEach(someGroupUuids::addGroupUuid);
     IndexPermissions someGroupUuidAndUserIs = new IndexPermissions(randomAlphabetic(3), randomAlphabetic(4));
-    IntStream.range(0, 1 + new Random().nextInt(5)).mapToObj(String::valueOf).forEach(someGroupUuidAndUserIs::addUserUuid);
-    IntStream.range(0, 1 + new Random().nextInt(5)).mapToObj(Integer::toString).forEach(someGroupUuidAndUserIs::addGroupUuid);
+    IntStream.range(0, 1 + new SecureRandom().nextInt(5)).mapToObj(String::valueOf).forEach(someGroupUuidAndUserIs::addUserUuid);
+    IntStream.range(0, 1 + new SecureRandom().nextInt(5)).mapToObj(Integer::toString).forEach(someGroupUuidAndUserIs::addGroupUuid);
     return new Object[][] {
       {allowAnyone},
       {someUserIds},

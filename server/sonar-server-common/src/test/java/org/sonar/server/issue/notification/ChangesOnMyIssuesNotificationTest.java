@@ -20,6 +20,7 @@
 package org.sonar.server.issue.notification;
 
 import com.google.common.collect.ImmutableSet;
+import java.security.SecureRandom;
 import java.util.Random;
 import org.junit.Test;
 import org.sonar.api.notifications.Notification;
@@ -37,7 +38,7 @@ public class ChangesOnMyIssuesNotificationTest {
   @Test
   public void key_is_ChangesOnMyIssues() {
     ChangesOnMyIssuesNotification underTest = new ChangesOnMyIssuesNotification(
-      new UserChange(new Random().nextLong(), new User(randomAlphabetic(2), randomAlphabetic(3), randomAlphabetic(4))),
+      new UserChange(new SecureRandom().nextLong(), new User(randomAlphabetic(2), randomAlphabetic(3), randomAlphabetic(4))),
       ImmutableSet.of());
 
     assertThat(underTest.getType()).isEqualTo("ChangesOnMyIssues");
@@ -45,7 +46,7 @@ public class ChangesOnMyIssuesNotificationTest {
 
   @Test
   public void equals_is_based_on_change_and_issues() {
-    AnalysisChange analysisChange = new AnalysisChange(new Random().nextLong());
+    AnalysisChange analysisChange = new AnalysisChange(new SecureRandom().nextLong());
     ChangedIssue changedIssue = IssuesChangesNotificationBuilderTesting.newChangedIssue("doo", IssuesChangesNotificationBuilderTesting.newProject("prj"),
       newRandomNotAHotspotRule("rul"));
     ChangesOnMyIssuesNotification underTest = new ChangesOnMyIssuesNotification(analysisChange, ImmutableSet.of(changedIssue));
@@ -60,7 +61,7 @@ public class ChangesOnMyIssuesNotificationTest {
 
   @Test
   public void hashcode_is_based_on_change_and_issues() {
-    AnalysisChange analysisChange = new AnalysisChange(new Random().nextLong());
+    AnalysisChange analysisChange = new AnalysisChange(new SecureRandom().nextLong());
     ChangedIssue changedIssue = IssuesChangesNotificationBuilderTesting.newChangedIssue("doo", IssuesChangesNotificationBuilderTesting.newProject("prj"),
       newRandomNotAHotspotRule("rul"));
     ChangesOnMyIssuesNotification underTest = new ChangesOnMyIssuesNotification(analysisChange, ImmutableSet.of(changedIssue));

@@ -22,6 +22,7 @@ package org.sonar.db.component;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
@@ -112,7 +113,7 @@ public class ComponentDaoIT {
 
   private final AuditPersister auditPersister = mock(AuditPersister.class);
 
-  private final Random random = new Random();
+  private final Random random = new SecureRandom();
   private final DbSession dbSession = db.getSession();
   private final ComponentDao underTest = new ComponentDao(new NoOpAuditPersister());
   private final ComponentDao underTestWithAuditPersister = new ComponentDao(auditPersister);
@@ -612,7 +613,7 @@ public class ComponentDaoIT {
   public static Object[][] oneOrMoreProjects() {
     return new Object[][] {
       {1},
-      {1 + new Random().nextInt(10)}
+      {1 + new SecureRandom().nextInt(10)}
     };
   }
 
@@ -1830,7 +1831,7 @@ public class ComponentDaoIT {
 
   private static Set<String> shuffleWithNonExistentUuids(String... uuids) {
     return Stream.concat(
-        IntStream.range(0, 1 + new Random().nextInt(5)).mapToObj(i -> randomAlphabetic(9)),
+        IntStream.range(0, 1 + new SecureRandom().nextInt(5)).mapToObj(i -> randomAlphabetic(9)),
         Arrays.stream(uuids))
       .collect(toSet());
   }

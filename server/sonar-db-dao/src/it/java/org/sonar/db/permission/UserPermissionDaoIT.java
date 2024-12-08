@@ -19,6 +19,7 @@
  */
 package org.sonar.db.permission;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -587,7 +588,7 @@ public class UserPermissionDaoIT {
   }
 
   private ComponentDto randomPublicOrPrivateProject() {
-    return new Random().nextBoolean() ? db.components().insertPrivateProject().getMainBranchComponent() : db.components().insertPublicProject().getMainBranchComponent();
+    return new SecureRandom().nextBoolean() ? db.components().insertPrivateProject().getMainBranchComponent() : db.components().insertPublicProject().getMainBranchComponent();
   }
 
   private UserDto insertUser(Consumer<UserDto> populateUserDto) {

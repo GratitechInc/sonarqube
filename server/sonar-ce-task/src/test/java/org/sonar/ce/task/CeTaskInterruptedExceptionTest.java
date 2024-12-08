@@ -19,6 +19,7 @@
  */
 package org.sonar.ce.task;
 
+import java.security.SecureRandom;
 import java.util.Random;
 import org.junit.Test;
 import org.sonar.db.ce.CeActivityDto;
@@ -58,7 +59,7 @@ public class CeTaskInterruptedExceptionTest {
   }
 
   private static CeActivityDto.Status randomStatus() {
-    return CeActivityDto.Status.values()[new Random().nextInt(CeActivityDto.Status.values().length)];
+    return CeActivityDto.Status.values()[new SecureRandom().nextInt(CeActivityDto.Status.values().length)];
   }
 
   private static class CeTaskInterruptedExceptionSubclass extends CeTaskInterruptedException {

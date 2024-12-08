@@ -23,6 +23,7 @@ import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import java.io.StringWriter;
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -55,7 +56,7 @@ import static org.sonar.test.JsonAssert.assertJson;
 @RunWith(DataProviderRunner.class)
 public class TelemetryDataJsonWriterTest {
 
-  private final Random random = new Random();
+  private final Random random = new SecureRandom();
 
   private final TelemetryExtension extension = mock(TelemetryExtension.class);
 

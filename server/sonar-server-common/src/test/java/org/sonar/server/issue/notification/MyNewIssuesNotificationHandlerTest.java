@@ -19,6 +19,7 @@
  */
 package org.sonar.server.issue.notification;
 
+import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.Random;
 import java.util.Set;
@@ -98,7 +99,7 @@ public class MyNewIssuesNotificationHandlerTest {
   @Test
   public void deliver_has_no_effect_if_emailNotificationChannel_is_disabled() {
     when(emailNotificationChannel.isActivated()).thenReturn(false);
-    Set<MyNewIssuesNotification> notifications = IntStream.range(0, 1 + new Random().nextInt(10))
+    Set<MyNewIssuesNotification> notifications = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> mock(MyNewIssuesNotification.class))
       .collect(toSet());
 
@@ -114,7 +115,7 @@ public class MyNewIssuesNotificationHandlerTest {
   @Test
   public void deliver_has_no_effect_if_no_notification_has_projectKey() {
     when(emailNotificationChannel.isActivated()).thenReturn(true);
-    Set<MyNewIssuesNotification> notifications = IntStream.range(0, 1 + new Random().nextInt(10))
+    Set<MyNewIssuesNotification> notifications = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> newNotification(null, null))
       .collect(toSet());
 
@@ -133,7 +134,7 @@ public class MyNewIssuesNotificationHandlerTest {
   @Test
   public void deliver_has_no_effect_if_no_notification_has_assignee() {
     when(emailNotificationChannel.isActivated()).thenReturn(true);
-    Set<MyNewIssuesNotification> notifications = IntStream.range(0, 1 + new Random().nextInt(10))
+    Set<MyNewIssuesNotification> notifications = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> newNotification(randomAlphabetic(5 + i), null))
       .collect(toSet());
 
@@ -171,10 +172,10 @@ public class MyNewIssuesNotificationHandlerTest {
   @Test
   public void deliver_ignores_notification_without_projectKey() {
     String projectKey = randomAlphabetic(10);
-    Set<MyNewIssuesNotification> withProjectKey = IntStream.range(0, 1 + new Random().nextInt(5))
+    Set<MyNewIssuesNotification> withProjectKey = IntStream.range(0, 1 + new SecureRandom().nextInt(5))
       .mapToObj(i -> newNotification(projectKey, randomAlphabetic(11 + i)))
       .collect(toSet());
-    Set<MyNewIssuesNotification> noProjectKey = IntStream.range(0, 1 + new Random().nextInt(5))
+    Set<MyNewIssuesNotification> noProjectKey = IntStream.range(0, 1 + new SecureRandom().nextInt(5))
       .mapToObj(i -> newNotification(null, randomAlphabetic(11 + i)))
       .collect(toSet());
     Set<MyNewIssuesNotification> noProjectKeyNoAssignee = randomSetOfNotifications(null, null);
@@ -205,7 +206,7 @@ public class MyNewIssuesNotificationHandlerTest {
   @Test
   public void deliver_ignores_notification_without_assignee() {
     String projectKey = randomAlphabetic(10);
-    Set<MyNewIssuesNotification> withAssignee = IntStream.range(0, 1 + new Random().nextInt(5))
+    Set<MyNewIssuesNotification> withAssignee = IntStream.range(0, 1 + new SecureRandom().nextInt(5))
       .mapToObj(i -> newNotification(projectKey, randomAlphabetic(11 + i)))
       .collect(toSet());
     Set<MyNewIssuesNotification> noAssignee = randomSetOfNotifications(projectKey, null);
@@ -274,7 +275,7 @@ public class MyNewIssuesNotificationHandlerTest {
     Set<EmailDeliveryRequest> expectedRequests = assignee2Notifications.stream()
       .map(t -> new EmailDeliveryRequest(emailOf(t.getAssignee()), t))
       .collect(toSet());
-    int deliveredCount = new Random().nextInt(expectedRequests.size());
+    int deliveredCount = new SecureRandom().nextInt(expectedRequests.size());
     when(emailNotificationChannel.deliverAll(expectedRequests)).thenReturn(deliveredCount);
 
     int deliver = underTest.deliver(Stream.concat(assignee1Notifications.stream(), assignee2Notifications.stream()).collect(toSet()));
@@ -317,7 +318,7 @@ public class MyNewIssuesNotificationHandlerTest {
       .flatMap(t -> t)
       .map(t -> new EmailDeliveryRequest(emailOf(t.getAssignee()), t))
       .collect(toSet());
-    int deliveredCount = new Random().nextInt(expectedRequests.size());
+    int deliveredCount = new SecureRandom().nextInt(expectedRequests.size());
     when(emailNotificationChannel.deliverAll(expectedRequests)).thenReturn(deliveredCount);
 
     Set<MyNewIssuesNotification> notifications = Stream.of(
@@ -339,7 +340,7 @@ public class MyNewIssuesNotificationHandlerTest {
   }
 
   private static Set<MyNewIssuesNotification> randomSetOfNotifications(@Nullable String projectKey, @Nullable String assignee) {
-    return IntStream.range(0, 1 + new Random().nextInt(5))
+    return IntStream.range(0, 1 + new SecureRandom().nextInt(5))
       .mapToObj(i -> newNotification(projectKey, assignee))
       .collect(Collectors.toSet());
   }

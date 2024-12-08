@@ -20,6 +20,7 @@
 package org.sonar.server.qualitygate;
 
 import com.google.common.collect.ImmutableSet;
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Random;
@@ -46,7 +47,7 @@ public class EvaluatedQualityGateTest {
   private static final QualityGate ALL_CONDITIONS_QUALITY_GATE = new QualityGate(QUALITY_GATE_ID, QUALITY_GATE_NAME,
     new HashSet<>(Arrays.asList(CONDITION_1, CONDITION_2, CONDITION_3)));
 
-  private final Random random = new Random();
+  private final Random random = new SecureRandom();
   private final Level randomStatus = Level.values()[random.nextInt(Level.values().length)];
   private final EvaluatedCondition.EvaluationStatus randomEvaluationStatus = EvaluatedCondition.EvaluationStatus.values()[random
     .nextInt(EvaluatedCondition.EvaluationStatus.values().length)];

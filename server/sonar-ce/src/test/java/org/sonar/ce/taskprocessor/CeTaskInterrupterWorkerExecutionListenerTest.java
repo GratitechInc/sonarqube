@@ -19,6 +19,7 @@
  */
 package org.sonar.ce.taskprocessor;
 
+import java.security.SecureRandom;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.Random;
@@ -46,7 +47,7 @@ public class CeTaskInterrupterWorkerExecutionListenerTest {
   @Test
   public void onEnd_delegates_to_ceTaskInterrupter_onEnd() {
     CeTask ceTask = mock(CeTask.class);
-    CeActivityDto.Status randomStatus = CeActivityDto.Status.values()[new Random().nextInt(CeActivityDto.Status.values().length)];
+    CeActivityDto.Status randomStatus = CeActivityDto.Status.values()[new SecureRandom().nextInt(CeActivityDto.Status.values().length)];
 
     underTest.onEnd(ceTask, randomStatus, Duration.of(1, ChronoUnit.SECONDS), null, null);
 

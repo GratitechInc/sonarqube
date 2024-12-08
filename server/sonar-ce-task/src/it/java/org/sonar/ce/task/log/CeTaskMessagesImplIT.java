@@ -19,6 +19,7 @@
  */
 package org.sonar.ce.task.log;
 
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -89,7 +90,7 @@ public class CeTaskMessagesImplIT {
 
   @Test
   public void addAll_fails_with_NPE_if_any_message_in_list_is_null() {
-    Random random = new Random();
+    Random random = new SecureRandom();
     List<CeTaskMessages.Message> messages = Stream.of(
       // some (or none) non null Message before null one
       IntStream.range(0, random.nextInt(5)).mapToObj(i -> new CeTaskMessages.Message(randomAlphabetic(3) + "_i", 1_999L + i)),

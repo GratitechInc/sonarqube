@@ -22,6 +22,7 @@ package org.sonar.db.component;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -239,7 +240,7 @@ public class SnapshotDaoIT {
 
   @Test
   public void selectAnalysesByQuery_all() {
-    Random random = new Random();
+    Random random = new SecureRandom();
     List<SnapshotDto> snapshots = IntStream.range(0, 1 + random.nextInt(5))
       .mapToObj(i -> {
         ComponentDto project = db.components().insertPrivateProject().getMainBranchComponent();
@@ -256,7 +257,7 @@ public class SnapshotDaoIT {
 
   @Test
   public void selectAnalysesByQuery_by_component_uuid() {
-    Random random = new Random();
+    Random random = new SecureRandom();
     ComponentDto project1 = db.components().insertPrivateProject().getMainBranchComponent();
     ComponentDto project2 = db.components().insertPrivateProject().getMainBranchComponent();
     List<SnapshotDto> snapshots1 = IntStream.range(0, 1 + random.nextInt(20))
@@ -278,7 +279,7 @@ public class SnapshotDaoIT {
 
   @Test
   public void selectAnalysesByQuery_sort_by_date() {
-    Random random = new Random();
+    Random random = new SecureRandom();
     ComponentDto project = db.components().insertPrivateProject().getMainBranchComponent();
     List<SnapshotDto> snapshots = IntStream.range(0, 1 + random.nextInt(20))
       .mapToObj(j -> SnapshotTesting.newAnalysis(project).setCreatedAt(1_000L + j))

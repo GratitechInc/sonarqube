@@ -27,6 +27,7 @@ import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Random;
 import org.apache.commons.io.FileUtils;
@@ -107,7 +108,7 @@ public class ExportIssuesStepIT {
       new BranchDto().setBranchType(BranchType.BRANCH).setKey("master").setProjectUuid(SOME_PROJECT_UUID).setUuid(SOME_PROJECT_UUID)));
 
     // adds a random number of Rules to db and repository so that READY_RULE_KEY does always get id=ref=1
-    for (int i = 0; i < new Random().nextInt(150); i++) {
+    for (int i = 0; i < new SecureRandom().nextInt(150); i++) {
       RuleKey ruleKey = RuleKey.of("repo_" + i, "key_" + i);
       RuleDto ruleDto = insertRule(ruleKey.toString());
       ruleRepository.register(ruleDto.getUuid(), ruleKey);

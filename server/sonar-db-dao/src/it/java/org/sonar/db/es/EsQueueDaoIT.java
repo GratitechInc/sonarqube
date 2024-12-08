@@ -19,6 +19,7 @@
  */
 package org.sonar.db.es;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -45,7 +46,7 @@ public class EsQueueDaoIT {
 
   @Test
   public void insert_data()  {
-    int nbOfInsert = 10 + new Random().nextInt(20);
+    int nbOfInsert = 10 + new SecureRandom().nextInt(20);
     List<EsQueueDto> esQueueDtos = new ArrayList<>();
     IntStream.rangeClosed(1, nbOfInsert).forEach(
       i -> esQueueDtos.add(EsQueueDto.create("foo", UuidFactoryFast.getInstance().create()))
@@ -57,7 +58,7 @@ public class EsQueueDaoIT {
 
   @Test
   public void delete_unknown_EsQueueDto_does_not_throw_exception() {
-    int nbOfInsert = 10 + new Random().nextInt(20);
+    int nbOfInsert = 10 + new SecureRandom().nextInt(20);
     List<EsQueueDto> esQueueDtos = new ArrayList<>();
     IntStream.rangeClosed(1, nbOfInsert).forEach(
       i -> esQueueDtos.add(EsQueueDto.create("foo", UuidFactoryFast.getInstance().create()))
@@ -71,7 +72,7 @@ public class EsQueueDaoIT {
 
   @Test
   public void delete_EsQueueDto_does_not_throw_exception() {
-    int nbOfInsert = 10 + new Random().nextInt(20);
+    int nbOfInsert = 10 + new SecureRandom().nextInt(20);
     List<EsQueueDto> esQueueDtos = new ArrayList<>();
     IntStream.rangeClosed(1, nbOfInsert).forEach(
       i -> esQueueDtos.add(EsQueueDto.create("foo", UuidFactoryFast.getInstance().create()))

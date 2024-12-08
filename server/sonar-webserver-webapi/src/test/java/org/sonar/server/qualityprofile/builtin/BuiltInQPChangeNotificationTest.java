@@ -19,6 +19,7 @@
  */
 package org.sonar.server.qualityprofile.builtin;
 
+import java.security.SecureRandom;
 import java.util.Random;
 import org.junit.Test;
 import org.sonar.api.notifications.Notification;
@@ -31,7 +32,7 @@ import static org.assertj.core.api.Assertions.tuple;
 
 public class BuiltInQPChangeNotificationTest {
 
-  private static final Random RANDOM = new Random();
+  private static final Random RANDOM = new SecureRandom();
 
 
   @Test

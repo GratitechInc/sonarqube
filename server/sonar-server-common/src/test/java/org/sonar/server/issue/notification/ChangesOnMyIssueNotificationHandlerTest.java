@@ -24,6 +24,7 @@ import com.google.common.collect.ListMultimap;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -122,7 +123,7 @@ public class ChangesOnMyIssueNotificationHandlerTest {
   @Test
   public void deliver_has_no_effect_if_emailNotificationChannel_is_disabled() {
     when(emailNotificationChannel.isActivated()).thenReturn(false);
-    Set<IssuesChangesNotification> notifications = IntStream.range(0, 1 + new Random().nextInt(10))
+    Set<IssuesChangesNotification> notifications = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> mock(IssuesChangesNotification.class))
       .collect(toSet());
 
@@ -138,7 +139,7 @@ public class ChangesOnMyIssueNotificationHandlerTest {
   @Test
   public void deliver_has_no_effect_if_no_notification_has_assignee() {
     when(emailNotificationChannel.isActivated()).thenReturn(true);
-    Set<ChangedIssue> issues = IntStream.range(0, 1 + new Random().nextInt(2))
+    Set<ChangedIssue> issues = IntStream.range(0, 1 + new SecureRandom().nextInt(2))
       .mapToObj(i -> new ChangedIssue.Builder("issue_key_" + i)
         .setNewStatus("foo")
         .setAssignee(null)
@@ -146,7 +147,7 @@ public class ChangesOnMyIssueNotificationHandlerTest {
         .setProject(newProject(i + ""))
         .build())
       .collect(toSet());
-    IssuesChangesNotificationBuilder builder = new IssuesChangesNotificationBuilder(issues, new UserChange(new Random().nextLong(), new User("user_uuid", "user_login", null)));
+    IssuesChangesNotificationBuilder builder = new IssuesChangesNotificationBuilder(issues, new UserChange(new SecureRandom().nextLong(), new User("user_uuid", "user_login", null)));
 
     int deliver = underTest.deliver(ImmutableSet.of(serializer.serialize(builder)));
 
@@ -159,12 +160,12 @@ public class ChangesOnMyIssueNotificationHandlerTest {
   @Test
   public void deliver_has_no_effect_if_all_issues_are_assigned_to_the_changeAuthor() {
     when(emailNotificationChannel.isActivated()).thenReturn(true);
-    Set<UserChange> userChanges = IntStream.range(0, 1 + new Random().nextInt(3))
-      .mapToObj(i -> new UserChange(new Random().nextLong(), new User("user_uuid_" + i, "user_login_" + i, null)))
+    Set<UserChange> userChanges = IntStream.range(0, 1 + new SecureRandom().nextInt(3))
+      .mapToObj(i -> new UserChange(new SecureRandom().nextLong(), new User("user_uuid_" + i, "user_login_" + i, null)))
       .collect(toSet());
     Set<IssuesChangesNotificationBuilder> notificationBuilders = userChanges.stream()
       .map(userChange -> {
-        Set<ChangedIssue> issues = IntStream.range(0, 1 + new Random().nextInt(2))
+        Set<ChangedIssue> issues = IntStream.range(0, 1 + new SecureRandom().nextInt(2))
           .mapToObj(i -> new ChangedIssue.Builder("issue_key_" + i + userChange.getUser().getUuid())
             .setNewStatus("foo")
             .setAssignee(userChange.getUser())
@@ -191,7 +192,7 @@ public class ChangesOnMyIssueNotificationHandlerTest {
   public void deliver_checks_by_projectKey_if_notifications_have_subscribed_assignee_to_ChangesOnMyIssues_notifications() {
     when(emailNotificationChannel.isActivated()).thenReturn(true);
     Project project = newProject();
-    Set<ChangedIssue> issues = IntStream.range(0, 1 + new Random().nextInt(2))
+    Set<ChangedIssue> issues = IntStream.range(0, 1 + new SecureRandom().nextInt(2))
       .mapToObj(i -> new ChangedIssue.Builder("issue_key_" + i)
         .setNewStatus("foo")
         .setAssignee(newUser("assignee_" + i))
@@ -199,7 +200,7 @@ public class ChangesOnMyIssueNotificationHandlerTest {
         .setProject(project)
         .build())
       .collect(toSet());
-    IssuesChangesNotificationBuilder builder = new IssuesChangesNotificationBuilder(issues, new UserChange(new Random().nextLong(), new User("user_uuid", "user_login", null)));
+    IssuesChangesNotificationBuilder builder = new IssuesChangesNotificationBuilder(issues, new UserChange(new SecureRandom().nextLong(), new User("user_uuid", "user_login", null)));
 
     int deliver = underTest.deliver(ImmutableSet.of(serializer.serialize(builder)));
 
@@ -214,7 +215,7 @@ public class ChangesOnMyIssueNotificationHandlerTest {
   @Test
   public void deliver_checks_by_projectKeys_if_notifications_have_subscribed_assignee_to_ChangesOnMyIssues_notifications() {
     when(emailNotificationChannel.isActivated()).thenReturn(true);
-    Set<ChangedIssue> issues = IntStream.range(0, 1 + new Random().nextInt(2))
+    Set<ChangedIssue> issues = IntStream.range(0, 1 + new SecureRandom().nextInt(2))
       .mapToObj(i -> new ChangedIssue.Builder("issue_key_" + i)
         .setNewStatus("foo")
         .setAssignee(newUser("" + i))
@@ -222,7 +223,7 @@ public class ChangesOnMyIssueNotificationHandlerTest {
         .setProject(newProject(i + ""))
         .build())
       .collect(toSet());
-    IssuesChangesNotificationBuilder builder = new IssuesChangesNotificationBuilder(issues, new UserChange(new Random().nextLong(), new User("user_uuid", "user_login", null)));
+    IssuesChangesNotificationBuilder builder = new IssuesChangesNotificationBuilder(issues, new UserChange(new SecureRandom().nextLong(), new User("user_uuid", "user_login", null)));
 
     int deliver = underTest.deliver(ImmutableSet.of(serializer.serialize(builder)));
 
@@ -267,7 +268,7 @@ public class ChangesOnMyIssueNotificationHandlerTest {
     when(notificationManager.findSubscribedEmailRecipients(CHANGE_ON_MY_ISSUES_DISPATCHER_KEY, project.getKey(), ImmutableSet.of(assignee1.getLogin(), assignee2.getLogin()),
       ALL_MUST_HAVE_ROLE_USER))
         .thenReturn(ImmutableSet.of(emailRecipientOf(assignee1.getLogin()), emailRecipientOf(assignee2.getLogin())));
-    int deliveredCount = new Random().nextInt(100);
+    int deliveredCount = new SecureRandom().nextInt(100);
     when(emailNotificationChannel.deliverAll(anySet())).thenReturn(deliveredCount);
 
     int deliver = underTest.deliver(notifications);
@@ -326,12 +327,12 @@ public class ChangesOnMyIssueNotificationHandlerTest {
       .mapToObj(i -> newChangedIssue("2_issue_key_" + i, assignee2, project2))
       .collect(toSet());
 
-    UserChange assignee2Change1 = new UserChange(new Random().nextLong(), assignee2);
+    UserChange assignee2Change1 = new UserChange(new SecureRandom().nextLong(), assignee2);
     Set<IssuesChangesNotification> notifications = Stream.of(
       // notification from assignee1 with issues from assignee1 only
       new IssuesChangesNotificationBuilder(
         assignee1Issues.stream().limit(4).collect(toSet()),
-        new UserChange(new Random().nextLong(), assignee1)),
+        new UserChange(new SecureRandom().nextLong(), assignee1)),
       // notification from assignee2 with issues from assignee1 and assignee2
       new IssuesChangesNotificationBuilder(
         Stream.concat(
@@ -342,7 +343,7 @@ public class ChangesOnMyIssueNotificationHandlerTest {
       // notification from assignee2 with issues from assignee2 only
       new IssuesChangesNotificationBuilder(
         assignee2Issues.stream().skip(4).limit(3).collect(toSet()),
-        new UserChange(new Random().nextLong(), assignee2)),
+        new UserChange(new SecureRandom().nextLong(), assignee2)),
       // notification from other change with issues from assignee1 and assignee2)
       new IssuesChangesNotificationBuilder(
         Stream.concat(
@@ -358,7 +359,7 @@ public class ChangesOnMyIssueNotificationHandlerTest {
     when(notificationManager.findSubscribedEmailRecipients(
       CHANGE_ON_MY_ISSUES_DISPATCHER_KEY, project2.getKey(), ImmutableSet.of(assignee2.getLogin()), ALL_MUST_HAVE_ROLE_USER))
         .thenReturn(ImmutableSet.of(emailRecipientOf(assignee2.getLogin())));
-    int deliveredCount = new Random().nextInt(100);
+    int deliveredCount = new SecureRandom().nextInt(100);
     when(emailNotificationChannel.deliverAll(anySet())).thenReturn(deliveredCount);
 
     int deliver = underTest.deliver(notifications);
@@ -406,8 +407,8 @@ public class ChangesOnMyIssueNotificationHandlerTest {
   public static Object[][] userOrAnalysisChange() {
     User changeAuthor = new User(randomAlphabetic(12), randomAlphabetic(10), randomAlphabetic(11));
     return new Object[][] {
-      {new AnalysisChange(new Random().nextLong())},
-      {new UserChange(new Random().nextLong(), changeAuthor)},
+      {new AnalysisChange(new SecureRandom().nextLong())},
+      {new UserChange(new SecureRandom().nextLong(), changeAuthor)},
     };
   }
 
@@ -441,7 +442,7 @@ public class ChangesOnMyIssueNotificationHandlerTest {
   }
 
   private static Set<IssuesChangesNotification> randomSetOfNotifications(@Nullable String projectKey, @Nullable String assignee, @Nullable String changeAuthor) {
-    return IntStream.range(0, 1 + new Random().nextInt(5))
+    return IntStream.range(0, 1 + new SecureRandom().nextInt(5))
       .mapToObj(i -> newNotification(projectKey, assignee, changeAuthor))
       .collect(Collectors.toSet());
   }

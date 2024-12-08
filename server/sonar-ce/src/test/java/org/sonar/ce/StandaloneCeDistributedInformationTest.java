@@ -20,6 +20,7 @@
 package org.sonar.ce;
 
 import com.google.common.collect.ImmutableSet;
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -52,7 +53,7 @@ public class StandaloneCeDistributedInformationTest {
   @Test
   public void getWorkerUUIDs_must_be_retrieved_from_ceworkerfactory() {
     CeWorkerFactory ceWorkerFactory = mock(CeWorkerFactory.class);
-    CeWorker[] ceWorkers = IntStream.range(0, new Random().nextInt(10))
+    CeWorker[] ceWorkers = IntStream.range(0, new SecureRandom().nextInt(10))
       .mapToObj(i -> {
         CeWorker ceWorker = mock(CeWorker.class);
         when(ceWorker.getUUID()).thenReturn("uuid_" + i);
@@ -82,7 +83,7 @@ public class StandaloneCeDistributedInformationTest {
 
     Lock lock = underTest.acquireCleanJobLock();
 
-    IntStream.range(0, 5 + Math.abs(new Random().nextInt(50)))
+    IntStream.range(0, 5 + Math.abs(new SecureRandom().nextInt(50)))
       .forEach(i -> {
         try {
           assertThat(lock.tryLock()).isTrue();

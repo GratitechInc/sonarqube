@@ -21,6 +21,7 @@ package org.sonar.alm.client.github.security;
 
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.time.Clock;
 import java.time.Instant;
@@ -146,11 +147,11 @@ public class GithubAppSecurityImplTest {
   }
 
   private GithubAppConfiguration createAppConfiguration() {
-    return new GithubAppConfiguration(new Random().nextLong(), REAL_PRIVATE_KEY, randomAlphanumeric(5));
+    return new GithubAppConfiguration(new SecureRandom().nextLong(), REAL_PRIVATE_KEY, randomAlphanumeric(5));
   }
 
   private GithubAppConfiguration createAppConfigurationForPrivateKey(String privateKey) {
-    long applicationId = new Random().nextInt(654);
+    long applicationId = new SecureRandom().nextInt(654);
     return new GithubAppConfiguration(applicationId, privateKey, randomAlphabetic(8));
   }
 

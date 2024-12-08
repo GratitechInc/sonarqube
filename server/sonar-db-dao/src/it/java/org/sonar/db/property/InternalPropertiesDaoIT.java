@@ -21,6 +21,7 @@ package org.sonar.db.property;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -381,7 +382,7 @@ public class InternalPropertiesDaoIT {
 
   @Test
   public void selectByKeys_throws_IAE_when_keys_contains_empty_string() {
-    Random random = new Random();
+    Random random = new SecureRandom();
     Set<String> keysIncludingAnEmptyString = Stream.of(
       IntStream.range(0, random.nextInt(10)).mapToObj(i -> "b_" + i),
       Stream.of(""),
@@ -459,7 +460,7 @@ public class InternalPropertiesDaoIT {
 
   @Test
   public void tryLock_succeeds_if_lock_did_not_exist() {
-    long now = new Random().nextInt();
+    long now = new SecureRandom().nextInt();
     when(system2.now()).thenReturn(now);
     assertThat(underTest.tryLock(dbSession, A_KEY, 60)).isTrue();
 
@@ -470,7 +471,7 @@ public class InternalPropertiesDaoIT {
   public void tryLock_succeeds_if_lock_acquired_before_lease_duration() {
     int lockDurationSeconds = 60;
 
-    long before = new Random().nextInt();
+    long before = new SecureRandom().nextInt();
     when(system2.now()).thenReturn(before);
     assertThat(underTest.tryLock(dbSession, A_KEY, lockDurationSeconds)).isTrue();
 
@@ -483,7 +484,7 @@ public class InternalPropertiesDaoIT {
 
   @Test
   public void tryLock_fails_if_lock_acquired_within_lease_duration() {
-    long now = new Random().nextInt();
+    long now = new SecureRandom().nextInt();
     when(system2.now()).thenReturn(now);
     assertThat(underTest.tryLock(dbSession, A_KEY, 60)).isTrue();
     assertThat(underTest.tryLock(dbSession, A_KEY, 60)).isFalse();
@@ -496,7 +497,7 @@ public class InternalPropertiesDaoIT {
     String name = randomAlphabetic(5);
     String propertyKey = propertyKeyOf(name);
 
-    long now = new Random().nextInt();
+    long now = new SecureRandom().nextInt();
     when(system2.now()).thenReturn(now);
     assertThat(underTest.tryLock(dbSession, name, 60)).isTrue();
 
@@ -518,7 +519,7 @@ public class InternalPropertiesDaoIT {
     String name = randomAlphabetic(5);
     String propertyKey = propertyKeyOf(name);
 
-    long now = new Random().nextInt(4_889_989);
+    long now = new SecureRandom().nextInt(4_889_989);
     long oldTimestamp = now - lockDurationSeconds * 1000;
     when(system2.now()).thenReturn(oldTimestamp);
     assertThat(underTest.tryLock(dbSession, name, lockDurationSeconds)).isTrue();

@@ -20,6 +20,7 @@
 package org.sonar.ce.taskprocessor;
 
 import java.lang.reflect.Field;
+import java.security.SecureRandom;
 import java.util.Random;
 import org.junit.Test;
 import org.sonar.api.config.internal.MapSettings;
@@ -47,7 +48,7 @@ public class CeTaskInterrupterProviderTest {
 
   @Test
   public void provide_returns_a_TimeoutCeTaskInterrupter_instance_if_property_taskTimeout_has_a_value() throws IllegalAccessException, NoSuchFieldException {
-    int timeout = 1 + new Random().nextInt(2222);
+    int timeout = 1 + new SecureRandom().nextInt(2222);
     settings.setProperty("sonar.ce.task.timeoutSeconds", timeout);
 
     CeTaskInterrupter instance = underTest.provide(settings.asConfig(), ceWorkerController, system2);
@@ -83,7 +84,7 @@ public class CeTaskInterrupterProviderTest {
 
   @Test
   public void provide_fails_with_ISE_if_property_is_less_than_zero() {
-    int negativeValue = -(1 + new Random().nextInt(1_212));
+    int negativeValue = -(1 + new SecureRandom().nextInt(1_212));
     settings.setProperty("sonar.ce.task.timeoutSeconds", negativeValue);
 
     assertThatThrownBy(() -> underTest.provide(settings.asConfig(), ceWorkerController, system2))

@@ -22,6 +22,7 @@ package org.sonar.server.platform.db.migration.history;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -75,7 +76,7 @@ public class MigrationHistoryMeddlerTest {
 
   public void verifyUpdateLastMigrationNumber(long oldVersion, long expectedNewVersion) {
     when(migrationHistory.getLastMigrationNumber()).thenReturn(Optional.of(oldVersion));
-    List<RegisteredMigrationStep> stepsFromNewLastMigrationNumber = IntStream.range(0, 1 + new Random().nextInt(30))
+    List<RegisteredMigrationStep> stepsFromNewLastMigrationNumber = IntStream.range(0, 1 + new SecureRandom().nextInt(30))
       .mapToObj(i -> new RegisteredMigrationStep(i, "desc_" + i, MigrationStep.class))
       .collect(Collectors.toList());
     when(migrationSteps.readFrom(expectedNewVersion)).thenReturn(stepsFromNewLastMigrationNumber);
@@ -92,8 +93,8 @@ public class MigrationHistoryMeddlerTest {
   public static Object[][] non_old_70_last_migration_number() {
     return new Object[][] {
       {1L},
-      {OLD_VERSION_70_LAST_MIGRATION_NUMBER - 1 - new Random().nextInt(12)},
-      {OLD_VERSION_70_LAST_MIGRATION_NUMBER + 1 + new Random().nextInt(12)}
+      {OLD_VERSION_70_LAST_MIGRATION_NUMBER - 1 - new SecureRandom().nextInt(12)},
+      {OLD_VERSION_70_LAST_MIGRATION_NUMBER + 1 + new SecureRandom().nextInt(12)}
     };
   }
 

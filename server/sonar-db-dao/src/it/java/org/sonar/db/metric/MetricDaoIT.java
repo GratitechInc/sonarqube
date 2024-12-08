@@ -19,6 +19,7 @@
  */
 package org.sonar.db.metric;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -69,10 +70,10 @@ public class MetricDaoIT {
 
   @Test
   public void find_all_enabled() {
-    List<MetricDto> enabledMetrics = IntStream.range(0, 1 + new Random().nextInt(10))
+    List<MetricDto> enabledMetrics = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> MetricTesting.newMetricDto().setEnabled(true))
       .toList();
-    List<MetricDto> disabledMetrics = IntStream.range(0, 1 + new Random().nextInt(10))
+    List<MetricDto> disabledMetrics = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> MetricTesting.newMetricDto().setEnabled(false))
       .toList();
 
@@ -89,10 +90,10 @@ public class MetricDaoIT {
 
   @Test
   public void find_all() {
-    List<MetricDto> enabledMetrics = IntStream.range(0, 1 + new Random().nextInt(10))
+    List<MetricDto> enabledMetrics = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> MetricTesting.newMetricDto().setEnabled(true))
       .toList();
-    List<MetricDto> disabledMetrics = IntStream.range(0, 1 + new Random().nextInt(10))
+    List<MetricDto> disabledMetrics = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> MetricTesting.newMetricDto().setEnabled(false))
       .toList();
 

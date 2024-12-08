@@ -19,6 +19,7 @@
  */
 package org.sonar.server.platform.db.migration.version.v00;
 
+import java.security.SecureRandom;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
@@ -44,7 +45,7 @@ public class PopulateInitialSchemaTest {
 
   private static final long NOW = 1_500L;
 
-  private final Random random = new Random();
+  private final Random random = new SecureRandom();
   private final Version version = Version.create(1 + random.nextInt(10), 1 + random.nextInt(10), random.nextInt(10));
   private final UuidFactory uuidFactory = UuidFactoryFast.getInstance();
   private final System2 system2 = mock(System2.class);

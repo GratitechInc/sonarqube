@@ -19,6 +19,7 @@
  */
 package org.sonar.db.issue;
 
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.function.Consumer;
@@ -95,7 +96,7 @@ public class IssueDbTester {
       .describedAs("rule must not be a Security Hotspot type")
       .isNotEqualTo(SECURITY_HOTSPOT.getDbConstant());
     IssueDto issue = newIssue(rule, project, file)
-      .setType(RULE_TYPES_EXCEPT_HOTSPOTS[new Random().nextInt(RULE_TYPES_EXCEPT_HOTSPOTS.length)]);
+      .setType(RULE_TYPES_EXCEPT_HOTSPOTS[new SecureRandom().nextInt(RULE_TYPES_EXCEPT_HOTSPOTS.length)]);
     stream(populators).forEach(p -> p.accept(issue));
     return insertIssue(issue);
   }
@@ -140,7 +141,7 @@ public class IssueDbTester {
     ComponentDto project = db.components().insertPrivateProject().getMainBranchComponent();
     ComponentDto file = db.components().insertComponent(newFileDto(project));
     IssueDto issue = newIssue(ruleDto, project, file)
-      .setType(RULE_TYPES_EXCEPT_HOTSPOTS[new Random().nextInt(RULE_TYPES_EXCEPT_HOTSPOTS.length)]);
+      .setType(RULE_TYPES_EXCEPT_HOTSPOTS[new SecureRandom().nextInt(RULE_TYPES_EXCEPT_HOTSPOTS.length)]);
     stream(populators).forEach(p -> p.accept(issue));
     return insertIssue(issue);
   }

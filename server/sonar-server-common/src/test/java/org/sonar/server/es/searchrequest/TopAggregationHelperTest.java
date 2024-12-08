@@ -19,6 +19,7 @@
  */
 package org.sonar.server.es.searchrequest;
 
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.Random;
@@ -62,7 +63,7 @@ public class TopAggregationHelperTest {
   @Test
   public void buildTopAggregation_adds_subAggregation_from_lambda_parameter() {
     SimpleFieldTopAggregationDefinition topAggregation = new SimpleFieldTopAggregationDefinition("bar", false);
-    AggregationBuilder[] subAggs = IntStream.range(0, 1 + new Random().nextInt(12))
+    AggregationBuilder[] subAggs = IntStream.range(0, 1 + new SecureRandom().nextInt(12))
       .mapToObj(i -> AggregationBuilders.min("subAgg_" + i))
       .toArray(AggregationBuilder[]::new);
     String topAggregationName = randomAlphabetic(10);
@@ -161,7 +162,7 @@ public class TopAggregationHelperTest {
   @Test
   public void buildTermTopAggregation_adds_subAggregation_from_lambda_parameter() {
     SimpleFieldTopAggregationDefinition topAggregation = new SimpleFieldTopAggregationDefinition("bar", false);
-    AggregationBuilder[] subAggs = IntStream.range(0, 1 + new Random().nextInt(12))
+    AggregationBuilder[] subAggs = IntStream.range(0, 1 + new SecureRandom().nextInt(12))
       .mapToObj(i -> AggregationBuilders.min("subAgg_" + i))
       .toArray(AggregationBuilder[]::new);
     String topAggregationName = randomAlphabetic(10);

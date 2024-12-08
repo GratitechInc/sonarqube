@@ -24,6 +24,7 @@ import com.google.common.collect.Sets;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -109,7 +110,7 @@ import static org.sonar.db.rule.RuleDto.Format.MARKDOWN;
 
 @RunWith(DataProviderRunner.class)
 public class ShowActionIT {
-  private static final Random RANDOM = new Random();
+  private static final Random RANDOM = new SecureRandom();
   public static final DbIssues.MessageFormatting MESSAGE_FORMATTING = DbIssues.MessageFormatting.newBuilder().setStart(0).setEnd(4).setType(CODE).build();
 
   @Rule
@@ -967,10 +968,10 @@ public class ShowActionIT {
       t -> t.setLocations(DbIssues.Locations.newBuilder()
         .setTextRange(TextRange.newBuilder().build())
         .build()));
-    List<Common.Changelog> changelog = IntStream.range(0, 1 + new Random().nextInt(12))
+    List<Common.Changelog> changelog = IntStream.range(0, 1 + new SecureRandom().nextInt(12))
       .mapToObj(i -> Common.Changelog.newBuilder().setUser("u" + i).build())
       .toList();
-    List<Common.Comment> comments = IntStream.range(0, 1 + new Random().nextInt(12))
+    List<Common.Comment> comments = IntStream.range(0, 1 + new SecureRandom().nextInt(12))
       .mapToObj(i -> Common.Comment.newBuilder().setKey("u" + i).build())
       .toList();
     FormattingContext formattingContext = mockChangelogAndCommentsFormattingContext();

@@ -19,6 +19,7 @@
  */
 package org.sonar.server.es.searchrequest;
 
+import java.security.SecureRandom;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -31,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class SimpleFieldTopAggregationDefinitionTest {
-  private static final Random RANDOM = new Random();
+  private static final Random RANDOM = new SecureRandom();
 
 
   @Test
@@ -46,7 +47,7 @@ public class SimpleFieldTopAggregationDefinitionTest {
   @Test
   public void getters() {
     String fieldName = RandomStringUtils.randomAlphabetic(12);
-    boolean sticky = new Random().nextBoolean();
+    boolean sticky = new SecureRandom().nextBoolean();
     SimpleFieldTopAggregationDefinition underTest = new SimpleFieldTopAggregationDefinition(fieldName, sticky);
 
     assertThat(underTest.getFilterScope().getFieldName()).isEqualTo(fieldName);

@@ -19,6 +19,7 @@
  */
 package org.sonar.ce.taskprocessor;
 
+import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -95,7 +96,7 @@ public class CeWorkerImplIT {
   private CeWorker.ExecutionListener executionListener2 = mock(CeWorker.ExecutionListener.class);
   private CeWorkerController ceWorkerController = mock(CeWorkerController.class);
   private ArgumentCaptor<String> workerUuidCaptor = ArgumentCaptor.forClass(String.class);
-  private int randomOrdinal = new Random().nextInt(50);
+  private int randomOrdinal = new SecureRandom().nextInt(50);
   private String workerUuid = UUID.randomUUID().toString();
   private CeWorker underTest = new CeWorkerImpl(randomOrdinal, workerUuid, queue, taskProcessorRepository, ceWorkerController,
     executionListener1, executionListener2);
@@ -110,7 +111,7 @@ public class CeWorkerImplIT {
 
   @Test
   public void constructor_throws_IAE_if_ordinal_is_less_than_zero() {
-    assertThatThrownBy(() -> new CeWorkerImpl(-1 - new Random().nextInt(20), workerUuid, queue, taskProcessorRepository, ceWorkerController))
+    assertThatThrownBy(() -> new CeWorkerImpl(-1 - new SecureRandom().nextInt(20), workerUuid, queue, taskProcessorRepository, ceWorkerController))
       .isInstanceOf(IllegalArgumentException.class)
       .hasMessage("Ordinal must be >= 0");
   }

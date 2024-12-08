@@ -19,6 +19,7 @@
  */
 package org.sonar.ce.task.projectanalysis.source.linereader;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -314,7 +315,7 @@ public class HighlightingLineReaderTest {
   }
 
   private static TextRange newTextRange(int startLine, int enLine) {
-    Random random = new Random();
+    Random random = new SecureRandom();
     return TextRange.newBuilder()
       .setStartLine(startLine).setEndLine(enLine)
       // Offsets are not used by the reader

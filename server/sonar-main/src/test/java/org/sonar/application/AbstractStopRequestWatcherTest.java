@@ -19,6 +19,7 @@
  */
 package org.sonar.application;
 
+import java.security.SecureRandom;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.function.BooleanSupplier;
@@ -79,7 +80,7 @@ public class AbstractStopRequestWatcherTest {
 
   @Test
   public void create_instance_with_specified_delay() {
-    long delayMs = new Random().nextLong();
+    long delayMs = new SecureRandom().nextLong();
     AbstractStopRequestWatcher underTest = new AbstractStopRequestWatcher(threadName, booleanSupplier, stopAction, delayMs) {
 
     };

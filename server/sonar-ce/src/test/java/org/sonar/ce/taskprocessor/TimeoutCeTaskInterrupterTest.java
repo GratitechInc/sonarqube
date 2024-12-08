@@ -19,6 +19,7 @@
  */
 package org.sonar.ce.taskprocessor;
 
+import java.security.SecureRandom;
 import java.util.Optional;
 import java.util.Random;
 import org.junit.Rule;
@@ -40,7 +41,7 @@ public class TimeoutCeTaskInterrupterTest {
   @Rule
   public LogTester logTester = new LogTester();
 
-  private int timeoutInSeconds = 1 + new Random().nextInt(20);
+  private int timeoutInSeconds = 1 + new SecureRandom().nextInt(20);
   private int timeoutInMs = timeoutInSeconds * 1_000;
   private CeWorkerController ceWorkerController = mock(CeWorkerController.class);
   private System2 system2 = mock(System2.class);
@@ -57,7 +58,7 @@ public class TimeoutCeTaskInterrupterTest {
 
   @Test
   public void constructor_fails_with_IAE_if_timeout_is_less_than_0() {
-    long timeout = - (1 + new Random().nextInt(299));
+    long timeout = - (1 + new SecureRandom().nextInt(299));
 
     assertThatThrownBy(() -> new TimeoutCeTaskInterrupter(timeout, ceWorkerController, system2))
       .isInstanceOf(IllegalArgumentException.class)
@@ -66,7 +67,7 @@ public class TimeoutCeTaskInterrupterTest {
 
   @Test
   public void constructor_log_timeout_in_ms_at_INFO_level() {
-    int timeout = 1 + new Random().nextInt(9_999);
+    int timeout = 1 + new SecureRandom().nextInt(9_999);
 
     new TimeoutCeTaskInterrupter(timeout, ceWorkerController, system2);
 
@@ -157,11 +158,11 @@ public class TimeoutCeTaskInterrupterTest {
     underTest.onStart(ceTask);
 
     // timeout not passed => no exception thrown
-    int beforeTimeoutOffset = 1 + new Random().nextInt(timeoutInMs - 1);
+    int beforeTimeoutOffset = 1 + new SecureRandom().nextInt(timeoutInMs - 1);
     when(system2.now()).thenReturn(now + timeoutInMs - beforeTimeoutOffset);
     underTest.check(thread);
 
-    int afterTimeoutOffset = new Random().nextInt(7_112);
+    int afterTimeoutOffset = new SecureRandom().nextInt(7_112);
     when(system2.now()).thenReturn(now + timeoutInMs + afterTimeoutOffset);
 
     assertThatThrownBy(() -> underTest.check(thread))
@@ -184,7 +185,7 @@ public class TimeoutCeTaskInterrupterTest {
       t.interrupt();
 
       // will not fail as thread is not interrupted nor timed out
-      int afterTimeoutOffset = new Random().nextInt(7_112);
+      int afterTimeoutOffset = new SecureRandom().nextInt(7_112);
       when(system2.now()).thenReturn(now + timeoutInMs + afterTimeoutOffset);
 
       assertThatThrownBy(() -> underTest.check(t))

@@ -24,6 +24,7 @@ import com.google.common.collect.ListMultimap;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.util.Random;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -113,7 +114,7 @@ public class FPOrWontFixNotificationHandlerTest {
   @Test
   public void deliver_has_no_effect_if_emailNotificationChannel_is_disabled() {
     when(emailNotificationChannel.isActivated()).thenReturn(false);
-    Set<IssuesChangesNotification> notifications = IntStream.range(0, 1 + new Random().nextInt(10))
+    Set<IssuesChangesNotification> notifications = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> mock(IssuesChangesNotification.class))
       .collect(toSet());
 
@@ -128,7 +129,7 @@ public class FPOrWontFixNotificationHandlerTest {
 
   @Test
   public void deliver_parses_every_notification_in_order() {
-    Set<IssuesChangesNotification> notifications = IntStream.range(0, 5 + new Random().nextInt(10))
+    Set<IssuesChangesNotification> notifications = IntStream.range(0, 5 + new SecureRandom().nextInt(10))
       .mapToObj(i -> mock(IssuesChangesNotification.class))
       .collect(toSet());
     when(emailNotificationChannel.isActivated()).thenReturn(true);
@@ -142,7 +143,7 @@ public class FPOrWontFixNotificationHandlerTest {
 
   @Test
   public void deliver_fails_with_IAE_if_serializer_throws_IAE() {
-    Set<IssuesChangesNotification> notifications = IntStream.range(0, 3 + new Random().nextInt(10))
+    Set<IssuesChangesNotification> notifications = IntStream.range(0, 3 + new SecureRandom().nextInt(10))
       .mapToObj(i -> mock(IssuesChangesNotification.class))
       .collect(toSet());
     when(emailNotificationChannel.isActivated()).thenReturn(true);
@@ -166,7 +167,7 @@ public class FPOrWontFixNotificationHandlerTest {
   public void deliver_has_no_effect_if_no_issue_has_new_resolution() {
     when(emailNotificationChannel.isActivated()).thenReturn(true);
     Change changeMock = mock(Change.class);
-    Set<IssuesChangesNotification> notifications = IntStream.range(0, 2 + new Random().nextInt(5))
+    Set<IssuesChangesNotification> notifications = IntStream.range(0, 2 + new SecureRandom().nextInt(5))
       .mapToObj(j -> new IssuesChangesNotificationBuilder(randomIssues(t -> t.setNewResolution(null)).collect(toSet()), changeMock))
       .map(serializer::serialize)
       .collect(toSet());
@@ -188,7 +189,7 @@ public class FPOrWontFixNotificationHandlerTest {
   public void deliver_has_no_effect_if_no_issue_has_FP_or_wontfix_resolution(String newResolution) {
     when(emailNotificationChannel.isActivated()).thenReturn(true);
     Change changeMock = mock(Change.class);
-    Set<IssuesChangesNotification> notifications = IntStream.range(0, 2 + new Random().nextInt(5))
+    Set<IssuesChangesNotification> notifications = IntStream.range(0, 2 + new SecureRandom().nextInt(5))
       .mapToObj(j -> new IssuesChangesNotificationBuilder(randomIssues(t -> t.setNewResolution(newResolution)).collect(toSet()), changeMock))
       .map(serializer::serialize)
       .collect(toSet());
@@ -224,17 +225,17 @@ public class FPOrWontFixNotificationHandlerTest {
     Project projectKey4 = newProject(randomAlphabetic(7));
     Change changeMock = mock(Change.class);
     // some notifications with some issues on project1
-    Stream<IssuesChangesNotificationBuilder> project1Notifications = IntStream.range(0, 1 + new Random().nextInt(2))
+    Stream<IssuesChangesNotificationBuilder> project1Notifications = IntStream.range(0, 1 + new SecureRandom().nextInt(2))
       .mapToObj(j -> new IssuesChangesNotificationBuilder(
         randomIssues(t -> t.setProject(projectKey1).setNewResolution(newResolution)).collect(toSet()),
         changeMock));
     // some notifications with some issues on project2
-    Stream<IssuesChangesNotificationBuilder> project2Notifications = IntStream.range(0, 1 + new Random().nextInt(2))
+    Stream<IssuesChangesNotificationBuilder> project2Notifications = IntStream.range(0, 1 + new SecureRandom().nextInt(2))
       .mapToObj(j -> new IssuesChangesNotificationBuilder(
         randomIssues(t -> t.setProject(projectKey2).setNewResolution(newResolution)).collect(toSet()),
         changeMock));
     // some notifications with some issues on project3 and project 4
-    Stream<IssuesChangesNotificationBuilder> project3And4Notifications = IntStream.range(0, 1 + new Random().nextInt(2))
+    Stream<IssuesChangesNotificationBuilder> project3And4Notifications = IntStream.range(0, 1 + new SecureRandom().nextInt(2))
       .mapToObj(j -> new IssuesChangesNotificationBuilder(
         Stream.concat(
           randomIssues(t -> t.setProject(projectKey3).setNewResolution(newResolution)),
@@ -270,13 +271,13 @@ public class FPOrWontFixNotificationHandlerTest {
     User otherChangeAuthor = newUser("otherChangeAuthor");
 
     // subscriber1 is the changeAuthor of some notifications with issues assigned to subscriber1 only
-    Set<IssuesChangesNotificationBuilder> subscriber1Notifications = IntStream.range(0, 1 + new Random().nextInt(2))
+    Set<IssuesChangesNotificationBuilder> subscriber1Notifications = IntStream.range(0, 1 + new SecureRandom().nextInt(2))
       .mapToObj(j -> new IssuesChangesNotificationBuilder(
         randomIssues(t -> t.setProject(project).setNewResolution(newResolution).setAssignee(subscriber2)).collect(toSet()),
         newUserChange(subscriber1)))
       .collect(toSet());
     // subscriber1 is the changeAuthor of some notifications with issues assigned to subscriber1 and subscriber2
-    Set<IssuesChangesNotificationBuilder> subscriber1and2Notifications = IntStream.range(0, 1 + new Random().nextInt(2))
+    Set<IssuesChangesNotificationBuilder> subscriber1and2Notifications = IntStream.range(0, 1 + new SecureRandom().nextInt(2))
       .mapToObj(j -> new IssuesChangesNotificationBuilder(
         Stream.concat(
           randomIssues(t -> t.setProject(project).setNewResolution(newResolution).setAssignee(subscriber2)),
@@ -285,13 +286,13 @@ public class FPOrWontFixNotificationHandlerTest {
         newUserChange(subscriber1)))
       .collect(toSet());
     // subscriber2 is the changeAuthor of some notifications with issues assigned to subscriber2 only
-    Set<IssuesChangesNotificationBuilder> subscriber2Notifications = IntStream.range(0, 1 + new Random().nextInt(2))
+    Set<IssuesChangesNotificationBuilder> subscriber2Notifications = IntStream.range(0, 1 + new SecureRandom().nextInt(2))
       .mapToObj(j -> new IssuesChangesNotificationBuilder(
         randomIssues(t -> t.setProject(project).setNewResolution(newResolution).setAssignee(subscriber2)).collect(toSet()),
         newUserChange(subscriber2)))
       .collect(toSet());
     // subscriber2 is the changeAuthor of some notifications with issues assigned to subscriber2 and subscriber 3
-    Set<IssuesChangesNotificationBuilder> subscriber2And3Notifications = IntStream.range(0, 1 + new Random().nextInt(2))
+    Set<IssuesChangesNotificationBuilder> subscriber2And3Notifications = IntStream.range(0, 1 + new SecureRandom().nextInt(2))
       .mapToObj(j -> new IssuesChangesNotificationBuilder(
         Stream.concat(
           randomIssues(t -> t.setProject(project).setNewResolution(newResolution).setAssignee(subscriber2)),
@@ -301,7 +302,7 @@ public class FPOrWontFixNotificationHandlerTest {
       .collect(toSet());
     // subscriber3 is the changeAuthor of no notification
     // otherChangeAuthor has some notifications
-    Set<IssuesChangesNotificationBuilder> otherChangeAuthorNotifications = IntStream.range(0, 1 + new Random().nextInt(2))
+    Set<IssuesChangesNotificationBuilder> otherChangeAuthorNotifications = IntStream.range(0, 1 + new SecureRandom().nextInt(2))
       .mapToObj(j -> new IssuesChangesNotificationBuilder(randomIssues(t -> t.setProject(project).setNewResolution(newResolution)).collect(toSet()),
         newUserChange(otherChangeAuthor)))
       .collect(toSet());
@@ -311,7 +312,7 @@ public class FPOrWontFixNotificationHandlerTest {
     when(notificationManager.findSubscribedEmailRecipients(DO_NOT_FIX_ISSUE_CHANGE_DISPATCHER_KEY, project.getKey(), ALL_MUST_HAVE_ROLE_USER))
       .thenReturn(subscriberLogins.stream().map(FPOrWontFixNotificationHandlerTest::emailRecipientOf).collect(toSet()));
 
-    int deliveredCount = new Random().nextInt(200);
+    int deliveredCount = new SecureRandom().nextInt(200);
     when(emailNotificationChannel.deliverAll(anySet()))
       .thenReturn(deliveredCount)
       .thenThrow(new IllegalStateException("deliver should be called only once"));
@@ -400,7 +401,7 @@ public class FPOrWontFixNotificationHandlerTest {
     projects.forEach(project -> when(notificationManager.findSubscribedEmailRecipients(DO_NOT_FIX_ISSUE_CHANGE_DISPATCHER_KEY, project.getKey(), ALL_MUST_HAVE_ROLE_USER))
       .thenReturn(singleton(emailRecipientOf(subscriber1.getLogin()))));
 
-    int deliveredCount = new Random().nextInt(200);
+    int deliveredCount = new SecureRandom().nextInt(200);
     when(emailNotificationChannel.deliverAll(anySet()))
       .thenReturn(deliveredCount)
       .thenThrow(new IllegalStateException("deliver should be called only once"));
@@ -431,7 +432,7 @@ public class FPOrWontFixNotificationHandlerTest {
   public static Object[][] oneOrMoreProjectCounts() {
     return new Object[][] {
       {1},
-      {2 + new Random().nextInt(3)},
+      {2 + new SecureRandom().nextInt(3)},
     };
   }
 
@@ -470,7 +471,7 @@ public class FPOrWontFixNotificationHandlerTest {
   }
 
   private static Stream<ChangedIssue> randomIssues(Consumer<ChangedIssue.Builder> consumer) {
-    return IntStream.range(0, 1 + new Random().nextInt(5))
+    return IntStream.range(0, 1 + new SecureRandom().nextInt(5))
       .mapToObj(i -> {
         ChangedIssue.Builder builder = new ChangedIssue.Builder("key_" + i)
           .setAssignee(new User(randomAlphabetic(3), randomAlphabetic(4), randomAlphabetic(5)))

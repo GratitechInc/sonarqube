@@ -22,6 +22,7 @@ package org.sonar.server.issue.ws;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import java.security.SecureRandom;
 import java.time.Clock;
 import java.util.Arrays;
 import java.util.Collections;
@@ -1597,7 +1598,7 @@ public class SearchActionIT {
     ComponentDto project = db.components().insertPublicProject().getMainBranchComponent();
     ComponentDto file = db.components().insertComponent(newFileDto(project));
     RuleDto rule = db.rules().insertHotspotRule();
-    List<IssueDto> hotspots = IntStream.range(1, 2 + new Random().nextInt(10))
+    List<IssueDto> hotspots = IntStream.range(1, 2 + new SecureRandom().nextInt(10))
       .mapToObj(value -> db.issues().insertHotspot(rule, project, file))
       .collect(Collectors.toList());
     indexPermissions();

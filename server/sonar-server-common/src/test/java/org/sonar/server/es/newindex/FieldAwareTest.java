@@ -19,6 +19,7 @@
  */
 package org.sonar.server.es.newindex;
 
+import java.security.SecureRandom;
 import java.util.Random;
 import java.util.function.BiConsumer;
 import java.util.stream.Stream;
@@ -47,7 +48,7 @@ public class FieldAwareTest {
     fieldSetters.forEach(c -> {
       TestFieldAware underTest = new TestFieldAware();
       // should not fail for other field name
-      c.accept(underTest, randomAlphabetic(1 + new Random().nextInt(10)));
+      c.accept(underTest, randomAlphabetic(1 + new SecureRandom().nextInt(10)));
       // fails whatever the case
       Stream.of("indexType", "indextype", "InDexType", "INDEXTYPE")
         .forEach(illegalFieldName -> {

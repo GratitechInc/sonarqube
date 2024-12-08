@@ -19,13 +19,14 @@
  */
 package org.sonar.db.audit;
 
+import java.security.SecureRandom;
 import java.util.Random;
 
 import static org.apache.commons.lang.RandomStringUtils.randomAlphanumeric;
 
 public class AuditTesting {
 
-  private static final Random random = new Random();
+  private static final Random random = new SecureRandom();
 
   private AuditTesting() {
     throw new IllegalStateException("Utility class");

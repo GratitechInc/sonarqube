@@ -20,6 +20,7 @@
 package org.sonar.core.extension;
 
 import com.google.common.collect.ImmutableSet;
+import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.Random;
 import java.util.Set;
@@ -53,7 +54,7 @@ public class CoreExtensionsLoaderTest {
 
   @Test
   public void load_sets_loaded_core_extensions_into_repository() {
-    Set<CoreExtension> coreExtensions = IntStream.range(0, 1 + new Random().nextInt(5))
+    Set<CoreExtension> coreExtensions = IntStream.range(0, 1 + new SecureRandom().nextInt(5))
       .mapToObj(i -> newCoreExtension("core_ext_" + i))
       .collect(Collectors.toSet());
     when(serviceLoaderWrapper.load(any())).thenReturn(coreExtensions);

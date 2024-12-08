@@ -19,6 +19,7 @@
  */
 package org.sonar.server.health;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -51,7 +52,7 @@ public class HealthCheckerImplTest {
 
   private final NodeInformation nodeInformation = mock(NodeInformation.class);
   private final SharedHealthState sharedHealthState = mock(SharedHealthState.class);
-  private final Random random = new Random();
+  private final Random random = new SecureRandom();
 
   @Test
   public void check_returns_green_status_without_any_cause_when_there_is_no_NodeHealthCheck() {

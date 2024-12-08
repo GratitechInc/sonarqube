@@ -23,6 +23,7 @@ import com.google.common.collect.ImmutableSet;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Random;
@@ -201,7 +202,7 @@ public class RuleIndexerIT {
     sqCategories.remove(SQCategory.OTHERS);
 
     // pick two random categories
-    Random random = new Random();
+    Random random = new SecureRandom();
     SQCategory sqCategory1 = sqCategories.toArray(new SQCategory[0])[random.nextInt(sqCategories.size())];
     sqCategories.remove(sqCategory1);
     SQCategory sqCategory2 = sqCategories.toArray(new SQCategory[0])[random.nextInt(sqCategories.size())];

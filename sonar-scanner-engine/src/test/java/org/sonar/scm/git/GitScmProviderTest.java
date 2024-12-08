@@ -27,6 +27,7 @@ import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.security.SecureRandom;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collections;
@@ -122,7 +123,7 @@ public class GitScmProviderTest {
   public LogTester logs = new LogTester();
 
   private final GitIgnoreCommand gitIgnoreCommand = mock(GitIgnoreCommand.class);
-  private static final Random random = new Random();
+  private static final Random random = new SecureRandom();
   private static final System2 system2 = mock(System2.class);
 
   private Path worktree;

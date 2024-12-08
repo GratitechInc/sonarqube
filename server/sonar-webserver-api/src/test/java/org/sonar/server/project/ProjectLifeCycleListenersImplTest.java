@@ -22,6 +22,7 @@ package org.sonar.server.project;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.Random;
 import java.util.Set;
@@ -201,7 +202,7 @@ public class ProjectLifeCycleListenersImplTest {
   public static Object[][] oneOrManyProjects() {
     return new Object[][] {
       {singleton(newUniqueProject())},
-      {IntStream.range(0, 1 + new Random().nextInt(10)).mapToObj(i -> newUniqueProject()).collect(MoreCollectors.toSet())}
+      {IntStream.range(0, 1 + new SecureRandom().nextInt(10)).mapToObj(i -> newUniqueProject()).collect(MoreCollectors.toSet())}
     };
   }
   // SDSDS
@@ -283,7 +284,7 @@ public class ProjectLifeCycleListenersImplTest {
   public static Object[][] oneOrManyRekeyedProjects() {
     return new Object[][] {
       {singleton(newUniqueRekeyedProject())},
-      {IntStream.range(0, 1 + new Random().nextInt(10)).mapToObj(i -> newUniqueRekeyedProject()).collect(MoreCollectors.toSet())}
+      {IntStream.range(0, 1 + new SecureRandom().nextInt(10)).mapToObj(i -> newUniqueRekeyedProject()).collect(MoreCollectors.toSet())}
     };
   }
 

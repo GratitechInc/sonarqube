@@ -25,6 +25,7 @@ import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import java.lang.reflect.Field;
+import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Random;
@@ -135,7 +136,7 @@ public class NotificationFactoryTest {
 
   @Test
   public void newMyNewIssuesNotification_DetailsSupplier_getUserNameByUuid_returns_name_of_user_from_map_argument() {
-    Set<UserDto> users = IntStream.range(0, 1 + new Random().nextInt(10))
+    Set<UserDto> users = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> UserTesting.newUserDto().setLogin("user" + i))
       .collect(Collectors.toSet());
 
@@ -179,7 +180,7 @@ public class NotificationFactoryTest {
 
   @Test
   public void newNewIssuesNotification_DetailsSupplier_getUserNameByUuid_returns_name_of_user_from_map_argument() {
-    Set<UserDto> users = IntStream.range(0, 1 + new Random().nextInt(10))
+    Set<UserDto> users = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> UserTesting.newUserDto().setLogin("user" + i))
       .collect(Collectors.toSet());
 
@@ -410,7 +411,7 @@ public class NotificationFactoryTest {
 
   @Test
   public void newIssuesChangesNotification_fails_with_ISE_if_analysis_date_has_not_been_set() {
-    Set<DefaultIssue> issues = IntStream.range(0, 1 + new Random().nextInt(2))
+    Set<DefaultIssue> issues = IntStream.range(0, 1 + new SecureRandom().nextInt(2))
       .mapToObj(i -> new DefaultIssue())
       .collect(Collectors.toSet());
     Map<String, UserDto> assigneesByUuid = nonEmptyAssigneesByUuid();
@@ -422,7 +423,7 @@ public class NotificationFactoryTest {
 
   @Test
   public void newIssuesChangesNotification_fails_with_IAE_if_issues_is_empty() {
-    analysisMetadata.setAnalysisDate(new Random().nextLong());
+    analysisMetadata.setAnalysisDate(new SecureRandom().nextLong());
     Map<String, UserDto> assigneesByUuid = nonEmptyAssigneesByUuid();
 
     assertThatThrownBy(() ->  underTest.newIssuesChangesNotification(Collections.emptySet(), assigneesByUuid))
@@ -434,7 +435,7 @@ public class NotificationFactoryTest {
   public void newIssuesChangesNotification_fails_with_NPE_if_issue_has_no_rule() {
     DefaultIssue issue = new DefaultIssue();
     Map<String, UserDto> assigneesByUuid = nonEmptyAssigneesByUuid();
-    analysisMetadata.setAnalysisDate(new Random().nextLong());
+    analysisMetadata.setAnalysisDate(new SecureRandom().nextLong());
 
     assertThatThrownBy(() -> underTest.newIssuesChangesNotification(ImmutableSet.of(issue), assigneesByUuid))
       .isInstanceOf(NullPointerException.class);
@@ -446,7 +447,7 @@ public class NotificationFactoryTest {
     DefaultIssue issue = new DefaultIssue()
       .setRuleKey(ruleKey);
     Map<String, UserDto> assigneesByUuid = nonEmptyAssigneesByUuid();
-    analysisMetadata.setAnalysisDate(new Random().nextLong());
+    analysisMetadata.setAnalysisDate(new SecureRandom().nextLong());
 
     assertThatThrownBy(() -> underTest.newIssuesChangesNotification(ImmutableSet.of(issue), assigneesByUuid))
       .isInstanceOf(IllegalStateException.class)
@@ -460,7 +461,7 @@ public class NotificationFactoryTest {
       .setRuleKey(ruleKey);
     Map<String, UserDto> assigneesByUuid = nonEmptyAssigneesByUuid();
     ruleRepository.add(ruleKey);
-    analysisMetadata.setAnalysisDate(new Random().nextLong());
+    analysisMetadata.setAnalysisDate(new SecureRandom().nextLong());
 
     assertThatThrownBy(() -> underTest.newIssuesChangesNotification(ImmutableSet.of(issue), assigneesByUuid))
       .isInstanceOf(IllegalStateException.class)
@@ -474,7 +475,7 @@ public class NotificationFactoryTest {
       .setRuleKey(ruleKey);
     Map<String, UserDto> assigneesByUuid = nonEmptyAssigneesByUuid();
     ruleRepository.add(ruleKey);
-    analysisMetadata.setAnalysisDate(new Random().nextLong());
+    analysisMetadata.setAnalysisDate(new SecureRandom().nextLong());
     treeRootHolder.setRoot(ReportComponent.builder(PROJECT, 1).build());
 
     assertThatThrownBy(() -> underTest.newIssuesChangesNotification(ImmutableSet.of(issue), assigneesByUuid))
@@ -490,7 +491,7 @@ public class NotificationFactoryTest {
     Map<String, UserDto> assigneesByUuid = nonEmptyAssigneesByUuid();
     ruleRepository.add(ruleKey);
     treeRootHolder.setRoot(ReportComponent.builder(PROJECT, 1).build());
-    analysisMetadata.setAnalysisDate(new Random().nextLong());
+    analysisMetadata.setAnalysisDate(new SecureRandom().nextLong());
     analysisMetadata.setBranch(mock(Branch.class));
 
     assertThatThrownBy(() -> underTest.newIssuesChangesNotification(ImmutableSet.of(issue), assigneesByUuid))
@@ -507,7 +508,7 @@ public class NotificationFactoryTest {
     Map<String, UserDto> assigneesByUuid = nonEmptyAssigneesByUuid();
     ruleRepository.add(ruleKey);
     treeRootHolder.setRoot(ReportComponent.builder(PROJECT, 1).build());
-    analysisMetadata.setAnalysisDate(new Random().nextLong());
+    analysisMetadata.setAnalysisDate(new SecureRandom().nextLong());
     analysisMetadata.setBranch(mock(Branch.class));
 
     assertThatThrownBy(() -> underTest.newIssuesChangesNotification(ImmutableSet.of(issue), assigneesByUuid))
@@ -527,7 +528,7 @@ public class NotificationFactoryTest {
     ReportComponent project = ReportComponent.builder(PROJECT, 1).build();
     ruleRepository.add(ruleKey);
     treeRootHolder.setRoot(project);
-    analysisMetadata.setAnalysisDate(new Random().nextLong());
+    analysisMetadata.setAnalysisDate(new SecureRandom().nextLong());
     analysisMetadata.setBranch(branch);
     IssuesChangesNotification expected = mock(IssuesChangesNotification.class);
     when(issuesChangesSerializer.serialize(any(IssuesChangesNotificationBuilder.class))).thenReturn(expected);
@@ -571,7 +572,7 @@ public class NotificationFactoryTest {
     String branchName = randomAlphabetic(12);
     ruleRepository.add(ruleKey);
     treeRootHolder.setRoot(project);
-    analysisMetadata.setAnalysisDate(new Random().nextLong());
+    analysisMetadata.setAnalysisDate(new SecureRandom().nextLong());
     analysisMetadata.setBranch(newNonMainBranch(BranchType.BRANCH, branchName));
     IssuesChangesNotification expected = mock(IssuesChangesNotification.class);
     when(issuesChangesSerializer.serialize(any(IssuesChangesNotificationBuilder.class))).thenReturn(expected);
@@ -601,7 +602,7 @@ public class NotificationFactoryTest {
     String branchName = randomAlphabetic(12);
     ruleRepository.add(ruleKey);
     treeRootHolder.setRoot(project);
-    analysisMetadata.setAnalysisDate(new Random().nextLong());
+    analysisMetadata.setAnalysisDate(new SecureRandom().nextLong());
     analysisMetadata.setBranch(newNonMainBranch(BranchType.BRANCH, branchName));
     IssuesChangesNotification expected = mock(IssuesChangesNotification.class);
     when(issuesChangesSerializer.serialize(any(IssuesChangesNotificationBuilder.class))).thenReturn(expected);
@@ -629,7 +630,7 @@ public class NotificationFactoryTest {
     ReportComponent project = ReportComponent.builder(PROJECT, 1).build();
     ruleRepository.add(ruleKey);
     treeRootHolder.setRoot(project);
-    analysisMetadata.setAnalysisDate(new Random().nextLong());
+    analysisMetadata.setAnalysisDate(new SecureRandom().nextLong());
     analysisMetadata.setBranch(newNonMainBranch(BranchType.BRANCH, randomAlphabetic(12)));
 
     assertThatThrownBy(() ->  underTest.newIssuesChangesNotification(ImmutableSet.of(issue), assigneesByUuid))
@@ -651,7 +652,7 @@ public class NotificationFactoryTest {
     ReportComponent project = ReportComponent.builder(PROJECT, 1).build();
     ruleRepository.add(ruleKey);
     treeRootHolder.setRoot(project);
-    analysisMetadata.setAnalysisDate(new Random().nextLong());
+    analysisMetadata.setAnalysisDate(new SecureRandom().nextLong());
     analysisMetadata.setBranch(newNonMainBranch(BranchType.BRANCH, randomAlphabetic(12)));
     IssuesChangesNotification expected = mock(IssuesChangesNotification.class);
     when(issuesChangesSerializer.serialize(any(IssuesChangesNotificationBuilder.class))).thenReturn(expected);
@@ -678,7 +679,7 @@ public class NotificationFactoryTest {
       .setStatus(STATUS_OPEN);
     Map<String, UserDto> assigneesByUuid = nonEmptyAssigneesByUuid();
     ReportComponent project = ReportComponent.builder(PROJECT, 1).build();
-    long analysisDate = new Random().nextLong();
+    long analysisDate = new SecureRandom().nextLong();
     ruleRepository.add(ruleKey);
     treeRootHolder.setRoot(project);
     analysisMetadata.setAnalysisDate(analysisDate);
@@ -699,14 +700,14 @@ public class NotificationFactoryTest {
 
   @Test
   public void newIssuesChangesNotification_maps_all_issues() {
-    Set<DefaultIssue> issues = IntStream.range(0, 3 + new Random().nextInt(5))
+    Set<DefaultIssue> issues = IntStream.range(0, 3 + new SecureRandom().nextInt(5))
       .mapToObj(i -> new DefaultIssue()
         .setRuleKey(RuleKey.of("repo_" + i, "rule_" + i))
         .setKey("issue_key_" + i)
         .setStatus("status_" + i))
       .collect(Collectors.toSet());
     ReportComponent project = ReportComponent.builder(PROJECT, 1).build();
-    long analysisDate = new Random().nextLong();
+    long analysisDate = new SecureRandom().nextLong();
     issues.stream()
       .map(DefaultIssue::ruleKey)
       .forEach(ruleKey -> ruleRepository.add(ruleKey));
@@ -735,7 +736,7 @@ public class NotificationFactoryTest {
   }
 
   private static Map<String, UserDto> nonEmptyAssigneesByUuid() {
-    return IntStream.range(0, 1 + new Random().nextInt(3))
+    return IntStream.range(0, 1 + new SecureRandom().nextInt(3))
       .boxed()
       .collect(uniqueIndex(i -> "uuid_" + i, i -> new UserDto()));
   }

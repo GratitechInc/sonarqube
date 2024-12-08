@@ -21,6 +21,7 @@ package org.sonar.ce.monitoring;
 
 import com.google.common.collect.ImmutableSet;
 import java.lang.management.ManagementFactory;
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -57,7 +58,7 @@ public class CeTasksMBeanImplTest {
   private static final long PROCESSING_TIME = 987;
   private static final int WORKER_MAX_COUNT = 666;
   private static final int WORKER_COUNT = 56;
-  private static final Set<CeWorker> WORKERS = IntStream.range(0, 2 + new Random().nextInt(10))
+  private static final Set<CeWorker> WORKERS = IntStream.range(0, 2 + new SecureRandom().nextInt(10))
     .mapToObj(i -> RandomStringUtils.randomAlphabetic(15))
     .map(uuid -> {
       CeWorker res = mock(CeWorker.class);
@@ -131,7 +132,7 @@ public class CeTasksMBeanImplTest {
 
   @Test
   public void getEnabledWorkerUuids_returns_ordered_list_of_uuids_of_worker_from_CeWorkerFactory_instance_filtered_on_enabled_ones() {
-    int enabledWorkerCount = new Random().nextInt(WORKERS.size());
+    int enabledWorkerCount = new SecureRandom().nextInt(WORKERS.size());
     int i = 0;
     CeWorker[] enabledWorkers = new CeWorker[enabledWorkerCount];
     for (CeWorker worker : WORKERS) {

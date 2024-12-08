@@ -19,6 +19,7 @@
  */
 package org.sonar.server.setting;
 
+import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Optional;
@@ -34,7 +35,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class ChildSettingsTest {
-  private static final Random RANDOM = new Random();
+  private static final Random RANDOM = new SecureRandom();
 
 
   private MapSettings parent = new MapSettings();

@@ -19,6 +19,7 @@
  */
 package org.sonar.server.issue.notification;
 
+import java.security.SecureRandom;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.IntStream;
@@ -67,7 +68,7 @@ public class IssuesChangesNotificationSerializerTest {
         .build())
       .collect(toSet());
     IssuesChangesNotificationBuilder builder = new IssuesChangesNotificationBuilder(issues,
-      new IssuesChangesNotificationBuilder.UserChange(new Random().nextLong(), new IssuesChangesNotificationBuilder.User("user_uuid", "user_login", null)));
+      new IssuesChangesNotificationBuilder.UserChange(new SecureRandom().nextLong(), new IssuesChangesNotificationBuilder.User("user_uuid", "user_login", null)));
 
     IssuesChangesNotification serialized = underTest.serialize(builder);
     IssuesChangesNotificationBuilder deserialized = underTest.from(serialized);
@@ -87,7 +88,7 @@ public class IssuesChangesNotificationSerializerTest {
         .build())
       .collect(toSet());
     IssuesChangesNotificationBuilder builder = new IssuesChangesNotificationBuilder(issues,
-      new IssuesChangesNotificationBuilder.UserChange(new Random().nextLong(), new IssuesChangesNotificationBuilder.User("user_uuid", "user_login", null)));
+      new IssuesChangesNotificationBuilder.UserChange(new SecureRandom().nextLong(), new IssuesChangesNotificationBuilder.User("user_uuid", "user_login", null)));
 
     IssuesChangesNotification serialized = underTest.serialize(builder);
     IssuesChangesNotificationBuilder deserialized = underTest.from(serialized);
@@ -107,7 +108,7 @@ public class IssuesChangesNotificationSerializerTest {
         .build())
       .collect(toSet());
     IssuesChangesNotificationBuilder builder = new IssuesChangesNotificationBuilder(issues,
-      new IssuesChangesNotificationBuilder.UserChange(new Random().nextLong(), new IssuesChangesNotificationBuilder.User("user_uuid", "user_login", null)));
+      new IssuesChangesNotificationBuilder.UserChange(new SecureRandom().nextLong(), new IssuesChangesNotificationBuilder.User("user_uuid", "user_login", null)));
 
     IssuesChangesNotification serialized = underTest.serialize(builder);
     IssuesChangesNotificationBuilder deserialized = underTest.from(serialized);
@@ -127,7 +128,7 @@ public class IssuesChangesNotificationSerializerTest {
         .build())
       .collect(toSet());
     IssuesChangesNotificationBuilder builder = new IssuesChangesNotificationBuilder(issues,
-      new IssuesChangesNotificationBuilder.UserChange(new Random().nextLong(), new IssuesChangesNotificationBuilder.User("user_uuid", "user_login", null)));
+      new IssuesChangesNotificationBuilder.UserChange(new SecureRandom().nextLong(), new IssuesChangesNotificationBuilder.User("user_uuid", "user_login", null)));
 
     IssuesChangesNotification serialized = underTest.serialize(builder);
     IssuesChangesNotificationBuilder deserialized = underTest.from(serialized);

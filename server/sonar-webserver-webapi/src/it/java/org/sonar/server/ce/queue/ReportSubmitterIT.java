@@ -21,6 +21,7 @@ package org.sonar.server.ce.queue;
 
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
 import java.util.Map;
 import java.util.Random;
 import java.util.stream.IntStream;
@@ -113,7 +114,7 @@ public class ReportSubmitterIT {
     mockSuccessfulPrepareSubmitCall();
     when(permissionTemplateService.wouldUserHaveScanPermissionWithDefaultTemplate(any(), any(), eq(PROJECT_KEY)))
       .thenReturn(true);
-    Map<String, String> nonEmptyCharacteristics = IntStream.range(0, 1 + new Random().nextInt(5))
+    Map<String, String> nonEmptyCharacteristics = IntStream.range(0, 1 + new SecureRandom().nextInt(5))
       .boxed()
       .collect(uniqueIndex(i -> randomAlphabetic(i + 10), i -> randomAlphabetic(i + 20)));
     InputStream reportInput = IOUtils.toInputStream("{binary}", UTF_8);

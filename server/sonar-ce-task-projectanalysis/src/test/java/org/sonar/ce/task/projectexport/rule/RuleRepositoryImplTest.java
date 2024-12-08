@@ -19,6 +19,7 @@
  */
 package org.sonar.ce.task.projectexport.rule;
 
+import java.security.SecureRandom;
 import java.util.Collection;
 import java.util.Random;
 import org.junit.Test;
@@ -35,7 +36,7 @@ public class RuleRepositoryImplTest {
   private static final Rule SOME_RULE = new Rule("uuid-1", SOME_REPOSITORY, SOME_RULE_KEY);
 
 
-  private Random random = new Random();
+  private Random random = new SecureRandom();
 
   private RuleRepositoryImpl underTest = new RuleRepositoryImpl();
 

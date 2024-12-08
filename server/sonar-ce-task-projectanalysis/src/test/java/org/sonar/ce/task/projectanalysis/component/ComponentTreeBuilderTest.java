@@ -19,6 +19,7 @@
  */
 package org.sonar.ce.task.projectanalysis.component;
 
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -59,7 +60,7 @@ public class ComponentTreeBuilderTest {
   private static final String NO_SCM_BASE_PATH = "";
   // both no project as "" or null should be supported
   private static final ProjectAttributes SOME_PROJECT_ATTRIBUTES = new ProjectAttributes(
-    randomAlphabetic(20), new Random().nextBoolean() ? null : randomAlphabetic(12), "1def5123");
+    randomAlphabetic(20), new SecureRandom().nextBoolean() ? null : randomAlphabetic(12), "1def5123");
 
   @Rule
   public ScannerComponentProvider scannerComponentProvider = new ScannerComponentProvider();

@@ -19,6 +19,7 @@
  */
 package org.sonar.db.permission;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -1011,7 +1012,7 @@ public class GroupPermissionDaoIT {
   }
 
   private ComponentDto randomPublicOrPrivateProject() {
-    return new Random().nextBoolean() ? db.components().insertPublicProject().getMainBranchComponent() : db.components().insertPrivateProject().getMainBranchComponent();
+    return new SecureRandom().nextBoolean() ? db.components().insertPublicProject().getMainBranchComponent() : db.components().insertPrivateProject().getMainBranchComponent();
   }
 
   private PermissionQuery.Builder newQuery() {

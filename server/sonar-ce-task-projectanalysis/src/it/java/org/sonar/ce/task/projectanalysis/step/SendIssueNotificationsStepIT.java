@@ -22,6 +22,7 @@ package org.sonar.ce.task.projectanalysis.step;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -136,7 +137,7 @@ public class SendIssueNotificationsStepIT extends BaseStepTest {
   @Rule
   public DbTester db = DbTester.create(System2.INSTANCE);
 
-  private final Random random = new Random();
+  private final Random random = new SecureRandom();
   private final RuleType[] RULE_TYPES_EXCEPT_HOTSPOTS = Stream.of(RuleType.values()).filter(r -> r != SECURITY_HOTSPOT).toArray(RuleType[]::new);
   private final RuleType randomRuleType = RULE_TYPES_EXCEPT_HOTSPOTS[random.nextInt(RULE_TYPES_EXCEPT_HOTSPOTS.length)];
   @SuppressWarnings("unchecked")
@@ -200,7 +201,7 @@ public class SendIssueNotificationsStepIT extends BaseStepTest {
 
   @Test
   public void send_global_new_issues_notification_only_for_non_backdated_issues() {
-    Random random = new Random();
+    Random random = new SecureRandom();
     Integer[] efforts = IntStream.range(0, 1 + random.nextInt(10)).mapToObj(i -> 10_000 * i).toArray(Integer[]::new);
     Integer[] backDatedEfforts = IntStream.range(0, 1 + random.nextInt(10)).mapToObj(i -> 10 + random.nextInt(100)).toArray(Integer[]::new);
     Duration expectedEffort = Duration.create(stream(efforts).mapToInt(i -> i).sum());
@@ -415,7 +416,7 @@ public class SendIssueNotificationsStepIT extends BaseStepTest {
   @Test
   public void send_new_issues_notification_to_user_only_for_non_backdated_issues() {
     UserDto user = db.users().insertUser();
-    Random random = new Random();
+    Random random = new SecureRandom();
     Integer[] efforts = IntStream.range(0, 1 + random.nextInt(10)).mapToObj(i -> 10_000 * i).toArray(Integer[]::new);
     Integer[] backDatedEfforts = IntStream.range(0, 1 + random.nextInt(10)).mapToObj(i -> 10 + random.nextInt(100)).toArray(Integer[]::new);
     Duration expectedEffort = Duration.create(stream(efforts).mapToInt(i -> i).sum());
@@ -605,7 +606,7 @@ public class SendIssueNotificationsStepIT extends BaseStepTest {
     ComponentDto file = newFileDto(project).setKey(FILE.getKey()).setLongName(FILE.getName());
     RuleDto ruleDefinitionDto = newRule();
     RuleType randomTypeExceptHotspot = RuleType.values()[nextInt(RuleType.values().length - 1)];
-    List<DefaultIssue> issues = IntStream.range(0, 2001 + new Random().nextInt(10))
+    List<DefaultIssue> issues = IntStream.range(0, 2001 + new SecureRandom().nextInt(10))
       .mapToObj(i -> newIssue(ruleDefinitionDto, project, file).setKee("uuid_" + i).setType(randomTypeExceptHotspot).toDefaultIssue()
         .setNew(false).setChanged(true).setSendNotifications(true).setAssigneeUuid(user.getUuid()))
       .toList();

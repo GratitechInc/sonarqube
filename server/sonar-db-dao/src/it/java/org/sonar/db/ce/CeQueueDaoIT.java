@@ -22,6 +22,7 @@ package org.sonar.db.ce;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
+import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -724,7 +725,7 @@ public class CeQueueDaoIT {
     return dto;
   }
 
-  private int pendingComponentUuidGenerator = new Random().nextInt(200);
+  private int pendingComponentUuidGenerator = new SecureRandom().nextInt(200);
 
   private CeQueueDto insertPending(String uuid, String mainComponentUuid) {
     CeQueueDto dto = new CeQueueDto();

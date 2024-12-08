@@ -19,6 +19,7 @@
  */
 package org.sonar.server.platform.platformlevel;
 
+import java.security.SecureRandom;
 import java.util.Random;
 import java.util.stream.IntStream;
 import org.junit.After;
@@ -63,7 +64,7 @@ public class PlatformLevelTest {
     underTest.add(mock(NodeInformation.class));
 
     PlatformLevel.AddIfStartupLeader addIfStartupLeader = underTest.addIfStartupLeader();
-    IntStream.range(0, 1 + new Random().nextInt(4)).forEach(i -> assertThat(underTest.addIfStartupLeader()).isSameAs(addIfStartupLeader));
+    IntStream.range(0, 1 + new SecureRandom().nextInt(4)).forEach(i -> assertThat(underTest.addIfStartupLeader()).isSameAs(addIfStartupLeader));
   }
 
   @Test
@@ -78,7 +79,7 @@ public class PlatformLevelTest {
     underTest.add(mock(NodeInformation.class));
 
     PlatformLevel.AddIfCluster addIfCluster = underTest.addIfCluster();
-    IntStream.range(0, 1 + new Random().nextInt(4)).forEach(i -> assertThat(underTest.addIfCluster()).isSameAs(addIfCluster));
+    IntStream.range(0, 1 + new SecureRandom().nextInt(4)).forEach(i -> assertThat(underTest.addIfCluster()).isSameAs(addIfCluster));
   }
 
   @Test
@@ -93,6 +94,6 @@ public class PlatformLevelTest {
     underTest.add(mock(NodeInformation.class));
 
     PlatformLevel.AddIfCluster addIfCluster = underTest.addIfCluster();
-    IntStream.range(0, 1 + new Random().nextInt(4)).forEach(i -> assertThat(underTest.addIfCluster()).isSameAs(addIfCluster));
+    IntStream.range(0, 1 + new SecureRandom().nextInt(4)).forEach(i -> assertThat(underTest.addIfCluster()).isSameAs(addIfCluster));
   }
 }

@@ -20,6 +20,7 @@
 package org.sonar.server.issue.notification;
 
 import com.google.common.collect.ImmutableSet;
+import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.Random;
 import java.util.Set;
@@ -42,7 +43,7 @@ public class FPOrWontFixNotificationTest {
   public void equals_is_based_on_issues_change_and_resolution() {
     Rule rule = newRandomNotAHotspotRule("rule_name");
     Project project = new Project.Builder("prj_uuid").setKey("prj_key").setProjectName("prj_name").build();
-    Set<ChangedIssue> changedIssues = IntStream.range(0, 2 + new Random().nextInt(5))
+    Set<ChangedIssue> changedIssues = IntStream.range(0, 2 + new SecureRandom().nextInt(5))
       .mapToObj(i -> new ChangedIssue.Builder("key_" + i)
         .setNewStatus("status")
         .setRule(rule)
@@ -69,7 +70,7 @@ public class FPOrWontFixNotificationTest {
   public void hashcode_is_based_on_issues_change_and_resolution() {
     Rule rule = newRandomNotAHotspotRule("rule_name");
     Project project = new Project.Builder("prj_uuid").setKey("prj_key").setProjectName("prj_name").build();
-    Set<ChangedIssue> changedIssues = IntStream.range(0, 2 + new Random().nextInt(5))
+    Set<ChangedIssue> changedIssues = IntStream.range(0, 2 + new SecureRandom().nextInt(5))
       .mapToObj(i -> new ChangedIssue.Builder("key_" + i)
         .setNewStatus("status")
         .setRule(rule)

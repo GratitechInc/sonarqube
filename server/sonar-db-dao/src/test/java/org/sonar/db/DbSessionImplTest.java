@@ -19,6 +19,7 @@
  */
 package org.sonar.db;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,7 +50,7 @@ public class DbSessionImplTest {
 
   @Test
   public void all_methods_to_wrapped_SqlSession() {
-    Random random = new Random();
+    Random random = new SecureRandom();
     boolean randomBoolean = random.nextBoolean();
     int randomInt = random.nextInt(200);
     String randomStatement = randomAlphabetic(10);

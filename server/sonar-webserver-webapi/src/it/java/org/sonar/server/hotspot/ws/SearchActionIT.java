@@ -24,6 +24,7 @@ import com.google.common.collect.Sets;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -138,7 +139,7 @@ public class SearchActionIT {
   private static final String PARAM_CWE = "cwe";
   private static final String PARAM_FILES = "files";
 
-  private static final Random RANDOM = new Random();
+  private static final Random RANDOM = new SecureRandom();
   private static final int ONE_MINUTE = 60_000;
   private static final List<String> RESOLUTION_TYPES = List.of(RESOLUTION_FIXED, RESOLUTION_SAFE, RESOLUTION_ACKNOWLEDGED);
 
@@ -1321,7 +1322,7 @@ public class SearchActionIT {
     ComponentDto file = dbTester.components().insertComponent(newFileDto(project));
     RuleDto rule = newRule(SECURITY_HOTSPOT);
     int total = 336;
-    int pageSize = 1 + new Random().nextInt(100);
+    int pageSize = 1 + new SecureRandom().nextInt(100);
 
     verifyPaging(project, file, rule, total, pageSize);
   }

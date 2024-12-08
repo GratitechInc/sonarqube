@@ -22,6 +22,7 @@ package org.sonar.server.es.searchrequest;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -39,7 +40,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @RunWith(DataProviderRunner.class)
 public class NestedFieldTopAggregationDefinitionTest {
 
-  public static final Random RANDOM = new Random();
+  public static final Random RANDOM = new SecureRandom();
 
   @Test
   @UseDataProvider("notOneLevelDeepPaths")

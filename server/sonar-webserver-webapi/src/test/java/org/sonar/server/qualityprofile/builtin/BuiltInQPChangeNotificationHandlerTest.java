@@ -19,6 +19,7 @@
  */
 package org.sonar.server.qualityprofile.builtin;
 
+import java.security.SecureRandom;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.IntStream;
@@ -67,7 +68,7 @@ public class BuiltInQPChangeNotificationHandlerTest {
   @Test
   public void deliver_has_no_effect_if_emailNotificationChannel_is_disabled() {
     when(emailNotificationChannel.isActivated()).thenReturn(false);
-    Set<BuiltInQPChangeNotification> notifications = IntStream.range(0, 1 + new Random().nextInt(10))
+    Set<BuiltInQPChangeNotification> notifications = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> mock(BuiltInQPChangeNotification.class))
       .collect(toSet());
 
@@ -83,7 +84,7 @@ public class BuiltInQPChangeNotificationHandlerTest {
   @Test
   public void deliver_has_no_effect_if_there_is_no_global_administer_email_subscriber() {
     when(emailNotificationChannel.isActivated()).thenReturn(true);
-    Set<BuiltInQPChangeNotification> notifications = IntStream.range(0, 1 + new Random().nextInt(10))
+    Set<BuiltInQPChangeNotification> notifications = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> mock(BuiltInQPChangeNotification.class))
       .collect(toSet());
     when(authorizationDao.selectQualityProfileAdministratorLogins(dbSession))
@@ -105,10 +106,10 @@ public class BuiltInQPChangeNotificationHandlerTest {
   @Test
   public void deliver_create_emailRequest_for_each_notification_and_for_each_global_administer_email_subscriber() {
     when(emailNotificationChannel.isActivated()).thenReturn(true);
-    Set<BuiltInQPChangeNotification> notifications = IntStream.range(0, 1 + new Random().nextInt(10))
+    Set<BuiltInQPChangeNotification> notifications = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> mock(BuiltInQPChangeNotification.class))
       .collect(toSet());
-    Set<EmailSubscriberDto> emailSubscribers = IntStream.range(0, 1 + new Random().nextInt(10))
+    Set<EmailSubscriberDto> emailSubscribers = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> EmailSubscriberDto.create("login_" + i, true, "login_" + i + "@foo"))
       .collect(toSet());
     when(authorizationDao.selectQualityProfileAdministratorLogins(dbSession))
@@ -116,7 +117,7 @@ public class BuiltInQPChangeNotificationHandlerTest {
     Set<EmailNotificationChannel.EmailDeliveryRequest> expectedRequests = notifications.stream()
       .flatMap(notification -> emailSubscribers.stream().map(subscriber -> new EmailNotificationChannel.EmailDeliveryRequest(subscriber.getEmail(), notification)))
       .collect(toSet());
-    int deliveries = new Random().nextInt(expectedRequests.size());
+    int deliveries = new SecureRandom().nextInt(expectedRequests.size());
     when(emailNotificationChannel.deliverAll(expectedRequests)).thenReturn(deliveries);
 
     int deliver = underTest.deliver(notifications);

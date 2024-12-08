@@ -19,6 +19,7 @@
  */
 package org.sonar.server.platform.ws;
 
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -45,7 +46,7 @@ public class HealthCheckerModuleTest {
 
   @Test
   public void verify_HealthChecker() {
-    boolean standalone = new Random().nextBoolean();
+    boolean standalone = new SecureRandom().nextBoolean();
     when(nodeInformation.isStandalone()).thenReturn(standalone);
     ListContainer container = new ListContainer();
 

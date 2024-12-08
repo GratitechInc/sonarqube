@@ -22,6 +22,7 @@ package org.sonar.process;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import java.net.InetAddress;
+import java.security.SecureRandom;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
@@ -229,7 +230,7 @@ public class ProcessPropertiesTest {
 
   @Test
   public void parseTimeoutMs_returns_long_from_value() {
-    long expected = 1 + new Random().nextInt(5_999_663);
+    long expected = 1 + new SecureRandom().nextInt(5_999_663);
 
     long res = parseTimeoutMs(ProcessProperties.Property.WEB_GRACEFUL_STOP_TIMEOUT, expected + "");
 
@@ -245,7 +246,7 @@ public class ProcessPropertiesTest {
 
   @Test
   public void parseTimeoutMs_throws_ISE_if_value_is_less_than_0() {
-    int timeoutValue = -(1 + new Random().nextInt(5_999_663));
+    int timeoutValue = -(1 + new SecureRandom().nextInt(5_999_663));
     assertThatThrownBy(() -> parseTimeoutMs(ProcessProperties.Property.WEB_GRACEFUL_STOP_TIMEOUT, timeoutValue + ""))
       .isInstanceOf(IllegalStateException.class)
       .hasMessage("value of WEB_GRACEFUL_STOP_TIMEOUT must be >= 1");

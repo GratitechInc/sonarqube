@@ -19,6 +19,7 @@
  */
 package org.sonar.db.event;
 
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -66,7 +67,7 @@ public class EventDaoIT {
     ComponentDto project2 = ComponentTesting.newPrivateProjectDto();
     SnapshotDto analysis1 = dbTester.components().insertProjectAndSnapshot(project1);
     SnapshotDto analysis2 = dbTester.components().insertProjectAndSnapshot(project2);
-    String[] eventUuids1 = IntStream.range(0, 1 + new Random().nextInt(10))
+    String[] eventUuids1 = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> dbTester.events().insertEvent(newEvent(analysis1).setUuid("1_" + i)))
       .map(EventDto::getUuid)
       .toArray(String[]::new);
@@ -149,7 +150,7 @@ public class EventDaoIT {
   public void return_different_categories() {
     ComponentDto project = ComponentTesting.newPrivateProjectDto();
     SnapshotDto analysis = dbTester.components().insertProjectAndSnapshot(project);
-    List<EventDto> events = IntStream.range(0, 1 + new Random().nextInt(10))
+    List<EventDto> events = IntStream.range(0, 1 + new SecureRandom().nextInt(10))
       .mapToObj(i -> dbTester.events().insertEvent(newEvent(analysis).setCategory("cat_" + i)))
       .toList();
 

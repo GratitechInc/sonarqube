@@ -19,6 +19,7 @@
  */
 package org.sonar.server.hotspot.ws;
 
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.stream.IntStream;
@@ -34,7 +35,7 @@ public class HotspotsWsTest {
 
   @Test
   public void define_controller() {
-    String[] actionKeys = IntStream.range(0, 1 + new Random().nextInt(12))
+    String[] actionKeys = IntStream.range(0, 1 + new SecureRandom().nextInt(12))
       .mapToObj(i -> i + randomAlphanumeric(10))
       .toArray(String[]::new);
     HotspotsWsAction[] actions = Arrays.stream(actionKeys)

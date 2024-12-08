@@ -19,6 +19,7 @@
  */
 package org.sonar.server.webhook;
 
+import java.security.SecureRandom;
 import java.util.Random;
 import org.junit.Test;
 
@@ -31,7 +32,7 @@ public class BranchTest {
 
   @Test
   public void constructor_throws_NPE_if_type_is_null() {
-    assertThatThrownBy(() -> new Branch(new Random().nextBoolean(), "s", null))
+    assertThatThrownBy(() -> new Branch(new SecureRandom().nextBoolean(), "s", null))
       .isInstanceOf(NullPointerException.class)
       .hasMessage("type can't be null");
   }

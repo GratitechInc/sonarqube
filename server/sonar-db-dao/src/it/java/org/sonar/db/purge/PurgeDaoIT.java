@@ -22,6 +22,7 @@ package org.sonar.db.purge;
 import com.google.common.collect.ImmutableSet;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Arrays;
@@ -1108,7 +1109,7 @@ public class PurgeDaoIT {
   }
 
   private static EventComponentChangeDto.ChangeCategory randomChangeCategory() {
-    return EventComponentChangeDto.ChangeCategory.values()[new Random().nextInt(EventComponentChangeDto.ChangeCategory.values().length)];
+    return EventComponentChangeDto.ChangeCategory.values()[new SecureRandom().nextInt(EventComponentChangeDto.ChangeCategory.values().length)];
   }
 
   private ProjectDto insertProjectWithBranchAndRelatedData() {
@@ -1613,7 +1614,7 @@ public class PurgeDaoIT {
 
   @Test
   public void deleteNonRootComponents_deletes_only_non_root_components_of_a_project_from_table_components() {
-    ComponentDto project = new Random().nextBoolean() ? db.components().insertPublicProject().getMainBranchComponent() : db.components().insertPrivateProject().getMainBranchComponent();
+    ComponentDto project = new SecureRandom().nextBoolean() ? db.components().insertPublicProject().getMainBranchComponent() : db.components().insertPrivateProject().getMainBranchComponent();
     ComponentDto dir1 = db.components().insertComponent(newDirectory(project, "A/B"));
     ComponentDto file1 = db.components().insertComponent(newFileDto(project, dir1));
 
@@ -1660,7 +1661,7 @@ public class PurgeDaoIT {
 
   @Test
   public void deleteNonRootComponents_deletes_only_specified_non_root_components_of_a_project_from_table_components() {
-    ComponentDto project = new Random().nextBoolean() ? db.components().insertPublicProject().getMainBranchComponent() : db.components().insertPrivateProject().getMainBranchComponent();
+    ComponentDto project = new SecureRandom().nextBoolean() ? db.components().insertPublicProject().getMainBranchComponent() : db.components().insertPrivateProject().getMainBranchComponent();
     ComponentDto dir1 = db.components().insertComponent(newDirectory(project, "A/B"));
     ComponentDto dir2 = db.components().insertComponent(newDirectory(project, "A/C"));
     ComponentDto file1 = db.components().insertComponent(newFileDto(project, dir1));

@@ -23,6 +23,7 @@ import com.google.common.collect.Collections2;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -208,7 +209,7 @@ public class IssueWorkflowTest {
   @Test
   @UseDataProvider("allResolutionsBeforeClosing")
   public void automatically_reopen_closed_issue_to_previous_resolution_from_changelog(String resolutionBeforeClosed) {
-    String randomPreviousStatus = ALL_STATUSES_LEADING_TO_CLOSED[new Random().nextInt(ALL_STATUSES_LEADING_TO_CLOSED.length)];
+    String randomPreviousStatus = ALL_STATUSES_LEADING_TO_CLOSED[new SecureRandom().nextInt(ALL_STATUSES_LEADING_TO_CLOSED.length)];
     DefaultIssue[] issues = Arrays.stream(SUPPORTED_RESOLUTIONS_FOR_UNCLOSING)
       .map(resolution -> {
         DefaultIssue issue = newClosedIssue(resolution);
@@ -232,7 +233,7 @@ public class IssueWorkflowTest {
 
   @Test
   public void automatically_reopen_closed_issue_to_no_resolution_if_no_previous_one_changelog() {
-    String randomPreviousStatus = ALL_STATUSES_LEADING_TO_CLOSED[new Random().nextInt(ALL_STATUSES_LEADING_TO_CLOSED.length)];
+    String randomPreviousStatus = ALL_STATUSES_LEADING_TO_CLOSED[new SecureRandom().nextInt(ALL_STATUSES_LEADING_TO_CLOSED.length)];
     DefaultIssue[] issues = Arrays.stream(SUPPORTED_RESOLUTIONS_FOR_UNCLOSING)
       .map(resolution -> {
         DefaultIssue issue = newClosedIssue(resolution);
@@ -257,7 +258,7 @@ public class IssueWorkflowTest {
   @Test
   @UseDataProvider("allResolutionsBeforeClosing")
   public void automatically_reopen_closed_issue_to_previous_resolution_of_closing_the_issue_if_most_recent_of_all_resolution_changes(String resolutionBeforeClosed) {
-    String randomPreviousStatus = ALL_STATUSES_LEADING_TO_CLOSED[new Random().nextInt(ALL_STATUSES_LEADING_TO_CLOSED.length)];
+    String randomPreviousStatus = ALL_STATUSES_LEADING_TO_CLOSED[new SecureRandom().nextInt(ALL_STATUSES_LEADING_TO_CLOSED.length)];
     DefaultIssue[] issues = Arrays.stream(SUPPORTED_RESOLUTIONS_FOR_UNCLOSING)
       .map(resolution -> {
         DefaultIssue issue = newClosedIssue(resolution);
