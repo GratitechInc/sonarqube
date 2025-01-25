@@ -20,6 +20,7 @@
 package org.sonar.server.duplication.ws;
 
 import com.google.common.annotations.VisibleForTesting;
+import static io.github.pixee.security.XMLInputFactorySecurity.hardenFactory;
 import java.io.Serializable;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -121,7 +122,7 @@ public class DuplicationsParser {
   }
 
   private static SMInputFactory initStax() {
-    XMLInputFactory xmlFactory = XMLInputFactory.newInstance();
+    XMLInputFactory xmlFactory = hardenFactory(XMLInputFactory.newInstance());
     xmlFactory.setProperty(XMLInputFactory.IS_COALESCING, Boolean.TRUE);
     xmlFactory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, Boolean.FALSE);
     // just so it won't try to load DTD in if there's DOCTYPE
