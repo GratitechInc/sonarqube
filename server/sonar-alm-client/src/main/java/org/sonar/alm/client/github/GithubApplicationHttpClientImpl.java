@@ -19,6 +19,8 @@
  */
 package org.sonar.alm.client.github;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -190,7 +192,7 @@ public class GithubApplicationHttpClientImpl implements GithubApplicationHttpCli
       return endPoint;
     }
     try {
-      return new URL(host + endPoint).toExternalForm();
+      return Urls.create(host + endPoint, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS).toExternalForm();
     } catch (MalformedURLException e) {
       throw new IllegalArgumentException(String.format("%s is not a valid url", host + endPoint));
     }

@@ -19,6 +19,8 @@
  */
 package org.sonar.server.notification.email;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Objects;
@@ -249,7 +251,7 @@ public class EmailNotificationChannel extends NotificationChannel {
   @CheckForNull
   private String resolveHost() {
     try {
-      return new URL(configuration.getServerBaseURL()).getHost();
+      return Urls.create(configuration.getServerBaseURL(), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS).getHost();
     } catch (MalformedURLException e) {
       // ignore
       return null;

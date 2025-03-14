@@ -19,6 +19,8 @@
  */
 package org.sonar.scm.svn;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -149,7 +151,7 @@ public class SvnScmProvider extends ScmProvider {
   private static Path toPath(SVNURL svnUrl) {
     if ("file".equals(svnUrl.getProtocol())) {
       try {
-        return Paths.get(new URL("file", svnUrl.getHost(), svnUrl.getPath()).toURI());
+        return Paths.get(Urls.create("file", svnUrl.getHost(), svnUrl.getPath(), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS).toURI());
       } catch (URISyntaxException | MalformedURLException e) {
         throw new IllegalStateException(e);
       }
