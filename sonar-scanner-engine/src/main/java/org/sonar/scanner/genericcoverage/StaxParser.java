@@ -19,6 +19,7 @@
  */
 package org.sonar.scanner.genericcoverage;
 
+import static io.github.pixee.security.XMLInputFactorySecurity.hardenFactory;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -59,7 +60,7 @@ public class StaxParser {
    */
   public StaxParser(XmlStreamHandler streamHandler, boolean isoControlCharsAwareParser) {
     this.streamHandler = streamHandler;
-    XMLInputFactory xmlFactory = XMLInputFactory.newInstance();
+    XMLInputFactory xmlFactory = hardenFactory(XMLInputFactory.newInstance());
     xmlFactory.setProperty(XMLInputFactory.IS_VALIDATING, false);
     xmlFactory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
     xmlFactory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, false);
