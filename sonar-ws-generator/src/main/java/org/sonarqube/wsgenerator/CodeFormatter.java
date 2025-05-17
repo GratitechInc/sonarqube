@@ -23,6 +23,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -127,7 +128,7 @@ public class CodeFormatter {
     try {
       try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
         String line;
-        while ((line = br.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null) {
           resultStringBuilder.append(line).append("\n");
         }
       }

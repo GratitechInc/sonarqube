@@ -19,6 +19,7 @@
  */
 package org.sonar.application.config;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -49,7 +50,7 @@ public class SonarQubeVersionHelper {
           SonarQubeVersionHelper.class.getResourceAsStream(SONARQUBE_VERSION_PATH),
           StandardCharsets.UTF_8
         ))) {
-        sonarqubeVersion = in.readLine();
+        sonarqubeVersion = BoundedLineReader.readLine(in, 5_000_000);
       }
     } catch (IOException e) {
       throw new IllegalStateException(format("Cannot load %s from classpath", SONARQUBE_VERSION_PATH), e);
