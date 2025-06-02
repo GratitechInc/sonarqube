@@ -267,7 +267,7 @@ public class ProcessLauncherImpl implements ProcessLauncher {
   private File buildPropertiesFile(JavaCommand javaCommand) {
     File propertiesFile = null;
     try {
-      propertiesFile = File.createTempFile("sq-process", "properties", tempDir);
+      propertiesFile = Files.createTempFile(tempDir.toPath(), "sq-process", "properties").toFile();
       Properties props = new Properties();
       props.putAll(javaCommand.getArguments());
       props.setProperty(PROPERTY_PROCESS_KEY, javaCommand.getProcessId().getKey());
