@@ -19,6 +19,7 @@
  */
 package org.sonar.process.cluster.health;
 
+import static io.github.pixee.security.ObjectInputFilters.createSafeObjectInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -183,7 +184,7 @@ public class NodeDetailsTest {
     NodeDetails source = testSupport.randomNodeDetails();
     byte[] byteArray = NodeDetailsTestSupport.serialize(source);
 
-    NodeDetails underTest = (NodeDetails) new ObjectInputStream(new ByteArrayInputStream(byteArray)).readObject();
+    NodeDetails underTest = (NodeDetails) createSafeObjectInputStream(new ByteArrayInputStream(byteArray)).readObject();
 
     assertThat(underTest).isEqualTo(source);
   }
