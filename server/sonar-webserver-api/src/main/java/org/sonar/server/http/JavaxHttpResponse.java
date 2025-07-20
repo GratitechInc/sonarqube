@@ -19,6 +19,7 @@
  */
 package org.sonar.server.http;
 
+import io.github.pixee.security.Newlines;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -79,7 +80,7 @@ public class JavaxHttpResponse implements HttpResponse {
 
   @Override
   public void setHeader(String name, String value) {
-    delegate.setHeader(name, value);
+    delegate.setHeader(name, Newlines.stripAll(value));
   }
 
   @Override
